@@ -1,0 +1,13 @@
+# Secrets
+.secret/
+
+# Rulebook PDFs (large binary files — keep only extracted .txt)
+assets/**/*.pdf
+
+# Python
+__pycache__/
+*.py[cod]
+discord-bot/.venv/
+
+# BGG cache (fetched at runtime)
+knowledge/

@@ -1,0 +1,50 @@
+{
+  "skill_name": "boardgame-rules",
+  "game": "grimcoven",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "In GrimCoven, what happens when a hunter is killed? Do they get removed from the game entirely or is there some kind of respawn mechanic?",
+      "expected_output": "A clear answer about hunter death/elimination rules in Grimcoven, citing the relevant rulebook page. Should mention whether elimination is permanent or if there's a recovery mechanic.",
+      "files": [],
+      "assertions": [
+        "Answer directly states what happens when a hunter is killed",
+        "Cites a specific page number or section from the Grimcoven rulebook/txt files",
+        "Does NOT ask which game the user means — game is clear from the question"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "wait so in grimcoven can two hunters occupy the same space at the same time or not",
+      "expected_output": "A clear yes/no ruling on whether hunters can share spaces, with the relevant rule quoted and sourced.",
+      "files": [],
+      "assertions": [
+        "Gives a direct yes or no answer about hunter cohabitation",
+        "Searches the grimcoven txt files (not just guesses)",
+        "Cites the source (page or file)"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "What is the errata for Grimcoven? Any rules that got corrected after the base game released?",
+      "expected_output": "Lists corrections from the Grimcoven errata file, citing specific rules that were changed or clarified.",
+      "files": [],
+      "assertions": [
+        "Reads from the Errata txt file specifically",
+        "Lists actual errata items with corrections",
+        "Does not confuse errata with FAQ"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "How many players can play grimcoven and how long does a typical game take?",
+      "expected_output": "Player count and approximate game duration from the rulebook.",
+      "files": [],
+      "assertions": [
+        "Provides player count",
+        "Sources from Grimcoven rulebook txt",
+        "Does not ask which game"
+      ]
+    }
+  ]
+}

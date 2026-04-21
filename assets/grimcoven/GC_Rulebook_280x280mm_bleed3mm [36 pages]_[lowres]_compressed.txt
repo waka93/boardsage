@@ -1,0 +1,1938 @@
+--- Page 1 ---
+RULEBOOK
+
+--- Page 2 ---
+Table of contents CREDITS
+What is Grimcoven? ..................................3 Game by: Krzysztof Belczyk
+Winning or losing ......................................3 Product Owner: Marcin Świerkot, Michał Matłosz
+Component Overview ................................4 Game Design: Krzysztof Belczyk
+Game Setup ................................................6 Lead Developer: Wojciech Zieliński
+Round overview ........................................11 Tests and Development: Michał Oracz, Piotr Chmielewski, Paulina Włodarczyk,
+Hunters Phase ...........................................11 Tomasz Zawadzki
+Internal Testing: Konrad Sulżycki, Wojciech Frelich, Michał Lach, Andrzej
+Hunter dice ..........................................11
+Betkiewicz, Filip Tomaszewski, Ernest Kiedrowicz, Andrzej Chojnowski, Dawid
+Dice slots ..............................................11
+Kozłowski, Mikołaj Kaczmarczyk, Aleksandra Fajlert-Kaluża, Kinga Janik
+Resolving Actions and Action Types ...12
+Additional Testing: Konrad Kozłowski, Szymon Tęcza, Michał Dzik, Wojciech
+Dealing Damage ...................................13 Tomczuk, Łukasz Szczepanowski, Weronika Sobota, Paweł Brzozowski, Karol
+Defense and Tactic tokens ...................13 Lipski, Szymon Dominicki, Przemysław Golus, Grzegorz Dubec, Diego García,
+Marcin Ciućmański, Rigo Garcia, Szymon Sobota, Karolina Ścisłowicz, Alain
+Enemy Phase .............................................14
+Concepcion, Magdalena Romantowska, Olha Symon, Silvia Rodríguez, Ashley
+Events ...................................................14 Hightower, Hanna Andrushchyshyna, Mateusz Wójcik, Filip Szawica, Rafał
+Minions ................................................15 Kaczmarczyk, Martin Kielesiński, Michał Plata, Szymon Kulka, Krzysztof
+Piechnik, Jakub Błachut, Tymoteusz Hatala, Franciszek Stępniewski-Janowski,
+Elite Enemies .......................................16
+Łukasz Jach, Zuzanna Banasiak, Weronika Tiesler, Adrian Przednówek, Błażej
+The Griefbound ....................................18
+Bernaś, Anna Lis-Wilkosz, Tymoteusz Muller, Marta Siennicka, Łukasz Styrna
+Lament Phase ............................................21 Narrative Design: Marcin Mortka, Krzysztof Belczyk, Wojciech Zieliński
+Corruption step ....................................21 Writing: Marcin Mortka, Krzysztof Piskorski, Andrzej Betkiewicz
+Final Perdition .....................................21 Proofreading: Tyler Brown, Daniel Morley, Anna Merriman, Wiktoria
+Evolution step ......................................21 Ślusarczyk
+Art Direction: Patryk Jędraszek, Adrian Radziun
+Refresh phase ............................................22
+Graphic Design: Adrian Radziun, Aleksandra Fajlert-Kaluża, Michał Lechowski,
+Refresh step ..........................................22
+Michał Oracz, Bartosz Fąfrowicz, Karolina Łaski-Getka, Łukasz Styrna, Michał
+Status step ............................................22 Stachowiak
+Statuses and Hunger ............................22 Illustrations: Jakub Dzikowski, Ewa Labak, Piotr Foksowicz, Piotr Orleański,
+Other rules ................................................23 Pamela Łuniewska, Patryk Jędraszek, Magdalena Cieplak, Krzysztof Piasek,
+Jakub Witowski, Aleksander Brodziński, Maciej Łaszkiewicz, Agnieszka Szade
+Map ...........................................................23
+Character Design: Ewa Labak, Patryk Jędraszek, Agnieszka Szade, Piotr
+Terrain and special spaces...................23
+Orleański
+Environment ........................................24
+3D Modelling: Piotr Gacek, Marek Kondratowicz, Michał Lisek, Mateusz
+Critical Injury and Hunter Death .......25 Modzelewski, Mateusz Wajda, Jędrzej Chomicki
+Secrets ..................................................25 DTP: Kinga Janik, Patrycja Marzec, Rafał Janiszewski, Jędrzej Cieślak, Aneta
+Companions .........................................25 Koperkiewicz, Katarzyna Janik, Angelika Kajmowicz, Alicja Filip
+End of a Scenario .................................25 Production: Jacek Szczypiński, Witold Chudy, Olga Baraniak, Zofia Jerzyńska,
+Mateusz Wolski, Michał Matłosz
+Hunters .....................................................26
+Logistics: Katarzyna Grdeń, Sebastian Nowakowski, Michał Kot, Magdalena
+Hunter specific rules ...........................27
+Kazuń, Szymon Sobczak, Łukasz Puła
+Game modes .............................................30
+PR&Communication: Maciej Guzik-Pałys, Dominika Maksymiak, Marta
+Pretenders .................................................31 Siennicka, Jacek Wala
+Glossary ....................................................33 Customer Support: Katarzyna Dabiach, Alicja Wojciechowska, Grzegorz Janusz,
+Epilogue ....................................................34 Bartłomiej Giercarz
+Hunt Book .................................................35 Project Management: Piotr Chmielewski, Anna Czajka, Adrianna Kocięcka
+Keywords...................................................36 Spiritual Support: Anna Lis-Wilkosz, Jordan Luminais, Kamil Cieśla,
+Paweł Samborski,
+Icons ..........................................................36
+Special Thanks: Andrzej Klimek, Martin Fučík, Matthias Schrammek, Michał
+Tokens .......................................................36
+“Niedzwiedz” Michalski, Georgi “Grebeny” Teofilov, Michał Szewczyk, Filip
+Cyrus Madej and everyone who supported us during creation and development
+of the game, especially our amazing Discord Community!
+2
+
+--- Page 3 ---
+What is Grimcoven? Winning or losing
+Hunt the Griefbound. Or die trying.
+Of my free will and in sound mind, I swear this solemn oath.
+The game ends when either the Hunters kill the Griefbound or one of the loss
+I pledge myself to the great Hunt. conditions is met:
+In the face of fear, I shall not waver. • The Hunters run out of time (an Event card has to be drawn while the
+Event deck is empty).
+In the face of death, I shall fight to the last.
+• One of the Hunters dies (see page 25).
+When the Lament calls me, I shall resist temptation.
+Additionally, each Griefbound may add new win or loss conditions to
+And should I fail to abide by this sacred oath, the Scenario.
+I ask my brothers and sisters to put a price on me. After each Scenario, depending if the Hunters win or lose, an appropriate
+Epilogue should be read.
+So say I, the hunter of the Grimcoven.
+Game modes
+Grimcoven is a ruthless boss battler with RPG elements. Each game is based
+on one of many Scenarios chosen from the available pool. Each Scenario offers Grimcoven allows the Players to freely tailor their experience. There are
+a different world, different rules, different threats — but the goal always remains two main game modes in terms of length:
+the same: defeat the Griefbound, survive, and don’t yield to the tempting power Long Hunt – estimated to be played in 2-4h, allows you to play through
+of Lament. the early, mid and late stages of the Hunt. The setup instructions on the
+In every game, you will face a terrifying entity — a Griefbound — supported following pages describe how to prepare this mode.
+by an Elite Enemy and endless hordes of vile Minions that emerge from the Rapid Hunt – estimated to be played in 1-2h. Hunters and the
+shadows and cracks in reality. Griefbound begin in the midgame when the situation on the board has
+Each round begins with a dice roll — their results become your resources. You already heated up. This mode requires a few modifications after the
+will spend them to activate Actions, trigger abilities, and plan the best strategy Long Hunt setup, and is a bit more complex at the beginning.
+for survival and, of course, victory. Also, there are many additional options to make the game harder
+You will collect Lament — a mysterious, pulsating substance that feeds on or easier depending on Player preferences. All information on setting
+suffering — by battling enemies and exploring gaping Rifts. Lament grants up the Easy mode, Hard mode or Rapid Hunt options are described on
+power beyond your imagination, but every drop corrupts you, bringing you page 30.
+closer to the point of no return, when you will join the world of those you
+fight against.
+Lament allows you to develop abilities and buy new Action cards and dice, but it First steps
+also tears away your humanity. However, you cannot hold back in this battle, as
+your enemies also grow stronger with each passing round.
+To understand the basics of the game better, we recommend watching our videos
+This is your profession. This is your world, full of dangers and sacrifices.
+that will teach you how to sort components in the Core Box and how to play
+Gather a group of Hunters. Choose your Weapons and Armor. Begin the Hunt,
+Grimcoven.
+but be ready for a merciless fight from the very first steps. Sometimes someone
+To watch the videos, scan the QR code below. It will direct you to the Grimcoven
+will fall to their knees in the first round — it can be expected in this brutal
+video repository on our webpage:
+world. From the start, you are balancing on the edge of death. Some, or even
+many, may never return from the hunt.
+The battlefield is more than just ruins and blood. The Terrain is diverse, full
+of oddities that can tip the scales. Among forests, swamps, or cracked earth, you
+will find ancient Portals connecting different parts of the Map, Treasures filled
+to the brim with valuable finds and tools, and sometimes even lost characters,
+mysterious machines, forgotten ruins, or eerie places of power. Used at the right
+moment, they can change the course of the battle… or change you.
+3
+
+--- Page 4 ---
+STAGE DECK :: : T RSG Roo hce G O fo ef ee d d I o t nn t t tf uG huh F o h a t t ce tc r e oe r c h h et i e i i a G h ee n GeG o t t nt ef h r S h r F h rG br n w i e a c ieS i io ee o eoree no cf l S uL iftnf l la enb l eb c e b ne ab n l1 o f . e ov o v d rbe A au n eu A u e i o rn a l o it lnl n s u i o t r d o d a d c: wnwi d o c bE db o e ie k t y s p y’ E a nrs k e d d i p 3 . 2 l ld i, e . i o e. l l,a l g v o , d e u g .l e u . e.
+GRIEFBLOEVUNELD:
+DRACSID
+COMPONENT OVERVIEW
+7 Boards Books
+* Note: Depending on your version of the game,
+you will find either single layer boards or double layer boards.
+Welcome to Grimcoven!
+ATTACK DECK NEXT TURN THIS TURN 012 RM SMYP TG CD ooP oU a o A i ur L v s i vt R n c e ma N e C E 3 a l 1 u Iu r sa T A AGH . d p yNp T i aI u 2 t g N t vS o c T n o C o e S t S t S i t t 1e c a h Ir E . t r .S u . 4 o+ s T u 1 t t g o . o h k a e n n o s t . h 5 er 67891 0 0 1 11 2 12 RM SMYP TG CD ooP oU a o A i ur L v s i vt R n c e m N ae C E 3 a l 1 u 1 Iu r sa T A AGH . d p yNp T 3 i aI u 2 t g N t vS o c T n o C o e S t S t S i t t 1e c a h Ir E . t r .S u . 4 o+ s T 1 u 1 t t g o . 4 o h C k a O e n n F o R s L t R . h IU5P e 1 r PT T 5 OE TDH SEID 6 1 E 67 17 8 18 9 19 120011121314 COFRLRIUP 1 PTT 5 OE TDH SEID 1 E 617181920 RM SM DG CD YPoo a i P o o L U s ur Ei c v v n t R E ma a e e F N l r HAG A I s u ua E d .y p pN iu v 2 S N N . n g e t t S T S o oo t S S e t I a t r E E h . t S u r tT . o s o + u t 1 a o g. n h k o e t n h s e . r Swa H r u m nt M Bo is oG t k r r e a s v s e H y u a nt r d Bo D o r k agon r WIafbTtTt e oo n u uhh ml l h ltfl ii t ee ossa ehy s a a w c r tg se rt eut et u hn sa eHt ti h a d o rc dhi u t tai r a tee oi s ni d y r ca u iG o k to b a sles u wn arlw r d a i ’s s e s e e lei i nt l s c lf d s erl s b d fisi mu g l l o n l a e amg n o u b d a l ng eo o n aa dld din m d rle n s y e e k ,t t sv o ,ot o fi o , o h o u y f nb t nrl eo Che tde e u h m pnr e c ptr ole m t h a oa H l wr a f e i ui a io ny u mh l y gb ro e no h R c a d u s tlte u lt mhst a . ib b l h l en Aq eyl ee e b c u ,ls u g 2 oe o i ae s ia ns o s P n ebt r it k H lt s e us ta ki . . th u a i y tiw n i ln e on s e e rR g tc ets dedoo u,n r uonk tb , opmnfi u yn r r od o t . i og w , a u i nd fi l en , ato yr b t rtm ora e u h uo n t e A ag d d wy f mrau t o i e a b mc po r unio pn na’ fi t m l e dg g n lt d i n i oh t s yn e h h a b ol a i sv e eu y n s t e a g , fid t r oe jt o s n e o wn o e s t u t s u t p p h w r h p aa l enea hn i f e y g o ro g d y r , a at hl m 2 l twm ue h a P o e ra r v e l ’ k o r a s e ci n y u h t nb n e g h a ah r o ha s e r sot , a i l t wG ac s ac h u t r r e smt eg i t c g oe ro c ee a s f r uu rc m b y h a ms g o e t eawr u b w n oo L h ne i i nu a l c d e d l cp ms r l e, t– e o w . oe j o m ueA n k h t vs hti l o l tel s i e te n k ros o e y sp ,hi t my t ka e s h ror reh o i me uv s ea u . p aredt s h s ro a i ei senw dv i n n e c v m t hgh aidt i ia nyd ei nr e ots eda sap us c g t sa tah i he e i n a .r rn a .E tst p e W ha twa e h ec n de e h c l dh bl hp ba - m y a t r uar lo t na t l ah pe t kt il ni e en e en r g ce gd i e o S ds e.w r o n c ar lio o onu sr t i dp M lo djt n uei o o qn s s d tf ug te o a i G pp gh rfiop ea i wg tm e sh h de s ce t,r o o r yf m. o vo o Ie fr e u f n L s ya . aau od P nmr ud r dv e i e w t ip nyv ioaa ota nn , r ul e ta r 1 l RULEBOOK G Sc u e n n 2345 1 s a li r n io ger C A o T n f e t v c e e h r r n g w o e m n i c n a e n nc i e n r g G GU a r e l n i l nd m G eer D c a r a o d u i l e v a G f e li b n r t o y i C m u o n c D r o d e e v v S B e o c n u o e r x n C e K r P a o e r r r e e e i p o t B e s e r , o n G g x d Dr o e aG r v r a t re s o g iyo e a t n fr M h bd e o a n u E n n p e d i q lo u MS i g w n i u sat e rre m s s c s r D i e p a t t h o T n J o e r s p m t a e e r g n e t o 3 r 2 in T RH w u S u i F l n t ne o r sPt i b rGg er g o a re ro ost it k e e t E fe nx bn dp o e E a u Cr n n n ls C oG t s dh c i i ik st i o a m i w n n e e ot s r r a k
+1 Griefbound board/ 5 Hunter boards/ Deputy board (solo) 6 Hunt books Tutorial Scenario This Rulebook Hunt Sheet
+Double Layer board* Double Layer board* booklet
+Markers 66 Dice
+* Note: Depending on your version of the game, you will find either cardboard or plastic markers.
+2-1A
+5 Corruption markers 5 Assist ma3-2rAkers* 2-2A 10 Universal markers* 60 Hunter dice (in 4 colors) 4 Enemy dice 2 Technology dice
+30 two-sided Map 2-1tA i 2 l -1A e 3-1A s SteaDl rtA Sah ew ce c t W r i ae o ni t ntd c c : h ar ’es r dstoo 1lov0 le. s. 2-2A S a p r eDa a n kr A ad wwo ci m t ti aho n S ntde h: c e r r eW esto i 2 c tlcva - her . 2 d 2 1 A 1 - . 3A DLirgA Sah ew 2 ct c t r - ai ae o 4 nc t nad A c :n ar der l dseo . 2lv1e. 2-4A 2-3A S a p r eDa a n kr A ad wwo ci 3 m t ti aho - nS n 5 tde h: c A e r r eP est ro i cleva ser t. d 23. 2-4A Hunter tiles
+35--11AA 3-3A 3-2B
+4-5B 4-2B 4-3B 5-3 3 A -4A SDS te eraac l rw e t h ta e c A n a Wd c 3 r t d ir i - te oc 1 3 shn 0o’ A s: .l 5 5 vt oe a- - o 2 4 r ls a . B B n SDd pro eaa mwk S wae A ni c td c r h e t r i t te oh cs ne ao : r Wl vd ei t 1 c 1 h . . 4-1B DSerac L rwi 5 e g t ha - c Atn 4 a ad c 3 r A tc dr i - ae o 2 2 ns n 1od 5 A : .ll ve - e. 2 A 3-5A 5 a r - a 1 n SDd p B ro eaa mwk S wae A ni c td c r h e t r i t te o h cs ne ao : r Pl vd re i 2 e s 3 t . . 2-6A 2-6A 2-3 2 A -5A 2-6A 2- 3 5 -4 A A 2-7A 2-5A 2-7A 3 2 -5 -7 B A DG Seraac zwr e e t ian A cnt a od c r t t dr ihe o 4 es n 4oA: .l bv ey s s. and t S o p p aLl w D aa Dcmn iie s sr e c1 u n a Ap t r tc d RM tt i h2 i ifi n o n e t n i R e o : a i n f c t s h s . . 3-1A StDe S are la cwt r h e A eat 3 c n W c t d - a ii o 3 t rrc d n eh B s :’ 1 s o 0 tl. oveo l s. aDlils Soc tfa a ryt 3 d uo C 3 s - u to 2 h - 1 r m t a o e 3 n A B m k r f S o A a a c e e t p n l nD t n o ml i e - e s d o r C a d . no oa n u k r i. wm s a: r c w s t A a e e aS i r c nt e d ht cd i r otre hn et e s : c oW alrvit dec h 1 . 1. DSerthacwr e e H S ta pa cn eA a nd a r g c k dre t e d iw 4 o s 2oMint .l :h va e n . 3- D 2 SrL ea A i cwg r h e A at t c n a c t d a ic o r ard nne s :d 2 o l 1 el.v.e 3-5 a A r S a p nDe dra oakwm wA aS ic nt e ht cd i r otre hn et e s : c oP alr rvi dees 2 t. 3. Bo Ga O il i n n in E 2 n g B t u e r P r n : o s. t SWARM A to the GrYioeufb Pmo a uas nys d idv fee raol m th is space. : TeDle A m ip C sc o a c h t y ar t i a t o ro a n d t n l t o cl h :1 oe e t T w h s r G e p y y t rY a o Got io c e o u r e u r f i eo b t: e s P o m l o f O cl a b u a e a a p o s n p s y s p u c e d i o d a n . v r f p e d e r t a e :’ u o s l m nt s hi p te t a y h s c i et e s off . m s e p ca a tcs c h e . . tDo itshcA ea crG tdi r o2ie n f : b E o ts uoc n a td pe’ e sle. sppoarcte . 2 Te A•• c c tMS i e h oot n v1 :e n d1i. sP t c o o oa wr a d e m c h r1 o S s u a e rt n og s e n c i h d o e c . os A 2 e c e o ti n o r e n : : dis 1 c W W ar D uh uh d 2 se s ei i n nn n u gy gy a o oo on a u un n B d lr lr a y y e e l l s s ao o n i l t l v,v o, c t e eg e gR a a a a e i y i n nn ns t A A o 1 1r c c e t t i i.o 1.o n n d i scar 2 ded 1 y oWu 4 h . me G any y F do u o ius r c g ra n e e P rs S d a ro p e s lav e p le c l a l . i ar a en i l d n A tA o B m c u at g m ip lol pne o e l t yts ht r ahte idre baolsn + u 1 se, 1 s . . 3
+3-4B
+23 Terrain Map O t b i s le ta s c ( l F e o 4 , -4B r D e e s e t, p S w w a a t m e 5-3B r p , , B C r e id m g e e t ) ery, River, Fog, 2 Area En 3 v -4A ironment tiles 4 Torture D til e e v s ice/Swarm 1 Stomach tile 6 Hunter tiles
+Models
+* Note: Depending on your version of the game, you will find either miniatures or standees in your box. Regardless of the version, they will be refered to as “models.”
+6 Griefbound 6 Hunter 6 Corrupted Hunter 4 Elite Enemy
+models/standees* models/standees* models/standees* models/standees*
+Altar
+Companion Standee LIZARD Pile of Skulls
+Companion Standee BAT Companion Standees OWL Pile of Coffins Well
+16 Minion 4 Portal 7 Companion standees/ 12 Environment standees
+models/standees* models/standees* and 1 Companion model*
+4
+
+--- Page 5 ---
+Cards Tokens
+Custom cards
+Technomancer Convergence 3 2
+10
+4
+2
+36 Griefbound Stat cards 6 Deputy Stat cards 20 Dividers 20 Damage tokens 37 Defense tokens 10 Tactic tokens
+(value 1, 3 and 10) (value 2 and 4)
+Oversized cards
+EVENT MINIONS
+I II
+1 2 . . H I I I I V H E. I I V . N . I u . U . n G E M E G T E N •• ••• • • • • • t v l M i e r i m i T e A i r t n PAa CRD A A RiDa Ma e e n n Y E l n n e e i e e T h f r i c c l l t o o s lr s b R d d s s a t t t e u M t P H n c t v f s o oh i i o H w r c r e o v v aR r t e s H l l P a e u k u n e p e v v a a ru r e c n s a n t H p E m: d s e e t t: T A n C fi kh te e n o d t : e h t ra t l A e e t S l d s e l 2 p h a a hi i v s l r t E R s t r l S T l l t : te s e e e r A i l l s h e Pc E i T e p P A M E im A p e c O a p es t u : a t : l o l s r t l tA i e r i i sa t t ml t I o n n e a s a v y e U t n t n . i ff c t c ea r o j s a t E k s k a un e l h n a c N n o cc r O e c k e c s kt t i e nn a . a iR e . . m r D t e r t r s s r d w d t . PT E i a a e au c v n s E O s k e r . d s vn n . . e e t s e R ns u .t n D c t a i r l E d . R 3 4 . . I I Wdo Ifl I I L R . I f . I rr i A . . E p h a y d F M w o e C S R S y • • ••• • i n u R t s p e o o a E c2 ’ e f r u E D R ::: f PRR Ea a v t a r n N o r E u n re d ADD a a e r ee Se ru r d s vd s v yc f s s s a T H H iu d r p i sr o h o o h a s e w e s nv r n b e t c u l l l n a P t t a i i a u v v g H s sP o a u e h n n o c c c a h t H n e e tt r p mh H e n i h e L t u g n ih d n c e : o a a p a A a e n d F e b A E s r gn l ll a : d 1 m t i t l l e l S v r C n e r t S e i r c S R H A 1 o e e i E s n r d p o d E l a t t 5 s n l e o e t c u : r a u m i r o o g f t f Pt s r C t n d t t r l : i a c u u a l v i o oe s g o a a o i y p s e sn n e r y r a t n h t r r e s d h d e a n i , u ff o r te e i r s t a d r t os p o d e n t e n e h t c C e t s k k c. o d d . a d e i p t o o t e e k o r ir r s l r C s n e R a e d a n e v . r c p n w. o c ff e e ,u a k r g . e 1 r p E r E ac d b t v u it v e y n o s p 1 o d . l t 1 l u a S i u s . o l t t i t l a i d n i o d t o e n u c i n . c a s : e c r t . d a o r . k d e s n . fEcfl W R r ll i e o oi p h m ts m e eet o n hs Et v t i ht n e s h t i e o s c 1 e m a E A c t l rh l yaa d ci e rs tt o . f dt e i r Gn v , o E r a Sa m i n p t e P i i e a f o s t ob m w h n r ro i n “ e t y: s n u I a t m o n c t l a - t M h o l a o d tl s fe i r a s v p l D s tl r d a a e c a me n r . ei d c E t ta l e y d l e g u d , i ls ca w l tta h i ept r i e ha t c r L w at af a l i r f ml z n re e o ao t de d: : : rm h m n d L T R P P t s a e t t D hm l l h h w e t a a e a E m h h e e e c c n Bn o l e c e e r t E i o H c e.e” t o r a g vl 3 2 u e i t u a e hl t d n em E t tn h Ee e o o i e .n r s n n m e c w m t t a y h h h r y i i r d o s s 2 o m c c kl | a a l o 2 is r r l d F AI O d d l f 1 l e w D M i e C t a n . . t h l m d T e h i oe t a eI hv i r l V nr e : w 2 e 5g A 0 2 i iT B -s. s 3e o I A a , O m . t a A B t HN bna au : nd u c r ( l k d nr n 2 e c t ia L s n e B l o o r gl h / u l S v H i Idd O r. ne f n ue e ui a l fi a s r n : : m n li r t t D n s y o 3 e t g 0 e r i B e a a s - s t a 3p u l h i c t p n r 2 i h sn l w i a . c a H e na trt u . bd e 0 a n l - c eL d t 2 ) k o e : e, r S a , l t I EL I ST I E T P I E ST G I EP RIE V S F T B E O P UND S T T I E V M P E ST T E R P ACK
+10 Help cards 12 Elite Enemy cards 40 Lament tokens 5 Round order standees 15 Hunger tokens
+1
+Standard cards
+2
+Flash Armor 3
+Team Shield
+E t v ec o hn l o u m t an io ce n r You A r a m n f A r d o fo i tfm r a e l yra l o a ta H un tna u ay E c n r n hA t ee m e r mi r mn e s y no i , n tr g p a L A i o o 0c n S wt i g eo a rn i : . u n p : . Hu t n e t ch e n r om a an r c m er or G Te a l i e n p ort . to a ch Ap o ol s lw e A n err s mu p p a o c rs e aa i tr n tea L cnh o om S w . e anctt i ve. event ea D c e h af t E rl oH F S o a 1 Ptua m c a i l B ln h ar r l I u ctt t f oH i h e e r n e t y r n e C uh 1g o w n G O e t g u w o r S ta i r N e t a i i i e Hh r e t p n Vr a ih f e u n sw c a E b r n h tn o fi 1 R i Lh tt u y g H a G e e hB e n h m rB ou uE F d s a t u u n r N e i i i n o r n t r t n n C s e n r . d g a t t r E n T R d t P i i o y h n e il n r faa e 0B t n yl -u s a g 1e 1 r d .r1 0 n , o - B. . 1 urn
+167 Hunter Evolution cards 38 Hunter Item cards 21 Event cards 45 Status tokens 8 Treasure tokens 8 Lament Rift tokens
+(Burn, Stun and Curse)
+3
+7
+The m a a ft s e sSr iiv n rc e e oL S t n x e H r a ef et e brr e t oo t n u n o w u o ot p t ni i t t nh :h ha l gi P s s e l t o y h l sh F n a u ee g oc s l p , h e a r T s eiy e t gc t u s hh t ht r e r -e i d drr sT a y e c e e n c o bw r k a u r e r oi a r pn a un d .gn i c n dh tr . eea sdi t s o h r ie lded hhh h PT A w FiDnO lh te i a t te a C ca hn l e U c ,a 3 k 0 1 S p B S -E aBl 1t au l L D u ul cr : n rH a en n fD s u 1 r o e t m o on n o am nt l ee i e e t r 4 aa o. asc n n c Lhih n a e t H m aL to c u a e h n m ne r t a 2 t Le e c a + a R n r h m t i if H i n Re t n w . ni u fi t n tt .R h t 0 e i 3 r - ft 1 .. O If t l h teh e fe r t w ri E en i n s ap e t a r , e l n e a r r d y e 2 i , n s p oe h g l rn ua t t cffl f h ee e e rw e i F t t e t h i h r h n e ee A a F rd l t e i t i n A . a s a c c c l a k t r A c d ca t p r.d il s e h Attack T a h l L l i : fs H a r + cou a 3 mr s n B d tt t u ehc r r ae s n n T B s n oh . n oi r ts t bth e ue er a d nM i ss t c aloa p h tr .d w e i d th 4. 1 5 6 7 9 11 5 6 7 7 9 11 LE 1 VEL: LE 1 V 5 EL: 6 5 7 6 7 B A F A l l c c i o p t t c i i v k o th a n y t i : e s o G u t B A F A a o r a l ll c c i l k o i C p t t n C e c i i l v n k o t e o 1 h a . n a m y t i S n : e s om t s G u u t B A F A a e o ar n a l l l c c i l n A k o i . S p t t n M e d c i c i p v n k o e t t r 1 a h a i r . n i o y g t i n H : b e s n oe t o G u u . t B A F A a b An o n r a l ll o c c i l k u o c g i T p t t nn t M e s c e i i a i u v e n k r o t o c 1 . e h s a s . n n t y . e s t i C i : . e s so sc u e . G u t a A n r o r a l s g c l k i e M t e n S e . i r n o o o 1 l n . bv d B o . e i n u e A r u r c n s b te . o i so n .n u . ses.
+En FO v R i E r ST o T n ER m RA e I n N t Any n A u toc m t gi b oo a enni r n : ao 1Dnf iT yt s i a c mF cao tr er id s c e sp 1a te n sr d p H H ao uc eren a1 t l e 1 r . P hase c a on t v t er a g c en k ce TORSO 3|2 Fin c a on l v e a r t ge t n a ce ck HEART
+25 Environment cards 222 Attack cards 36 Final Attack cards 4 Griefbound Level tokens 8 Elite Enemy Level tokens 4 Personality tokens
+OpSptoargtguenrity: M
+C
+u
+o
+r
+nv
+d
+i
+e
+ct
+r
+e
+e
+d
+r
+On a Griefbound card kill, roll 1:
+Op c p o o nv r e t rg u en n c i e ty : :: oR aA DA n re ol l l l fi d R nH H le H l o fu u tr te h n n e ar e t t s lee e h A fi2 r r s . 1 s l t l t R i i ac tn ne hc h fi ko e l s t lA e r t 0n 0 a tht- c - a A e 2 k 2 c c. Ak t i t m m t o tra naa ac .yc yk k M Mt.r o ao v cv e ke . 1 2 co S n t ve a r g ge e nce • A an ct d T S i T T v e h e a h t Ri a e t s u e c e e p E h s m n e o : v P Ee aole L v e a c l f p n ei e h r r t t t v e e h i t e T mct h e lE a s o a e u an n rE t t n p n Ee v n t m a v e oh t d W n e et h e y n ot n e b . b . t S e P G t e d t l r gd e ar e ii p E icc ns e a e : k vc f n b a .t i t e h r o nd i n u g h s e n t d cda . r d M con in vi i c o te n d O A(IF rfu Ce tMt wM t o r h sT h i i o o o et o e Ile h v v r u v a V r we e e s c e 2 A h i3 3 fi A T i s . . rst H e Is G At , O at a u . a t R c aN n t H i k u a p nt u n c e p :: k n r l i DD tc i a e n a ee l . r l b aa D l H ll i e e n 11 ) a u : 0l n -1 t 1 e . 0 r a s - n . 3 d i a n n 1 , d S 1 tu S 0 n t . un
+36 Opportunity cards 48 Stage cards 12 Minion cards 6 Wing tokens 10 Bullet tokens 5 Craving tokens
+(3 White, 3 Black)
+o G f e t yo A u h r o se l l d f 1 1 B Y
+Corruption 0 9 1 E - - 5 nH 8 1 - eiF m 4 2 n C U o h 0 y r N e f e c oG a k r c0 Ar GAr HAr G E h y e e e e a ta t t o e aR s s s i i u a h h h c t t t n n h h h :h l r f u u u o e e e 2 1 1 M ffl ffl ffl C Hrd e e eo H H o e e o e e ue n n nr r a v a u u n t t t d d d r l e l c h h h n n g u t o h o , o o e e e e g g 1 p s f f f d r e e e t H C C C t i i r r t t t yo s o 1 o o o . h h h u o c w a n r r r e e e n C a u n r r r a gr a o C C C u u u d rh de n r p p p o o o d ra H r d t t t 1 r r r v u i i i t y r r r e o o o eh r H p u u u o a e . n n n e t u p p p l u s D i t t to c o d d d 1 nh i i i eh n l . e e e o o o ga v ao c c c . n n n ev e l k k k s r e : 1e s s s . . . . . t t t n e e e p p p , , , Secrets As p F r u t o h t m e t C h n fi wo i D r s iw u l s I I l i I I c t f fs o f b f a r c n r S y y yr ya i, S t o o n do o e r s a e gv u uG d u u t t b e e y u a r h h a y 1 h o h y s i c r o u a a a n a e n k o e u v v v c v e sff l 2e e re e w i o o , n e s f B l1 3 n 5 e g c C v t - - r u o + t a o u e2 4 t r i r D : i o t nC C s n n C C t h ey o u u s u u e 1 e ob t . r r h 0 u r r e Bs Ss a s s s r . e e t ee e eu od s sc S s s t w r e : :r : : t a n e e a t d h . h t t . u o d n s e y s c o t k u e . p , disease Companion Y B U S U S Y B U S U S Y B
+20 Corruption cards 56 Secret cards 30 Other cards 2 Quest tokens First player token Busy token
+5
+
+--- Page 6 ---
+Game Setup
+Map Setup
+1. Construct the Map from the Map tiles. Use the codes provided on the tiles
+and the diagram in the Hunt Book to set up the Map. Most Maps have an
+additional, special 3-space Environment tile, which will be added later in the
+Open and Play
+setup. It is usually random, marked with a question mark.
+For the first game, we recommend using the Tutorial Scenario booklet
+2. Lament Rifts – Place Rift tokens randomly face up in marked spaces as
+to guide you through most of the components, game elements and rules.
+shown in the Hunt Book.
+Choose a Scenario 1
+Take the Hunt Sheet and choose a Griefbound. Each Griefbound has 5 available
+Scenarios to play, with the first being the easiest and the fifth the most difficult.
+Choose or randomly pick one Scenario to play. Take the Hunt Book for a chosen
+Griefbound and go to the chosen Scenario setup.
+The Hunt Book contains the special rules for the Griefbound, Map layouts
+and component lists for each of that Griefbound’s Scenarios. It also includes 3. Portals – Place a Portal Model in each space with a Portal symbol as shown
+additional rules not present in the setup procedure described below. in the Hunt Book.
+Scenario setup
+On the following pages, you can find the overall description on how to set up
+a Scenario. This process does not contain the list of the used components, which
+you can find in the Hunt Book for each Griefbound. When you resolve the first
+setup, do it simultaneously with the Rulebook as a guide and the Hunt Book as
+a component list. After you familiarize yourself with how to set up a Scenario,
+the Hunt Book will be the only source of information you need.
+4. Lament – Place Lament on the Map, depending on the number
+of Players:
+• 2 or solo: Place 1 Lament in each even-numbered Lament Rift.
+• 3 : Place 1 Lament in each even-numbered Lament Rift, and 1 Lament
+in the Rift numbered 7.
+• 4 : Place 1 Lament in each even-numbered Lament Rift, and 1 Lament
+in the Rifts numbered 1 and 7.
+• 5 : Place 1 Lament in each Lament Rift.
+5. Treasures – Place 1 random Treasure token face down in each space
+marked with a Treasure symbol as shown in the Hunt Book.
+6
+
+--- Page 7 ---
+Environment setup
+Take the Environment deck and draw the cards listed in the Hunt Book. The
+Environment cards are divided into three categories depending on how they are
+used in the game and set up: Terrain, Landmarks and Areas.
+6. Terrain: Take a random card for each Terrain type present in the Scenario,
+reveal them and follow the setup instructions. These cards will be placed next
+to the Map and affect the whole Terrain they correspond with.
+7. Landmark: Draw 1 card for each marked space on the Scenario Map, reveal
+them and follow their setup instructions. This will mostly consist of placing
+a corresponding Model (or token) in the marked space on the Map. After
+that, put the Landmark card next to the Map, close to the Model/token
+mentioned on the card.
+8. Area: Draw 1 card and add a new 3-space Map tile to the Map. Usually, you
+will be instructed to discard this card afterwards. Some Scenarios might ask
+you to set up a specific tile. In such cases, it will be marked with a code.
+7
+
+--- Page 8 ---
+Enemies Setup
+Event Setup
+Elite Setup
+1a. Take all Event cards from the box.
+1c. Take an Elite Enemy card according to the Hunt Book. Some Scenarios
+2a. Find 3 Griefbound specific Events (marked with their name and art on the
+might ask you to use a specific Elite. Place its card near the Map.
+front of the card).
+2c. Place the matching Elite Model on the Map. Some Scenario setups might
+3a. Add random Event cards (of other Griefbounds not present in the Scenario)
+instruct you to put the Elite card face down with a Universal marker
+according to the Hunt Book. Put the remaining Event cards back in the box
+on the card. In such cases, the Elite Enemy will not be present on the Map
+- they will not be used during this Scenario.
+at the beginning of the Scenario and will arrive later.
+4a. Shuffle the created Event deck and place it next to the Map.
+3c. Set the L-shaped Elite level token below the card. Elite level should be
+5a. Place the Event Step I standee near the Event deck. equal to the minus 1. This being Level 1 in a Solo and 2 Player game,
+Level 2 in a 3 Player game and so on.
+4c. Place the Elite Step III standee near the Elite card.
+Minions Setup
+1b. Take 1 Minion card according to the Hunt Book and place it face up near
+the Map. Put the rest of the cards back in the box - they will not be used
+during this Scenario.
+Note: There are 2 types of Minions: Convicted and Undead. The Undead are
+more complex and difficult.
+2b. Take 8 Minion Models matching the Minion type and place them next to
+the Minion card. Note that each Minion type (Convicted or Undead) uses 2
+simillar but different Models! Put the remaining Models back in the box.
+3b. Spawn the starting Minions: Take 2 Minion Models for each Hunter in the
+game (in a 5 player game only 8 Minions are spawned). Starting from
+Lament Rift #1 and proceeding in ascending order, place 1 Minion Model on
+each Lament Rift until you run out of Models.
+4b. Place the Minion Step II standee near the Minion card.
+8
+
+--- Page 9 ---
+The Griefbound Setup 8d. Create the Griefbound Attack deck. To do so, take the number of random
+cards of each Tier according to the table in the Hunt Book, based on the
+1d. Place the Griefbound board near the Map.
+number of Hunters. Place all unused cards back in the box.
+2d. Place the Griefbound stat card (with the Scenario number shown on the Note: Cards are divided into three Tiers, marked with the number of dots on
+back of the card) in the matching slot. the back of the card.
+3d. Set the Griefbound Level token in the bottom part of the Griefbound 9d. Shuffle the Griefbound Attack deck and place it face down on top of the
+board. The Level should be equal to the number of Hunters minus 1. This is Final Attack card on the Attack deck slot.
+Level 1 in a Solo and 2 Player game, Level 2 in a 3 Player game and so on.
+10d. Fill the Griefbound Attack track. Place the top card of the Attack deck
+4d. Take all cards from behind the chosen Griefbound divider. face up in the This Turn slot, covering the Opportunity card. Then, place
+5d. Take all Stage cards for this Griefbound. Shuffle them to create the Stage another card from the top of the Attack deck face up in the Next Turn slot.
+deck and place it face down in the matching slot on the Griefbound board. 11d. Follow any Griefbound specific setup instructions in the Hunt Book.
+6d. Take the Final Attack card listed in the Hunt Book and place it face down 12d. Place the Griefbound Step IV standee near the This Turn slot on the
+in the Attack deck slot on the Griefbound board. Place all other Final Griefbound board.
+Attack cards back in the box - they will not be used during this Scenario.
+13d. Place the Time Track Step V standee in the Start space of the Time track on
+7d. Take the Opportunity card listed in the Hunt Book and place it face up the Griefbound stat card.
+in the This Turn slot on the Griefbound board. Place all other Opportunity
+14d. Place the Griefbound Model on the Map as shown in the Hunt Book.
+cards back in the box.
+9
+
+--- Page 10 ---
+Hunter Setup 9e. Chooses starting Items - one Weapon and one Armor card. Then, returns
+the rest of the Item cards to the box. Places the chosen cards face up near
+Each Player:
+the Hunter board and gains the dice listed in the Starting Dice section
+1e. Takes one Hunter board in their preferred color and places it in front of each of those cards.
+of themselves. 10e. Places their Hunter Model in a chosen starting space on the Map according
+2e. Chooses one Hunter and takes their Hunter tile, any special components, to the Hunt Book.
+and all Item and Evolution cards from behind their divider (see Hunter 11e. Performs any additional Hunter specific setup (see Hunter Specific rules on
+descriptions on page 26). page 26).
+3e. Places the Hunter tile in the center of the Hunter board.
+Final steps
+4e. Sets their dial to match their maximum . The Player with the least
+maximum Health takes the First Player token. 1. Put all remaining dice and tokens near the Map.
+5e. Places the Assist marker in their Hunter’s board color in the Assist slot on 2. Take the Corruption deck, shuffle it and place it face down next to the Map.
+the Hunter board. 3. Take the Secret deck, DO NOT shuffle it and place it next to the Map.
+6e. Takes one Corruption marker and places it in the 0 slot on the 4. You may now include the rules for Solo mode, Rapid Hunt, Hard mode
+Corruption track. or Easy mode. To do so, proceed to page 30.
+7e. Shuffles the Evolution deck and places it face down near their
+Hunter board. Prologue
+8e. Takes both Help cards (Game Round Order and Basic Actions) and places Read this section after you finish the setup. Here, you will find a lore fragment
+them near their play area. connected to the Griefbound and the Scenario you are about to play.
+Each Player rolls their dice. Start the game by proceeding to the Hunter Phase.
+10
+
+--- Page 11 ---
+Round
+Dice slots
+In order to use an Action, Players must place a die into a slot with a matching
+overview symbol. Some Actions require multiple slots to be activated. Possible slots are:
+•
+The components are limited. If there are not enough components, do
+not use replacements! In most cases simply skip the part of the effect
+÷ May by activated by a die with any symbol.
+that regards it. In the case of Status tokens and Hunger tokens, Hunters
+take damage instead of gaining the missing tokens.
+Rules on the cards and components may overwrite the basic rules
+•
+contained in the Rulebook.
+Important icon - . Represents the number of Hunters present in the
+game, and should be read as a number (e.g. 3 in a 3 Player game). It is ÷ A die with an appropriate symbol has to be used to activate this Action.
+often used to scale the magnitude of the effects and therefore difficulty, A die with a double symbol may also be used, but the second symbol on
+depending on the number of Hunters. it is ‘lost’ - the Hunter does not get the surplus back in any way.
+Each round has a set structure, split into 4 Phases:
+•
+1. Hunter Phase – in this Phase, Hunters will play their Turns by resolving
+Actions. This way, they will Move on the Map, attack, defeat Enemies and
+ultimately kill the Griefbound to win the Scenario.
+÷ Either a die with a double symbol or two dice with single symbols
+2. Enemy Phase – in this Phase, the Enemies will have a chance to pay the matching the slot have to be used to activate this Action. In the case
+Hunters back. Firstly, the Events will be resolved. Then, all Enemies will be of using 2 dice, stack them on top of each other in this one slot.
+activated. This includes resolving Minion, Elite and Griefbound activations.
+Some Actions may have alternative costs. You may use one or the other to
+3. Lament Phase – in this Phase, each Hunter will resolve the effects activate this Action.
+of Corruption and Hunger - consequences of using Lament. Additionally, you
+Regardless of the slots used, the Action cannot be used again until Refreshed.
+will be able to spend Lament to upgrade your Hunter. Flame Thrower
+4. Refresh Phase – in this Phase, Hunters will Refresh all Actions, Regain dice,
+resolve the effects of Statuses and prepare for the upcomming round.
+Hunters Phase
+Deal 1 to each Enemy in 0
+Hunter Turns This Action may be activaatnedd LboyS u. Ysionug m2ay g sayimn b1o Blsu r(onn a single die or two dice)
+or and sytmo binolcsr ecaosme btihnee dR.a Nnoge m oaf tttheris w Ahcitciho nc obsyt w1.as used the other
+Hunter Turns are resolved in clockwise order, starting with the First Player. cannot be paid until the Action is Refreshed.
+Each Hunter performs their Turn by resolving exactly 2 Actions. Then, the
+Weapon attachment power up:
+next Hunter in clockwise order resolves their Turn. Hunters may play as many
+Turns as they like (2 Actions per Turn) as long as they have available dice and/ Refreshing Actions D a u n rin d g a R ny e W s e t a o po r n i A n c g tio n d : ice
+you may gain 1 Burn
+or Actions.
+The Player use dice to resolve Atoc dtieoanl 1s. a Dddiciteio mnaal y be. in any of 3 different places
+If a Hunter cannot resolve any more Actions or chooses not to resolve any more during the game:
+Actions, they have to Pass. After a Pass, the Hunter discards all remaining dice
+• Active pool – dice available to be used for Actions.
+from the Active pool and will not be able to resolve any more Actions during
+this Phase - they are skipped in the Turn order. The Hunters Phase continues • Dice in Action slots – marking that the Action was used.
+until the all Hunters Pass. The last Player who has not Passed yet may play as • Discarded pool – unavailable dice.
+many consecutive Turns as they wish until they Pass.
+Hunter dice Refresh Action
+During the game, Players use 6-sided dice as their main resource. These dice
+are called Hunter dice and come in 4 different colors. Each color represents Dice on Actions Discarded pool
+a particular area of expertise or skill in which a Hunter is proficient:
+Discard Die
+– represents offensive capabilities. The most common symbol is .
+– represents speed and dexterity. The most common symbol is .
+Use Action
+– represents defensive abilities. The most common symbol is . Restore Die
+– represents arcane prowess. The most common symbol is .
+Active pool
+11
+
+--- Page 12 ---
+Spending dice Basic Actions and Assist Action
+At the beginning of the round, Players will have access to all of their dice Here is the breakdown of the Basic
+in their Active pool. Then, the dice are either placed on Action slots to activate Actions and the Assist Action, which are
+their effects (going to dice spent on Actions) or are discarded to resolve some the same for each Hunter.
+effects (going to the Discarded pool).
+Run
+Refreshing Actions
+Place a die with any symbol in the slot to
+Dice on Actions may be discarded by using a Refresh Action effect and go to the resolve this Action. Move your Hunter
+Discarded pool. You can also Refresh Actions with Universal Markers to discard Model up to a number of spaces equal to
+them. This way the Action may be used again. your Hunter Movement value .
+Restoring discarded Sprint
+Discarded dice may be put back into the Active pool by using a Restore Place a die with a symbol in the
+effect - in which case they are rerolled and placed in the Active pool. slot to resolve this Action. Move your
+Hunter Model by up to +1 spaces.
+Resolving Actions and Action Types
+During this Action, you may Move
+Actions can be found in various places: on a Hunter board and Hunter tile, on through Portals - a Hunter on a space
+Evolution cards, Item cards, Map tiles, Environment cards and others. with a Portal may Move to another
+Duality space with a Portal as if it was adjacent.
+When resolving an Action, it has to be resolved fully before another is made.
+Effects of this type of Action are resolved from left to right and from top to Tactic
+bottom. If an Action or an effect states “discard X to …”, discarding the listed
+Place a die with any symbol in the slot to
+component is considered a necessary cost of resolving the effect.
+resolve this Action. Gain 1 Tactic token
+2 14
+The most common type of Action is the one marked with dice slots, as seen on and place it on any of your empty Tactic
+the previous page. In order to use such an Action, a Hunter has to place a die slots. You may choose to immediately use
+(or multiple) into the available slots with matching symbols above. After placing the Tactic token to reroll any number
+dice, the effect of an Action is resolved. For Actions, you can always use multiple of in your Active pool.
+dice to meet the symbol requirements.
+Other Actions are free to use. A Player simply has to declare to use those types
+Cleanse
+of Actions. They may be marked in two different ways:
+Place a die with a symbol in the slot to resolve this Action. Discard up to 2
+Action with a Universal Marker slot
+chosen Status tokens from your Hunter board.
+Stimulant Injection Assist
+Place a die with any symbol in the slot to resolve this Action. When you place
+a die in this slot, give your Assist marker to the chosen Hunter. That Hunter
+places the Assist marker in their Active dice pool.
+Assist markers may be used instead of a die. It represents an exact same die with
+the same exact symbol as a die placed on the Assist slot on the Hunter board
+Gain 1 Burn and 1 Stun, choose one: of the Player whose Assist marker is being used.
+• Refresh 1 chosen Action.
+• Restore 2 discarded .
+Movement golden rules
+• Gain .
+You may only Move to adjacent spaces (the ones physically connected to
+your current space).
+This type of Action is free to use, buBt aonlalyn ocnece per round. When this Action is
+When you end your Action, including Movement, on a space with
+used, mark it with a Universal Marker and resolve the effect. The is taken
+When you resolve an Action a Lament token or a Treasure, you may gain it. If there is a Status token
+from the common pool to mark this. This type of Action may be Refreshed -
+using only , gain 1 . on that space, you have to gain it. Hunters do not gain tokens if you are
+in such cases discard the . After that the Action might be used again.
+When you resolve an Action Moving through a space without ending the Action there.
+Actions with an ‘Action:’ descriptor
+using only , gain 1 . Each space can contain up to 4 Models, with the Griefbound counting
+as 2 models. You may Move through a fully occupied space, but when
+Action: discard and to Restore 1 discarded .
+you end your Movement there, you have to push one other Model to an
+adjacent space (see spaces, page 23).
+This type of Action is free to use and most likely found on Secret cards
+or Environment cards. While the Action itself is free, it may have a cost inside
+the effect.
+12
+
+--- Page 13 ---
+Dealing Damage
+Example
+Mark uses a “Gain ” Action. While he already has a token and
+only one Defense slot, he exchanges two tokens for one token.
+3 10
+Later in the round, Mark is attacked by a Minion which deals 2 . Mark
+decides to discard his token to reduce the incoming damage. Since
+Defense tokens cannot be split, he does not gain a back, even though
+the damage was blocked with a surplus.
+Many Actions allow the Hunters to deal Damage which is crucial to defeat
+Enemies in the game including the Griefbound. When a Hunter resolves an effect
+that deals it may only target an Enemy and never a Hunter, unless specifically
+stated otherwise.
+When an effect allows you to deal place the number of tokens on the
+appropriate component in the game.
+Effects describe the Range in which the can be dealt. The first number
+of this icon shows the minimum Range and the second the maximum Range
+(eg. 0-2 allows the Hunter to target an Enemy on their space or up to 2
+spaces away).
+Tactic token and Tactic slot.
+Effects may require having the target in Line of Sight (LoS), which is a straight
+line unobstructed by Obstacle spaces or Fog (see Map on page 23).
+A Tactic token allows the Hunter to reroll dice in their Active pool. A Hunter
+On a kill keyword is commonly found in many effects. The instruction following
+may discard a Tactic token to reroll any number of dice currently present
+this keyword is triggered after an Enemy has been killed. It may be specific to
+in their Active pool. This may be done either:
+a type of Enemy:
+• At any moment, without spending an Action.
+• On a Minion kill: resolved after a Minion is dealt any and is removed
+from the Map. • As an Action during the Hunter’s Turn in order to stall some time.
+• On an Elite Enemy kill: resolved after an Elite Enemy is dealt equal to
+or exceeding its .
+• On a Griefbound card kill: resolved when a Griefbound Attack card is
+dealt equal to or exceeding its . This results in removing the card
+from the Attack track, which is different from discarding it! (see page 19)
+Defense and Tactic tokens
+2 4
+Defense tokens and . Defense slot.
+There are two types of tokens which are universal for all Hunters – Defense
+tokens (in value 2 or 4) and Tactic tokens. Each of these tokens has to be stored
+in a matching Tactic or Defense slot – maximum of one token per slot. If there
+are no slots available, the Hunter cannot gain the token.
+Defense tokens allow Hunters to prevent . When a Hunter is being attacked
+they may decide to discard a Defense token to reduce the incoming by the
+value of the Defense token.
+Note: When defending you do not gain the excessive value back!
+When a Hunter gains a token while already having one, they may add them
+together and gain a token (putting both tokens back into the common
+pool in the process).
+13
+
+--- Page 14 ---
+Enemy Phase
+Event step
+EVENT
+I At the beginning of the Enemy Phase Hunters have to check if they
+have Critical Injury (see page 25) cards and apply their effects.
+STEP
+Enemies golden rules Then, Hunters resolve Event card effects in order:
+Enemies can only have tokens on themselves and always use their 1. All Permanent Event effects (if present).
+tokens when being attacked.
+2. Draw a new Event.
+When an Enemy Moves, they Move towards the closest Hunter, unless
+3. Place new on the Map (optional).
+stated otherwise.
+4. Resolve the main effect of the Event.
+1. If there is more than one closest Hunter, Move towards the Hunter
+with the highest Corruption. If the Event deck is empty, and a new card must be drawn, the Griefbound
+escapes and the Scenario is lost.
+2. In case of a tie, Players decide.
+Events
+3. If there are multiple ways the Enemy may Move - Players decide.
+When Enemies enter fully occupied spaces they swap with a Model
+in this order: Companion, other Minion, Elite, Hunter.
+Enemy attacks
+Burning Lament
+Enemy attacks mostly take one of two forms: attacking with Enemy dice Place 1 in Lament Rift 6.
+or dealing a set amount of and/or Statuses. For dice attacks, sum up the Each Hunter may discard
+any number of .
+results from all rolled used in this attack and resolve them – by taking the Then each Hunter chooses one:
+• Gain 1 Burn for each you have.
+listed amount of and/or gaining Statuses. You may discard Defense tokens to • Gain 3 Corruption (ignoring ).
+prevent taken by the number indicated on the discarded token. The surplus
+If you are fighting the
+of Defense is not gained back! Statuses cannot be blocked with Defense tokens CONVERGENCE
+in any way. Each Hunter with chooses one:
+• Move 2 toward the Griefbound.
+Each time an Enemy deals to your Hunter, mark it on the dial on your • Gain 3 Burn.
+Hunter board by subtracting the appropriate amount.
+Event card example.
+In case of any confusing effects, always apply and Statuses before resolving
+The Burning Lament Event will generate additional in Lament Rift 6.
+any other effects. The main effect offers a choice for each Hunter that will punish them in some way.
+The bottom effect contains an additional negative effect, but it’s only applied
+in Scenarios where you’re hunting the Convergence.
+Enemy
+die Events are drawn and resolved at the beginning of each Enemy Phase. They bring
+unexpected and mostly negative changes to the table.
+Permanent Events
+Permanent Events are most often drawn from Griefbound Stage cards and are
+marked with a “Permanent Event” tag.
+They are not discarded, unless specified, so their effect may be applied during
+multiple rounds.
+In the rare situation, when you have more than one Permanent Event, place
+them next to each other so that you may keep track of which was first. When
+resolving multiple Permanent Events, start with the one that was drawn earlier
+in the game.
+Event effects
+Events effects are divided into two parts. The first is general and is always
+resolved. The second part is conditional and resolved only if the Griefbound that
+is being hunted during this Scenario matches the name on the card.
+Event effects often contain a choice or an optional effect to resolve. Keep in mind
+that if the effects states “discard X to …” or “gain X to …” the first part of the
+effect is mandatory in order to resolve the second.
+14
+
+--- Page 15 ---
+Minion step Spawning Minions
+MINIONS
+II Activate each Minion Model on the Map by resolving one activation When any effect in the game instructs you to Spawn a number of Minions
+from the Minion card. Start with the Model closest to any Hunter. (usually tied to the number of Hunters - most commonly due to the Time
+STEP track or at the beginning of the game) - take the listed number of Models and
+place them on the Map, following the instructions below:
+Minions
+1. Count the number of Minions on the Map.
+A convict chained to a rock and long forgotten or a specter risen by Lament. No 2. Find the Lament Rift with the number 1 higher than the number of Minions
+difference, just filth beneath our boots. on the Map and Spawn the first Minion there.
+Minions are the weakest type of Enemies that the Hunters will face, although 3. Continue placing Minions in the Lament Rift in ascending order until there
+they should not be underestimated: a swarm of Minions or an unfortunate stab are no more Models available.
+in the back by a single, left-behind Minion can flip the course of the hunt.
+Components in the game are limited - if there are not enough Minions in the
+reserve, Spawn as many as possible.
+In a situation where the Lament Rift is fully occupied, and a Minion has to
+be Spawned, it pushes one other Model to an adjacent space, as if entering
+this space via Movement. In an extreme case, when the space is full of Models
+that cannot be pushed (Environment Models or the Griefbound) the Minion is
+not Spawned.
+Minion cards and Models example, Convicted type on the left,
+Undead type on the right.
+While there are many Minion types that might be encountered, all of them share
+some similarities:
+1. All Minions have 1 . A single hit is enough to kill them.
+2. Killing a Minion rewards the Hunter who killed it with 1 Lament .
+3. Each Minion can hold up to one token - in the dedicated holder on its
+Model or standee.
+4. Each Minion type has 2 activation options - each Minion Model will act
+according to the conditions listed next to said actions. During activation each
+Minion Model will resolve only one of the listed activations.
+5. Minions have a Dice Effect section on their card - when this Minion attacks
+and rolls check the result in this section.
+6. Minions of the Undead type have a passive ability written in the top part
+of their card.
+Minions Spawning example:
+Players have to Spawn 4 Minions (2x in a 2 Player game). They take 4 Models from
+the reserve. They count the number of Minions currently on the Map - which is 3.
+They place one Minion in each Lament Rift numbered 4, 5, 6 and 7 in ascending order.
+15
+
+--- Page 16 ---
+Elite step List of Named Elite Enemies:
+ELITE
+III Activate each Elite Model on the Map, starting with the one Enemy • Alicia the Twisted.
+closest to any Hunter. To do so, resolve one of the activations present • Thristan, the first Vampire.
+STEP
+on the Elite Enemy depending on the conditions stated on the card.
+• Croakholm.
+Repeat this process for every Elite Model on the Map. Elite Enemies
+• Hilhorn’s Shadow.
+might not be on the Map due to the starting conditions of the Scenario
+or because they were killed. In such cases, discard 1 from each Elite card that Spawning an Elite
+is face down. When the last is discarded this Elite is spawned, but does not
+In some cases, an Elite Enemy is not present on the Map at the beginning of the
+activate instantly - it will act in the next Enemy Phase.
+Scenario, or a new Elite joins the fray during the Hunt. When an effect instructs
+Elite Enemies you to draw a random Elite card, ignore all cards from the Elite types already
+present in the game! When you are instructed to Spawn an Elite Enemy, resolve
+Lament spawned many dangerous creatures of horror. Some are more… troublesome
+the following:
+to deal with.
+1. Place the Elite Enemy card next to the Elite Step III standee.
+Elite Enemies are much stronger and harder to get rid of than a Minion, but are
+2. Set up an Elite Level token - it should be of an equal Level to the
+still easily surpassed by the power of a Griefbound.
+Griefbound’s.
+All of them share some similarities:
+3. Find the Portal space closest to the Griefbound and place the corresponding
+1. Elites have a varying number of depending on the Elite itself and Elite
+Elite Enemy Model there. Do NOT activate this Elite Enemy afterwards.
+Level token.
+If there are no Portals on the Map or all the Portal spaces are fully occupied, the
+2. Killing the Elite grants the Lament indicated in the bottom central part of its
+Elite Enemy cannot be Spawned. Keep the card face down and place one on
+card. Two different numbers show how much Lament the killer gets and how
+the Elite Enemy card. The Elite is not gone, just waiting for a better moment to
+much Lament any other Hunter gains.
+rejoin the fight.
+3. Elites have multiple Actions and they will only use one during each
+activation, similar to Minions.
+4. The Dice Effects section shows what happens when the Elite rolls symbols
+during an attack.
+5. Each Elite Enemy may hold up to one token on its card.
+Alchemist
+ACTIVATION (resolve first applicable):
+If there is a Hunter in 0-3 and LoS,
+Flaming Bomb:
+Deal 5 and 2 Burns to each Hunter
+in 0-3 and LoS.
+Otherwise, Burning Oil:
+Move 2. Attack all Hunters in 0-2
+with 2 .
+“It all started with wizards who could
+not tell magic apart from the Breath
+of Deity, later called Lament.”
+-Marcellus the Lament Dancer / : Deal 2 .
+If any were dealt
+2|2 during this attack,
+deal 3 Burn.
+LEVEL:
+1 5 6 7
+In this example, the Alchemist has 6 health, indicated with an arrow on its card,
+and the Elite Level token.
+Each Elite Enemy type has 3 variants, represented by 3 different cards. There
+can be only one Elite of its type in the game at any given time. One Elite in each
+type is significantly stronger than the rest, and is called a Named Elite. We
+recommend not using Named Elites in your first games, as they tend to be
+significantly more difficult.
+Alchemist Warlock Alicia the Twisted
+Example oAf CETlIiVtAeT tIyOpN e(r. eTsohlvee filrasts atp bpleicianblge) :a Named Elite.
+ACTIVATION (resolve first applicable): ACTIVATION (resolve first applicable):
+If there is a Hunter in LoS, Cursed Chain:
+If there is a Hunter in 0-3 and LoS, If there is a Hunter in LoS, Mind Ray:
+Attack one Hunter in any Range
+Flaming Bomb: Attack one Hunter in any Range and
+and LoS, with 2 . Place 1 Curse
+Deal 5 and 2 Burns to each Hunter LoS with 4 . Move 2.
+on each space between the Warlock
+16 in 0-3 and LoS. and the attacked Hunter. Otherwise, Portal Blast:
+Otherwise, Burning Oil: Attack all Hunters in 0-2 from
+Otherwise, Hex:
+Move 2. Attack all Hunters in 0-2 any Portal with 2 . Discard 1 Portal
+Move 1. Attack all Hunters in any
+with 2 . in 0-1 . Move 2.
+Range and LoS with 3 .
+“It all started with wizards who could “With Lament, some wizards survived “She was Parthenna’s last student and
+not tell magic apart from the Breath their deaths and carried on their wicked the enemy of Gustav the Blackblooded.
+of Deity, later called Lament.” studies to gather immense power.” Too bad both ended on the: Dsaemael s1ide.”, 1 Hunger, : Deal 3 .
+-Marcellus the Lament Dancer -Marcellus the Lament D/anc:e rDeal 2 . -Princess Hilda’s Mem1o Sriteusn, 1 Burn, : Deal 1 .
+2|2 I d d f u e a a r n l i n y 3 g B t u h r i s n w . a e t r t e a c d k e 1, a lt | 1 : a D n e d a l 1 1 Cur s a e n . d 1 Cur 3 se|.3 : d D e e a a l l t 2 duri . n F g o t r h e is a c a h tt ack ,
+: Deal 2 and 1 Curse. deal 1 Hunger.
+
+--- Page 17 ---
+Killing an Elite Griefbound Attack step
+GRIEFBOUND
+Wounding an Elite is one thing, but getting rid of it is a whole different pair of shoes. IV Activate the Griefbound Attack card on the This Turn slot on the
+Griefbound board by resolving all effects from the Griefbound Attack
+When an Elite Enemy has tokens on its card in number equal to or exceeding
+STEP
+card in order from top to bottom. When the Griefbound attacks and
+its resolve the following:
+rolls sum up the effects from the Stat card along with the Dice
+1. All Hunters gain Lament as a reward.
+Effects modifiers from the Attack card.
+2. Discard all tokens from the Elite card.
+After resolving the card, perform the following:
+3. Discard the Elite Model from the Map.
+1. Discard the Griefbound Attack card from the This Turn slot. Place the card on
+4. Flip the Elite Enemy card face down. The active Player rolls a and checks the discard pile to the right of the slot. If there are any tokens on the card,
+the result on the back of the Elite card - this shows if you managed to truly discard them.
+kill it or just chase it away for some time.
+2. Move the card from the Next Turn slot (if present) to the This Turn slot, all
+All Elite Enemies with their cards face down are considered “not on the Map” for tokens on the card (including ) remain for the next round.
+all effects that require it. 3. Refill the Attack track: Draw new cards from the Attack deck and place
+them face up in empty slots.
+4. If the Final Attack card is visible in the Attack deck slot, reshuffle the Attack
+cards from the discard pile and place it in the Attack deck slot to cover the
+Final Attack card. Continue refilling the Attack track.
+If there are not enough cards in the discard pile to refill the Attack track and
+cover the Final Attack card, then the Hunt enters its Final Act! (see Attack track
+on page 19 and Final Act on page 20).
+FOCUSED: resolve those effects unless there are on this card.
+Cursed Shot
+h Move 2.
+h FOCUSED: Move 2 to a space with LoS
+to a Hunter.
+h Attack all Hunters in 0-5 and LoS
+with 3 .
+: +1 Curse.
+3|2
+ARM
+The Cursed Shot Attack card has 3 bullet points to resolve.
+The Griefbound will, in order: Move 2 spaces toward the closest Hunter,
+then Move 2 spaces toward the closest Hunter so that it has a Hunter
+in its Line of Sight (only if the Griefbound is FOCUSED, see above),
+lastly it will attack all Hunters in Range 0-5 and Line of Sight with 3 dice.
+The effects of the attack are present on the Stat card,
+but the result additionally deals 1 Curse.
+Killing an Elite Enemy example.
+The Alchemist is dealt the 6th which is equal to its health. The Model is discarded
+from the Map, the Elite Enemy card flipped, and the active Player rolls a
+to determine the outcome.
+17
+
+--- Page 18 ---
+The Griefbound (Boss)
+Here it is. Your first and final test.
+Griefbound board
+The Griefbound board is where most of the information about the Griefbound can be found. The board has places for most elements the Griefbound will use during
+the game.
+The Griefbound, unlike other Enemies, will use many components. This inlcudes:
+• Griefbound Stat cards.
+• Attack cards.
+• Final Attack cards.
+• Opportunity cards.
+• Stage cards.
+• Other special components.
+In order to defeat the Griefbound and win the Scenario, the Hunters have to kill enough Attack cards, proceed to the Final Act, and kill the Final Attack card.
+STAGE DECK
+Final Act
+On the F r i o n ll a l 1 Atta : ck kill,
+: T S G h c o e e n t G o a r r t i i h e o e f b w S o o c u e n n n . d a r is io d E e p ad il , o gue.
+: R o e f d t u h c e e G t r h i e e f L b e o v u e n l d by 3.
+: R o e f d t u h c e e G t r h i e e f l b e o ve u l n d by 2.
+G I o t f h t t o e c h a e G t n h S r G n e c i o r e e S i t n f e c b a b f e o r b e n u i o a o l n u o r d w n w io d o i e s ’ E n r s e d p . l d e i e l , a v o d e g . l u e.
+GRIEFBOUND
+LEVEL:
+18
+DRACSID
+Griefbound Stat card slot
+Griefbound Stage deck slot
+ATTACK DECK NEXT TURN THIS TURN
+Slot for Griefbound Final Slot for the Opportunity card
+Attack and Attack deck and This Turn Attack card
+Griefbound Stat card
+Each Scenario uses a different Griefbound Stat card. The card holds information
+about the Griefbound:
+1. Its name and art.
+6
+2. Scenario number (on the back).
+3. Special effect.
+4. Defense slots (the Griefbound may hold one in each slot).
+5. Dice Effects. 5
+3
+6. Time track.
+1
+4
+
+--- Page 19 ---
+STAGE DECK
+Attack track, Attack deck and the discard pile
+Observe. Predict. Act accordingly.
+Final Act
+On the F r i o n ll a l 1 Atta : ck kill,
+: T S G h c o e e n t G o a r r t i i h e o e f b w S o o c u e n n n . d a r is io d E e p ad il , o gue.
+: R o e f d t u h c e e G t r h i e e f L b e o v u e n l d by 3. : R o e f d t u h c e e G t r h i e e f l b e o ve u l n d by 2.
+G I o t f h t t o e c h a e G t n h S r G n e c i o r e e S i t n f e c b a b f e o r b e n u i o a o l n u o r d w n w io d o i e s ’ E n r s e d p . l d e i e l , a v o d e g . l u e.
+GRIEFBOUND
+LEVEL:
+19
+DRACSID
+Attack cards
+Don’t get distracted. Each one of those strikes is deadly.
+One of the most important components of the Griefbound is the Attack
+ATTACK DECK NEXT TURN THIS TURN
+cards - they not only specify how it will act but also track how much health
+the Griefbound has left. Most cards are unique, but all of them share
+some similarities:
+• Title.
+• Attack Actions.
+• Dice Effects modifiers (optional). • Body part and health of the card (combined with the Griefbound Level
+token below).
+• Lament reward (first number for the Hunter who killed the card, the
+second gained by each other Hunter). The three slots in the bottom part of the Griefbound board are considered the
+Attack track - it holds Attack cards, an Opportunity card and the Final Attack
+Lament rain card. The first slot from the left is reserved for the Final Attack card and the
+Attack deck.
+h FOCUSED: Deal 4 to each Hunter
+in 0-1 from a Lament Rift. The two remaining slots on the right store the Attack cards that will be resolved
+h Deal 3 Stuns to each Hunter in 0-1 . in the current and the next round. Underneath the Attack card in the This Turn
+h Attack all Hunters in 2+ with 3 .
+h Place 1 Burn on each Lament Rift. slot, there is an Opportunity card – resolved when the Attack card on top of it
+Then, place 1 on each Lament Rift
+with a Burn on it. is killed and removed from the game.
+There is an important distinction between discarding and killing an Attack card.
+• After resolving an Attack card in the Enemy phase, the card from the This
+Turn slot is discarded, which means placing it in the discard pile to the
+right of the Attack track - the card will probably come back into the deck
+3|2
+at some point.
+TORSO
+• Killing an Attack card means removing it from the Attack track and
+1 5 6 7 5 6 7
+placing it under the Hunter board of the Player who killed it as a Trophy -
+it will not be seen again during the game.
+Opportunity cards
+Killing the Attack cards
+Seize every opportunity you are given. Drain each to the last drop.
+I’ll admit. It is not an easy task, but those monsters can be wounded.
+When a card from the This Turn slot is killed (removed), Hunters uncover the
+In order to remove the Griefbound’s Attack card, Hunters have to deal enough
+Opportunity card lying beneath. The Hunter who dealt the finishing blow rolls
+to it. When a card has an amount of equal to or greater than its
+a to determine what effect occurs - this will most likely be a bonus for the
+(shown on the Griefbound Level token by Body part icon at the bottom of the
+Hunters in close range of the Griefbound and an instruction to refill the Attack
+card) resolve the following:
+track (see below). Range and LoS of effects present on the Opportunity card are
+1. All Hunters gain Lament as a reward - the first number indicates how much
+drawn from the Griefbound.
+the killer gets, and the second how much every other Hunter gains.
+Sometimes, the result may stagger the Griefbound - the Attack track will not be
+2. The Attack card is placed under the Hunter board of the Player who dealt
+refilled during the Hunters Phase instantly. In such cases, the Griefbound will
+the last as a Trophy. It will not come back into the Attack deck during
+do nothing in the Enemy Phase as there is no Attack card in the This Turn slot.
+this Scenario.
+The track will be refilled at the end of Griefbound Step IV so the Griefbound’s
+3. If it was a card from the “This Turn” slot, the killer resolves the uncovered weakness is only temporary.
+Opportunity card by rolling .
+Refilling the Attack track
+Many times during the game you will be instructed to Refill the Attack track.
+This will always happen at the end of Griefbound Step IV, of the Enemy Phase,
+after resolving the Griefbound Attack or most times after resolving an effect
+from an Opportunity card. To do so, resolve the following in order:
+• Slide the Attack card from the Next Turn slot (if present) to the This
+Turn slot.
+• Draw new cards from the Attack deck and place them in the This Turn and
+Next Turn slots, if they are still empty.
+If at any point of this process the Final Attack is uncovered, check if the Final
+Act is triggered (see below).
+
+--- Page 20 ---
+Entering the Final Act Stage cards
+When wounded enough, the Griefbound will become vulnerable. But the cornered Leave the Griefbound bathing in Lament for too long, and you’ll have to face
+prey often becomes the most dangerous. the consequences.
+The Final Act can only be triggered when enough Attack cards have been killed.
+Entering the Final Act of the hunt is checked every time the Attack deck is
+depleted. In such cases, check if there are 2 or fewer Attack cards total left
+in the game; this includes Attack track slots and the discard pile. If so, trigger
+the Final Act. Otherwise, refill the Attack track and continue playing as normal.
+When the Final Act is triggered:
+Stage
+• Remove any remaining Attack cards from the Attack track and discard pile.
+convergence
+• Remove all remaining Secret 2 cards (Critical Injury) from the Secret deck.
+• Reveal the Final Attack card and place it in the This Turn slot.
+• Level up the Griefbound and each Elite Enemy. STAGE DECK
+• If this happens during the Hunters Phase, the Griefbound instantly ends
+the Hunters Phase - proceed to the Enemy Phase.
+Stage cards represent the Griefbound growing in power during the Hunt,
+The Final Attack card cannot be revealed in any other way. whether by anger or excess of Lament present on the battlefield. Each time the
+Time track enters a space with Stage, draw and resolve a new Stage card from
+Final Act and killing the Griefbound
+the top of the deck. Those cards may contain all types of power ups for the
+This is it. The moment you signed the coven for. Griefbound ranging from an alternative Special effect to a new Lose condition
+for the Hunters.
+One common thing that the Stage cards do is leveling up the Griefbound and
+Elites - this instructs you to change the current Level token of the Griefbound
+and all Elite Enemies to the one with a higher number.
+Final Act
+On the Final Attack kill, Griefbound additional rules
+roll 1 :
+: T S G h c o e e n t G o a r r t i i h e o e f b w S o o c u e n n n . d a r is io d E e p ad il , o gue. All of those wretched creatures have their own tricks up their sleeves.
+: R o e f d t u h c e e G t r h i e e f L b e o v u e n l d by 3. Each Griefbound has some unique mechanics and components - mostly
+: R o e f d t u h c e e G t r h i e e f l b e o ve u l n d by 2. present in the Special effect on its Griefbound tile or Attack cards. For detailed
+If the Griefbound’s level information on how each Griefbound special mechanic works, see the last page
+the ca G n r n i o e t f b b o e u l n o d w i e s r e d d e , a d . of the corresponding Hunt Book.
+Scenario won.
+Go to the Scenario Epilogue.
+Time track step
+TIME TRACK
+V Move the Time track step V standee one space forward on the
+Griefbound’s Time track (following the arrows) and Resolve the effect
+GRIEFBOUND STEP of the space the standee is entering. There are three main types
+LEVEL:
+of spaces on the Time track:
+• Spawn: Spawn 2x minions. (see Spawning Minions on page 15).
+• Stage: Draw and resolve a new Stage card.
+• Special: Resolve the section titled Special on the Griefbound Stat tile.
+20
+DRACSID
+ATTACK DECK NEXT TURN THIS TURN
+Entering the Final Act
+If there are 2 or fewer Attack cards left in play, enter the Final Act.
+Otherwise, reshuffle the discard pile
+and place it here.
+Final attack
+convergence
+During the Final Act, the rules change significantly:
+• The death of a single Hunter no longer ends the Scenario - Hunters fight to
+the last man standing!
+• Killing the Final Attack Attack card is different from other Attack cards
+(described below).
+When the Final Attack card is dealt enough instead of removing it, the
+Hunter rolls to determine if the Griefbound has been defeated or not.
+On a result, the Griefbound is dead, and the Scenario is won! If there is any
+other result, all is removed and the Griefbound’s Level is lowered - check the
+Final Act section on the Griefbound board for details. If the Griefbound’s Level
+cannot be lowered further, the Scenario is won. Otherwise, the game continues.
+
+--- Page 21 ---
+Lament Phase
+Final Perdition
+Some Hunters who overuse Lament may be lost and become the monsters they swore
+During the Lament Phase, Hunters will absorb the energy of the Lament they to hunt.
+have gathered so far, and possibly suffer the consequences of abusing the power
+The Final Perdition is a state in which the Hunter loses themselves by becoming
+that comes with it.
+the Pretender - a half realized, but nonetheless dangerous Griefbound.
+Corruption step All rules regarding the Final Perdition are present on one of the Secret cards,
+and will not be discussed here in detail, apart from a few brief mentions:
+Starting from the First Player and continuing clockwise, each Hunter draws and
+resolves 1 Corruption card. The top part of the card refers to Hunger - if the • The final Perdition has more chances to trigger once a Hunter is high on
+Hunter has no Hunger, it should be skipped. the Corruption track.
+The bottom part of the card checks the Corruption level of the Hunter - the • The final Perdition may shorten or prolong the game once triggered.
+higher the Corruption, the worse the effects that will be triggered. The Hunter • A Hunter who falls into the Final Perdition will become a Pretender - an
+resolves only one effect that matches their Corruption. After the card is resolved, additional Griefbound to be Hunted. Once the Hunter unlocks their Final
+place it on the bottom of the Corruption deck. Perdition, the slot on the Hunt sheet next to the Pretender Scenario will
+Some cards instruct you to reshuffle the deck. This happens after each Hunter be marked.
+resolves their Corruption card.
+Evolution step
+Corruption
+This step is divided into two parts:
+Using Lament is tempting - to be stronger and faster, to comprehend new skills and
+• Lament Spending
+abilities in mere seconds. But it comes at a price.
+• Additional Corruption
+Spending Lament
+Each Hunter may spend their Lament one token at a time to evolve
+or discard Hunger. This step may be done simultaneously. Any number of times
+each Hunter may:
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 1•9 Spend 1 to advance their Corruption track by 1.
+0 • S2p0end 1 to discard 1 Hunger.
+FLIP TO THE Each time the Corruption marker advances to a space with a icon, resolve
+CORRUPTED SIDE
+an Evolution. When the Corruption marker reaches the space marked with
+number 15, flip your Hunter tile to the Corrupted side and resolve any
+Corruption
+immediate effects.
+RUN Each Lament token remaining on the Hunter boards after this is discarded!
+The CorruptionMo vter upa toc k. measures how much the Hunter has abused the Lament
+- the higher the Corruption, the worse the effects will be. Each round, every Evolution
+Hunter will draS M P o w v R e I up Na t Tn o d + 1 r . esolve 1 Corruption card to check how their mind and Each time a Hunter resolves an Evolution, they do the following:
+body are withsYtoau mnayd goi nthrgou ght he effects of the Lament.
+Portals. 1. Draw the top 2 cards of the Evolution deck.
+When a Hunter reaches a Corruption level of 15, they will turn to their
+2. Any number of times you may spend 1 to redraw the Evolution cards -
+Corrupted formTA -C TtIhCe most powerful the Hunter can become.
+Gain 1 Tactic. put the current ones on the bottom of the deck and draw 2 new cards.
+Losing Corruption 3. You may choose to keep one of the Evolution cards. If you choose not to
+keep any of them, gain 1 in a chosen color. All Evolution cards not chosen
+Some effects inC LtEhAeN gSEame allows Hunters to lose some of their accumulated
+Discard 2 Status tokens. during an Evolution are placed at the bottom of the Hunter’s Evolution deck.
+Lament Corruption. When that happens, simply move the Corruption marker on
+your Corruption track by a number of spaces mentioned in the effect (eg. Lose 2
+Additional Corruption
+Corruption means to move the Corruption marker 2 spaces backwards).
+ASSIST After spending and discarding all the gathered Lament, the Hunter may decide
+When losing Corruption, Hunters do not lose or gain any Evolutions (ignore
+Give 1 to another
+Hunter. to succumb to the Corruption. In such situations, the Player may once advance
+icons). Also reducing Corruption below 15 does not flip the Hunter back to the
+their Corruption marker to the next on the Corruption track without
+non-Corrupted side.
+resolving it.
+However, when reentering the in the Lament Phase by spending the Lament,
+a Hunter may evolve again! This may happen any number of times, as long as
+the Hunter is able to lose Corruption in opportune moments.
+21
+
+--- Page 22 ---
+Refresh phase
+Enemies cannot gain Status tokens or Hunger unless an effect clearly states
+otherwise and explains how this Status affects said Enemy.
+Status tokens on the Map are collected by a Hunter who ends their Movement
+Refresh step
+(or Action in general) on a space with a Status token.
+Each Hunter prepares their dice for the upcoming round. Resolve the following The components are limited. If a Hunter has to gain a Status or Hunger token,
+in order: but the pool is empty - they take 1 for each token they cannot gain!
+1. Pass the First Player token to the next Player in clockwise order.
+2. Return all Environment cards used last round to the appropriate place.
+3. Return all Assist tokens to their owners.
+4. Each Hunter discards all from their cards.
+5. Each Hunter gathers all their dice from each occupied Action slot and their
+discarded dice pool then rolls all their dice and places them into their Active
+dice pool.
+Status step
+Hunters may spend to discard Status tokens before resolving their
+negative effects.
+1. Each Hunter may discard any number of magic symbols to discard that
+many Status tokens (Hunger is not a Status). If a Hunter decides to use dice
+with magic symbols, they place the dice in the discarded dice pool near
+their Hunter board.
+2. Resolve all relevant Status effects (see Statuses below) and proceed to the
+Hunters Phase.
+Statuses and Hunger
+Spreading fire, ringing ears, vile hexes. There are many more ways for Hunters to be
+killed than at the hands of the Lament-born.
+In the game, a Hunter might be afflicted by different harmful conditions - these
+come in the form of Status tokens and Hunger tokens. Each time a Hunter gains
+or is dealt a Burn, Stun, Curse or Hunger, they have to place the corresponding
+token on their Hunter board. These tokens have different negative effects on the
+Hunter, all listed below.
+Statuses – Can be discarded using a Cleanse Basic Action.
+Burn - in the Status step, take 1 unblockable for each Burn you
+have. Burns are not discarded afterwards.
+Stun - When you gain a Stun token, immediately place it on the
+text of a chosen Action. Using a Stunned Action has no effect.
+Stuns are not discarded when the Stunned Action is used! Some
+effects may instruct you to Stun a specific Action, in which case
+place the Stun token on the mentioned Action, if possible.
+Curse - When you gain any number of Curses, draw one random
+Secret 1 card (each Hunter may have only one Curse effect card
+at any given time). The Secret card will specify the Curse effect and
+will most likely take into an account how many Curse tokens you
+have. When you discard your last Curse token, return the Secret
+card to the Secret deck.
+Hunger is NOT a Status, and therefore cannot be discarded
+by the Cleanse Action!
+Hunger does nothing on its own. The top part of the Corruption
+card will specify the effect of Hunger. If you don’t have any
+Hunger, ignore the top part of the Corruption card entirely.
+22
+
+--- Page 23 ---
+Other rules
+Terrain and special spaces
+When constructing a Map for the Scenario some Map tiles share the same color
+- all spaces in the same color are called a Terrain - Forest, Swamp or Cemetery.
+Map
+These will have additional effects or Actions during each Scenario. The Map is
+4-1A 4-2A
+3-1A usually created by co3m-2Abining 2 different Terrains.
+Spaces
+Action:
+A space is a single hexagonal area of the Map. Each space may hold up to 4 St D ea r l a t w he a W nd it c r h e ’ s s o t l o v o e l s .
+Models. This includes Hunters, Enemies and Environmental Models such as Secret card 10. 1-1A 4-3A 4-1A 4-2A
+Portals. Ligh A t c a t i c o a n n : d le. 1-2A
+Draw and resolve
+Secret card 21.
+When a Model ends their Movement on a fully occupied space (either by Moving Action:
+or Teleporting), push one of the Models on that space to an adjacent space. Action: a r S a p D n e d a ra k o w m w a i S t n e h d c t r h r e e e t s P c o a r lv i r e e d s t 2 . 3. 4-3A
+Speak with the Witch.
+Draw and resolve
+Hunters may choose which Model to push while Enemies have to push Models a random Secret card 11.
+in a given order if they are present on the space:
+1 3 -3 - A 3A 4-4A 3-5A 4-5A
+1. Companions.
+1-4A
+2. Minions. Terrain examples. Forest, Swamp and Cemetary
+4-4A 4-5A
+3. Elite Enemies.
+4. Hunters.
+There are also some other special spaces to consider:
+The Griefbound or Environment Models can never be pushed when a Model 3-4A Deep Water - Models cannot enter a Deep Water space,
+enters its space. The Griefbound Model counts as 2 Models, so 2w-1Ahen entering 2-2A indicated by the icon. Range and LoS might still be
+a fully occupied space, it pushes 2 Models out of the space to accommodate its measured through it.
+size and respect the Model limit.
+2-4A
+Range, Line of Sight (LoS)
+A lot of effects during the game will check the Range. It is measured in spaces
+and indicated by the icon, which shows the minimum and maximum 2-3A Fog - Obscured visibility. LoS cannot be measured through
+range of an effect. E.g. 0-1 tells you that the effect can be resolved on the the borders of this space indicated by the icon. Two
+same or an adjacent space. 2-2 allows the effect to target only a space exactly Models on the same Fog space are still in one another’s LoS.
+2 spaces away from you, and so on.
+Line of Sight (LoS) is a straight, unobscured line 1-o1Af spaces. To be in a Line
+of Sight means to be on one of the spaces in a clear line from another. Only
+Obstacles and Fog spaces block LoS (see special spaces below). Some effects 2-5A
+require both Range and LoS. Edges of the Map are considered Obstacles. 1-2A Obstacles - This space cannot be entered by any Model,
+Hunter or Enemy. Range and LoS cannot be measured
+through it. The restrictions are indicated by the and
+2-6A 2-7A
+icons.
+Lament Rifts - If there is a Rift token on a space, that space is
+1
+considered a Lament Rift of a specific number. It does not
+1-3A
+overwrite the Terrain it is on, and has no effect on its own, but
+many effects like Spawning Minions, adding Lament on the Map
+and others might reference those spaces.
+1-4A
+Treasures, Lament and Status tokens on the Map
+At the beginning of the game and due to some effects throughout it, many
+different tokens may be placed on the Map. General rules for these tokens are
+that Enemies do not interact with them (unless said otherwise), Hunters may
+pick up the positive ones (like Treasures or Lament, etc.) and have to pick up
+the negative ones (Statuses, Hunger etc.) if they end their Action on a space with
+said tokens. Most of these tokens when picked up are gained.
+Treasure tokens - A positive token containing random rewards, one of which
+to choose from is always a Heal. When a Hunter decides to pick up a Treasure
+Note: A Model is always in its own Line of Sight. token, they reveal it, read the available options and choose one to resolve. After
+Models on the same space are in one another’s Line of Sight. that the token is removed from the game. If a Treasure token is being added to
+the Map it should be pulled randomly from the still available pool, aka the ones
+not removed yet.
+23
+
+--- Page 24 ---
+Environment Area Environment
+An abandoned carriage? A ruined town? A fortified church? The Hunt may lead you
+3-1A 3-2A
+to many interesting places.
+There are often some interesting things to discover or interact with on the Action:
+Steal the Witch’s tools.
+battlefield. Various points of interest are encased under Environment. We can Draw and resolve
+Secret card 10.
+divide Environment into 3 different groups:
+Terrain Environment Action:
+Light a candle.
+Draw and resolve
+Secret card 21.
+Action:
+Speak with the Priest.
+Draw and resolve
+Action: a random Secret card 23.
+Speak with the Witch.
+Draw and resolve Witch Hut
+a random Secret card 11.
+The cryptic marks on the half-open door
+make you remember dark rumors of a goddess who,
+Shapeshifting Forest for some reason, became the prisoner of the Abyss.
+Setup: Place the Witch Hut tile (3-1A)
+of the T l S h u w e n a a F r o r m r n e i s M g t h , i s t s t , t i r w l e l h s i s i m , c h c b h u m a e n a d g k w e e s s i t i i h n t t a t o h p a e e d n rf a i e g r c h k t t m p p o l a a w r c e e e r e v ery 3-3A as show D n i s o c n a r t d h e t h S i c s e c n a a r r d i . o setu3p.- 5A
+for Gunslingers to train their acolytes.
+Setup: Place this card
+next to the Forest Terrain.
+Once per Hunter Phase
+on any Forest space
+A D ct i i s o c n ar : d T 1 ake t o h r is 1 card . A special, 3-space tile, added to the Map. It contains Actions and possible story
+to teleport to any Forest space. elements. Actions themselves are mostly free, but will likely guide you to the
+Secret deck with possible surprises. During the setup usually one such tile is
+A Terrain Environment card is placed next to the Map. This shows the
+added to the Map by drawing a random Area Environment card from the deck
+additional effects of Actions that can be used on a whole Terrain (all spaces
+and placing the corresponding 3t-i4lAe in the marked place on the game Map.
+in the matching color), even if the Terrain is divided into several smaller by
+other Terrains or special spaces. Those cards usually contain a “Once per Hunters
+Phase” Action available for the Hunters as long as they are on a Terrain space
+matching the card color. Once used, the “Once per Hunters Phase“ Action will not
+be available until the Refresh Phase. During the setup one random card for each
+Terrain is drawn and placed next to the Map.
+Landmark Environment
+Well
+WELL
+According to a folk tale, Hilda the Griever’s men
+rested here during the great escape
+to Hope after the Eruption.
+Setup: Place the Well on the Map.
+Place this card next to the Map.
+Once per Hunter Phase
+on the Well space
+Action: Take this card.
+Roll 1 and resolve:
+: Draw and resolve Secret card 9.
+: Heal 2 and gain 1 Curse.
+Instead, you may remove this card
+and the Well to Heal 4 and gain
+2 Curses.
+: Gain 1 and 1 Hunger.
+Instead, you may discard this card
+and Well to gain 2 and 3 Hunger.
+A Landmark Environment card is a point of interest in the form of a Model
+or token standing on the Map, accompanied by a card that describes what
+Actions or effects are present on the space with the Model. During the setup
+usually between 2 and 3 of such cards are drawn and corresponding Models
+or tokens placed on the Map in marked spaces. Similarly to Terrains, you may
+often find a “Once per Hunters Phase” Action on those cards, but in those cases,
+they are mostly no-cost Actions. In exchange for that, they may come with an
+alternative cost in Lament or Health, or contain a risk of a dice roll.
+24
+
+--- Page 25 ---
+Critical Injury and Hunter Death
+Be ready to be struck down. At. Any. Given. Moment.
+When your Hunter’s is reduced to 0 resolve the following:
+1. Heal 1, discard all Status and Hunger tokens.
+2. Draw and read a Secret card 2.
+As long as you have a Secret card 2 (Critical Injury) next to your Hunter
+board, you are ignored by all Enemies and negative game effects. This includes
+all effects dealing , Statuses, Hunger, Enemy targeting, Enemy attacks,
+Corruption deck effects etc.
+The Critical Injury card contains a quest to be fulfilled. If this quest is not
+completed before the beginning of the next Event step, the Hunter dies and the
+Scenario is lost. If the quest is completed, the Hunter will Heal and remove the
+Critical Injury card from the game. This means that it cannot be drawn again
+during the current game.
+If a Hunter drops to 0 and there are no more Secret 2 cards to draw, the
+Hunter is dead and the Scenario is instantly lost. This changes during the Final
+Act (see Final Act on page 20).
+Secrets
+Who really knows how many forgotten relics and deadly traps are lost beneath the
+ruins of Crowholme?
+Some random effects, adventures, or otherwise hidden things are gathered in the
+Secret deck. Whenever an effect instructs you to draw and resolve a Secret card,
+find the appropriate number on the reverse of the card, and resolve the card.
+Some notable, and commonly used cards contained in the Secret deck, are the
+Curse Effect cards (Secret 1, five different), and Critical Injury cards (Secret
+2, three). They are always on the top of the deck for convenience, since Players
+might draw them multiple times during a single Hunt.
+Keep in mind that there may be multiple Secret cards with the same number
+- in such cases, randomly pick one of them to resolve - as already mentioned,
+Secret cards 1 come in five different copies which contain the Curse effects. Each
+time you are instructed to draw Secret 1, you may find a different Curse!
+We recommend not to browse through the Secret deck, as it may spoil the fun
+of discovering what is hidden inside.
+Note that the numbering is not always consecutive within the Secret deck.
+Companions
+Always look around. You may find assistance in the weirdest of places and from the
+weirdest of creatures.
+Some game effects may allow you to gain Companions. These are special cards
+accompanied by an additional Model to aid you during the Hunt. Companions
+grant additional Actions and effects for Hunters. When you gain a Companion,
+resolve the following:
+• Draw 1 random Companion card.
+• Place the card next to your Hunter board.
+• Find the Companion Model and place it on your space.
+Companions are not targeted by Enemies and are the first Models to be pushed
+out of a space due to Model limit.
+End of a Scenario
+After the end of the Scenario, read the appropriate Epilogue in the Hunt Book.
+Additionally, if the Scenario is won, Players should mark it on the Hunt Sheet to
+track their progress in the game.
+When Scenarios numbered 5 for each Griefbound are marked as won, Players
+may read the Epilogue of the whole game, which can be found on page 34.
+25
+
+--- Page 26 ---
+Hunters
+Hunter board anatomy
+During the Hunt you have to know yourself first.
+The Hunter board is the main place where a Player will track the condition of their Hunter - the information you may find on the Hunter board includes:
+• Current Corruption.
+• Current .
+• Defense slot.
+• Tactic slot.
+• Basic Actions.
+Evolution spaces
+Corruption Track 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 When you reach 15 Corruption,
+0 20 flip your Hunter Tile
+FLIP TO THE to the Corrupted side
+CORRUPTED SIDE
+Tactic token slot
+RUN
+Move up to .
+SPRINT
+Basic Actions Move up to +1.
+You may go through
+Portals. Health dial
+TACTIC
+Gain 1 Tactic.
+CLEANSE
+Discard 2 Status tokens.
+Defence token slot
+Assist special ASSIST
+action slot G H i u v n e t 1 er. to another
+Hunter tile and special mechanics
+So, tell me, stranger. Who are you? Technomancer Technomancer
+Each Hunter is represented by a Hunter tile - you may find Hunter-specific CORRUPTED
+2 12 2 112
+information such as
+• Maximum .
+• Movement value .
+• Special abilities and/or Actions.
+A Hunter tile has two sides: non-Corrupted and Corrupted.
+For detailed information about each Hunter’s specific rules, playstyle and
+complexity see the following pages.
+After you flip, gain 1 and choose:
+Heal 4 OR teleport to chosen space on the Map.
+Power Surge
+Item and Evolution cards Power Surge Action: discard to resolve all:
+Action: discard 1 to choose one: • Move .
+• Move 1. • Gain 1 Tactic.
+Each Hunter has access to their own Item deck (containing Weapons and Armor • Set 1 to a chosen side. • Set 1 to a chosen side.
+cards) and Evolution deck.
+Item cards are chosen at the beginning of the game during setup. They provide
+additional Actions and determine the starting dice.
+The Evolution deck is used during the game when the Hunter resolves an
+Evolution for spending Lament. This deck contains many powerful Actions and
+effects crucial for completing the hunt.
+26
+
+--- Page 27 ---
+Hunter Gunslinger
+“The descendant of Old Flint himself, the Gunslinger lives, breathes and dreams the
+specific rules
+Hunt. Always ready to take on new challenges, the Gunslinger kills unimaginable
+monsters of the Lament until deemed unfit to do that. Nevertheless, there is always
+a younger Gunslinger, bound by tradition to eliminate the senior one. And the
+story continues…”
+Duality
+Complexity: Low
+Playstyle
+“There are hardly any Hunters as unpredictable as Duality. It is said that there are
+Gunslinger
+two voices warring in her mind: a wild, destructive one and its opposite, planning
+The Gunslinger fills the niche of long range single target attacker or short to
+each death with ice-cold precision. There is no telling which one will prevail.”
+medium range crowd control. They can output lots of damage, but often needs
+Complexity: Medium some time to set up. Most effects and attacks of the Gunslinger require LoS to hit
+the targe2t, so positioning with this Hunter is key. 13
+Playstyle
+Special mechanic: Bullets and Weapon
+Duality plays a role of either agile, short range damage-dealer, tank or healer
+depending on the starting gear. While playing Duality, keep in mind how you use Range
+your resources: mainly Duality exclusive and tokens and Defense tokens.
+The Gunslinger has access to a special type of resource - Bullet tokens. These
+Being one token short may disrupt your turn heavily, so remember to gain those are stored in appropriate Bullet slots. Each Bullet slot can store only one
+tokens whenever the game allows you to - mostly with Duality’s special ability, Bullet token, and defines what additional effect an attack may have. When the
+Balance - for using a only Action gain 1 and for using a only Action Gunslinger uses an Action from his Weapon or Evolution card that deals ,
+Cinquedea
+gain 1 . he may decide to boost this attack with ALL Bullet effects he has available (he
+and rapier
+cannot choose to use only some of them). Bullet tokens are discarded after
+Special mechanic: Light and Dark
+being used.
+Duality uses two types of tokens to boost her Actions – tokens are earned for This is the only Hunter for which the choice of the Starting Weapon matters
+using Attack dice and are earned by using Shield dice . There is a limit for later attacks found on Evolution cards. Each Starting Weapon has “Weapon
+of 3 for each token. If Duality would gain a 4th token of any kind, she cannot. Range” written at the bottom of the card. Evolution cards may use this Weapon
+Duality is the only Hunter who has easy access to a Dice Restore Action, which Range instead of a set value.
+costs both and tokens.
+Gaining the and tokens due to the Balance ability on Dualitys’ Hunter tile Bullet forging Action and Bullet slot example:
+Special Ammo
+is resolved at the beginning of resolving an Action.
+Gain . Instead, you may discard 1
+Actions using or example:
+to gain or discard 1 Status token.
+Forge a . +1 .
+Prepared Bullets
+When you resolve an Action that deals ,
+Deal 1 in 0 . Addityioou mnaay ld isScaerdt uallp to apply their bonuses.
+You may discard 1 to deal 2 instead.
+Take all Bullet tokens and place them near your Hunter board. You do not have
+any available at the beginning of the Scenario.
+Additional Setup Gunslinger as Deputy (Solo Mode)
+Place 3 and 3 tokens next to your Hunter board. You do not have any Bullet tokens are not placed in Bullet slots, but are placed on the Deputy card
+available at the beginning and may gain them later in the Scenario. instead. They still might be used when resolving an Action that deals to deal
+more. Evolution cards add more passive effects to Actions when using Bullets.
+Duality as Deputy (Solo Mode)
+No additional rules or changes.
+27
+
+--- Page 28 ---
+Keeper Technomancer
+“Armed with a sword of incredible power, the Keeper is always on the frontline “There is no doubt that the Technomancer was once a woman of flesh and blood,
+of whatever battle rages on. Those who join him in the melee and live to tell but her fascination with science and the unstoppable urge to transcend bodily
+the tale say that his communion with the sword is truly unique and beyond limitations has brought her to be a half-machine and also one of the most effective
+any comprehension.” warriors ever seen.”
+Complexity: Low-Medium Complexity: Medium-High
+Playstyle Playstyle
+The Keeper may be played as a frontline damage-dealer or a tank. They are The Technomancer may fill the role of medium-range attacker or support. Her
+one of the few Hunters with access to multitarget attacks, big self-heal Actions abilities may allow her to discard or exchange Status tokens, Move Enemies
+or reversing the effects of Hunger or Corruption. or allies around the Map or interact with Portals. She can be quite fragile
+The Keeper has a lower than average Movement value, so before a few evolutions or exert herself with excess Burn or Stun tokens, heavily hindering her abilities.
+or having available for SDpreinmt toheny micay S fewel solurggdis h. Special mechanic: Technology die
+Special mechanic:E C’zrlaavainzg
+The Technomancer has access to unique orange Technology dice. She starts
+During the game, the Keeper will awaken his demonic sword. This is represented the game with one of these dice and in the course of the game may unlock the
+by Craving tokens. The more Craving the Keeper has, the stronger his Hunter second one. These dice cannot be gained in any other way - a game effect has to
+tile Action becomes. He also may spend Craving from the sword to use some specifically state to gain !
+Actions without using dice, which allows him to drastically increase the amount These dice give access to Technomancer specific Actions on her Item and
+of attacks or Moves done in a single round. Evolution cards. Notable Actions of this type are Weapon and Armor power
+Gaining allows him to receive one Craving token. Spending means ups, which activates ALL effects on the Evolution cards with a matching cog
+discarding a Craving token to resolve an effect. Some of the Keeper’s Actions layout color. The Technomancer may have multiple power up Evolution cards
+may spend as an additional or aSltpeernnda 2tive cost. in the same color attached to her Weapon or Armor. Evolution cards with an
+and place orange/blue cog layout are considered to have Weapon/Armor Actions matching
+1 Stun on the color.
+Action with alttheirsn Aatcivtieo n. cost example.
+Player may use 2 or any with the additional cost of spending one . Technology die rundown
+Deal 2 in 0 .
+Spend 1 .
+Deal 1 in 0-1 . On a kill: gain 1 .
+Tech die Cog Cog Cog Cog Double Double
+Magic Agility
+Technology die Action and Weapon attachment example:
+Arcane Staff
+Additional Setup Flame Thrower
+Take 5 Craving tokens and put them next to your Hunter board to form Deal 1 in 0 .
+On a kill: gain .
+the Sword.
+Deal 1 to each Enemy in 0
+Keeper as Deputy (Solo Mode) and LoS. You may gain 1 Burn
+to increase the Range of this Action by 1.
+Deal 2 to each Enemy in 0 .
+No additional rules or changes. Weapon attachment power up:
+During any Weapon Action:
+All Weapon attachment you may gain 1 Burn
+power ups are now active. to deal 1 additional .
+Additional Setup
+No additional setup.
+Technomancer as Deputy (Solo Mode)
+At the beginning of the game, gain 1 (included on the Deputy card). Slots
+with may only be activated by using the . The may be used to activate
+Action slots with no symbol on them.
+28
+
+--- Page 29 ---
+The Mannequin Death Jester
+“The Mannequin’s grotesque, seemingly awkward body may fool you, but those “You think fate is a joke? You will soon learn how grave that mistake is when you
+who fight the Lament-shaped monsters know better. There are four souls trapped meet the Death Jester, the only Hunter who is one with fate and fortune. Swirling
+in that body: a mage, an officer, an arquebusier and a messenger. Their minds in her circus dance, she brings death in an artful manner, and her maniacal laughter
+together have mastered the art of combat and transformed the Mannequin into is the last sound her enemies hear.”
+a deadly opponent.”
+Complexity: Medium-High
+Complexity: High
+Playstyle
+Playstyle
+Jester is a quick damage-dealer or support. Due to her special mechanic, Actions
+The Mannequin can fit a plethora of different roles, from support, long range are often high-risk-high-reward, allowing her to execute outstanding displays
+damage-dealer, tank or a disruption for the Enemies. Due to the Personality of power, but risking her Action not resolving at all. This kind of power comes
+tokens, it works very differently round to round. It has a limited early game at the price of being very fragile - a single miscalculation can result in a Critical
+potential, but gives other Hunters access to String Actions that in clutch Injury or death.
+moments may help reposition or squeeze an additional point of missing .
+Special mechanic: Fate cards and Gambling
+Special mechanic: Personalities, Arms and
+The Fate deck holds the Fate cards used in Gambling effects. In each Refresh
+Strings step, the Player draws Fate cards to their hand. There is no limit to how many
+cards the Player can hold at a time. Cards in hand may be used later when
+Gambling. The Fate deck consists of 14 cards, 5 figures (Knight, Princess, Prince,
+Block your Cleanse Action. Block your Tactic Action.
+Action: Gain 1 Stun. Action: Gain 1 Curse. Queen, and King) distributed between 3 basic suits (Violet, Yellow, and Red). The
+Flip this token. Flip this token. Hanged Man card is considered a fourth suit. The Jester card, while in sequence,
+Activate all Commander bonuses. Activate all Messenger bonuses.
+can be used as any figure in any suit.
+If an Action has a Gamble frame, you may decide to perform it - after placing
+Block your Sprint Action. Block your Move Action. dice but before resolving the Action. To do so, put the top three cards from the
+Action: Gain 1 Hunger. Action: Gain 1 Burn. Fate deck in the sequence in front of you. Then, you may replace any number
+Flip this token. Flip this token.
+of Fate cards from the sequence with ones in your hand. Replaced cards are
+Activate all Mage bonuses. Activate all Soldier bonuses.
+discarded. Meeting the required rank is considered a success and not meeting it
+a failure. On a failed Gamble, the Action has no effect.
+Each round, the Mannequin will choose one Personality to guide its body. This
+All cards used during a Gamble are discarded and placed next to the discard dice.
+comes in the form of a Personality token. In each Refresh step, the Player will
+The discarded cards are reshuffled back into the Fate deck after a Pass or when
+choose one Personality token. The Personality can be used during the Hunters
+the deck is empty and new cards have to be drawn.
+Phase. The same Personality cannot be chosen twice in a row. Personality
+tokens come with a downside of blocking one of the Basic Actions. The Soldier
+List of possible ranks:
+Personality token is unique because it allows the Player to choose which of the
+Run or Sprint Actions are blocked. Personality tokens can be chosen even if the Pair – two figures of the same kind
+Action blocked by it has Stun. The token gives access to special Actions, allowing Army – three Knights
+you to resolve all bonus effects for this Personality. Bonus effects are found on
+Successors – a Prince and a Princess
+Arm and Evolution cards in the frame in the color of a Personality. These effects
+Rulers – a King and a Queen
+may be resolved in any order chosen by the Player.
+Color – all cards in the same suit
+The Mannequin has access to unique double sided Item cards called Arms (with
+Strings on the back of the cards). During the setup, they will choose 4 Arms
+The Fate deck (14 Cards):
+Jester
+to start and deal 2 of the remaining Arms as Strings to other Hunters. Arms
+might be used by the Bloodless Husk ability to reduce incoming while Strings 1x Hanged Man (Black)
+allow the Mannequin or other Hunters to resolve additional Actions with 1x Jester (White)
+the Mannequin. 1x King (Violet)
+A The d M d an i n t e i q o ui n n d a o l es s no e t t h u ave p standard Item cards like the rest of the Hunters, 1 2 x x Q Pr u i e n e c n e ss (Y e (1 ll o Y w el ) low, 1 Red) Fa d t e W a e h t e a n h c n i d n j a Fe s i esg q u t r u r e e en d r o c f e , t h c i h s o c o a s r e d t . he Suit
+instead choosing one of two Arms for each Personality (marked with color) and 2x Prince (1 Red, 1 Violet)
+gaining the corresponding dice. Flip the unchosen Arms to the String side and 6x Knight (2 Red, 2 Violet, 2 Yellow)
+give 2 chosen String cards to other Players. Put the remaining 2 String cards
+Additional setup:
+back in the box.
+Take all Personality tokens and place them next to your Hunter board. Choose Shuffle the Fate deck and place it face down next to your Hunter board. Draw
+one of them for the first round of the game and block the appropriate Action. 1 Fate card.
+Mannequin as Deputy (Solo Mode) Death Jester as Deputy (Solo Mode)
+As deputy, the Mannequin gives 2 random String cards to the main Hunter No additional rules or changes.
+at the beginning of the Hunt.
+29
+
+--- Page 30 ---
+Game modes Rapid Hunt
+This mode allows you to play a single Scenario much faster than using
+All modes and difficulty modifiers are compatible with one another. Players may
+the standard rules. To incorporate this mode, follow the additional setup
+decide to include as many as they like in their game. Even all of them.
+instructions below, followed by the Griefbound specific modification:
+Solo mode • Remove random Attack cards from the Attack deck.
+• Resolve 2 Stage cards (including the Level Ups for the Griefbound and the
+Elite Enemies).
+You cannot sign the Coven alone. The deputy may not be as skilled as a fully trained
+• Set the Time track to the last space with Stage without resolving it.
+Hunter, but at least they are obedient.
+• Discard all from the Map.
+When playing solo, your Hunter receives support in the form of their Deputy.
+• Discard the top 3 cards of the Event deck, without resolving them.
+Your helper is one of the Hunters you didn’t choose. A Deputy is considered
+a Hunter for all game effects. When playing with a Deputy, the gameplay is very • Each Hunter sets their Corruption to 7.
+similar to playing with more Players, but with the following exceptions: • Each Hunter resolves Evolution 3 times.
+Deputy Setup • Resolve any additional Griefbound specific setup.
+1. Take one Hunter board, and place the Deputy Action tile to cover the Basic Griefbound Setup modification
+Actions section.
+Undead General Reveal 2 Banner cards.
+2. Choose one Hunter. Take that Hunter’s Deputy card and place it non-
+Place 2 additional Swarm tiles on
+Corrupted side up in the appropriate space on a Hunter board. Swarm Mistress
+the Map in 0-1 from any Hunter.
+3. Take 3 Universal Markers and place them near the Deputy board.
+Convergence Each Hunter gains 3 Burns.
+4. Take your Deputy Hunter Evolution deck, shuffle it and place it face down
+near the Deputy Hunter board. Each Hunter takes equal to the
+Tormentor
+Scenario number.
+5. Place the Deputy Model on the Map as instructed in the Scenario setup.
+Graveyard Dragon Each Hunter gains 2 Curses.
+The Deputy resolves their turns like a normal Player, but they use Universal
+Markers to activate Actions instead of dice. To accommodate this, all Deputy Devourer Each Hunter gains 2 Hunger.
+Action slots have no symbol on them. Here is a quick breakdown of the most Resolve Special twice. The Griefbound
+Pretender
+important things to consider when playing with a Deputy: gains for each Defense slot.
+• The number of Deputy Actions is limited by the number of their Universal
+Markers. In most cases, one Universal Marker activates one of the Difficulty
+Deputy’s Actions.
+• You cannot place a Universal Marker on an already occupied slot. Refresh
+customization
+Action and Restore discarded effects for the Deputy, respectively:
+discards a Universal Marker from the already used Action or places
+a Universal Marker from the Discarded to Active pool.
+Players may include as many Easy or Hard mode modifiers listed below to suit
+• The Deputy and the Hunter may Assist one another. The Deputy may use their preferences. Please note that some Easy and Hard mode options contradict
+an Assist marker on any of their Actions. The Hunter may use the Deputy’s each other.
+Assist marker in any Action slot with no symbol in it.
+Easy mode modifiers
+• The Deputy’s Universal Markers are considered a die with no symbol on it.
+They cannot be used in effects that require a specific symbol (eg. “Discard Resolve any number of effects below at the beginning of the Scenario:
+to Heal 1”).
+• Each Hunter resolves 1 Evolution.
+• The Deputy cannot gain dice from rewards and Treasure. Instead they
+• Each Hunter gains .
+gain .
+• Lower the Griefbound and/or Elite Level by 1 (minimum 1).
+• In the Refresh step, take all the Deputy’s Universal Markers from each
+• Change the Elite Enemy to a non-Named variant.
+Action slot and place them near the Deputy’s Hunter board.
+• Change the Minion to the Convicted type.
+• Evolution step:
+• Add up to 2 Random Event cards to the Event deck.
+÷ The Deputy may spend Lament similarly to other Hunters - to discard
+Hunger or advance the Corruption track. • Perform an additional setup on the Map.
+÷ Deputy Evolution is a choice between gaining 1 additional Universal Hard mode modifiers
+Marker or drawing the top card of the Deputy Evolution deck and
+Resolve any number of effects at the beginning of the Scenario:
+placing it next to the Deputy’s Hunter board. The Deputy cannot use
+Lament to redraw Evolution cards. • Increase the Level of the Griefbound and/or Elite Enemies by 1.
+Remember: The Deputy is considered a Hunter for each game effect, including • Change the Elite to a Named variant.
+count and Critical Injury. If the Deputy dies the Scenario is lost. • Change the Minion to the Undead type.
+• Discard the top card of the Event deck.
+30
+
+--- Page 31 ---
+Pretenders Pretender Gunslinger
+“Deprived by the Lament of its righteousness, the Corrupted Gunslinger takes
+Pretenders are additional Griefbound to be hunted. The Pretender Scenarios can
+a terrifying shape. Having grown additional arms to wield extra guns, and eyes on
+be unlocked by achieving the Final Perdition with the corresponding Hunter.
+the back of his head to observe everything, he imbues his bullets with Lament and
+When you decide to play against a Pretender, follow the instructions below: truly gives in to the thrill of the Hunt.”
+1. Pick a random Scenario for any Griefbound (you may do so by drawing
+Special mechanic: Bullets
+a random Griefbound Stat card) and follow the Scenario setup in the Hunt
+Book for that Griefbound. Similar to the Hunter version, the Gunslinger’s special mechanic revolves around
+2. Instead of the components for that Griefbound use the Pretender’s Bullets. On his Griefbound Stat tile, there is a track to place Bullets in each
+components. The Pretender Model uses the Hunter standee/miniature with time a Forge effect is resolved. Place Bullet tokens from the right to the left
+the Griefbound base to show the size of the Enemy. (according to the arrows printed).
+3. When constructing the Griefbound’s Attack deck use a number of Pretender Bullet tokens are used in the Special effect to deal more or increase its range.
+cards depending on the number of Hunters: Like the Hunter version, the Gunslinger uses all Bullet tokens or none, and when
+used, the tokens are discarded from the slots.
+• Solo and 2 : 7 random cards.
+Keywords
+• 3 : 8 random cards.
+• 4 : 9 random cards. Forge a Bullet - place a Bullet token in the rightmost empty slot on the
+Bullet track.
+• 5 : all Attack cards.
+While hunting a Pretender, Players cannot play as the Hunter version
+Pretender Keeper
+of this character. In the paragraphs below, you may find changes to rules for
+each Pretender.
+The Keeper has turned into a monstrosity that barely resembles his previous form,
+Pretender Duality but has not entirely lost his mind. He is reconciled with the fact that his sword
+has taken control of his needs, his body and also partly his mind, and will humbly
+follow its call. Grim and silent, he traverses what is left of the world and with cold
+Duality has become a mind-bending creature made up of eyes and wings who knows
+determination, he charges toward any Hunter to feed his monstrous blade and
+for sure that Lament is a cure for everything. There were warring voices inside
+sating its hunger is his only relevant need.
+of her, but all of them are quiet now and come back to life only to show her a new
+direction. And Duality follows, happy with the fact that there is finally silence inside Special mechanic: Craving
+of her. And even happier with each opportunity to shred another Hunter to pieces.
+Similar to the Hunter version, the Pretender Keeper collects Craving tokens.
+Because then she may rest and enjoy her peace and longed-for quiet.
+At the beginning of Griefbound Step IV, before resolving the This Turn Attack
+Special mechanic: Light and Dark card, if the Keeper has 5 resolve this card twice, and discard all . This effect
+may trigger only once per Enemy Phase.
+Similar to the Hunter version, Duality uses the and tokens to empower
+her attacks. In cases when there is no card in the This Turn slot, do not discard
+Keywords
+Gain / - place a / token on the Griefbound Stat card.
+X / - on an Attack card, the Griefbound will resolve an additional effect if
+she has enough tokens available. After that the tokens used are discarded.
+31
+
+--- Page 32 ---
+Pretender
+Pretender Death Jester
+Technomancer
+Convinced that death is no longer any threat, the Death Jester continues her
+mad dance. The Lament she has absorbed changed her into a frightening parody
+The Technomancer does not remember the time she was a human being and of herself, but little does she care as it also showed her the real rules of the world.
+seems to have forgotten about any bodily needs. Fully focused on her technological She knows that the world is nothing but elements of the game and she is the random
+enhancement, she also did not notice the moment when Lament became an factor in it. Brandishing her absurdly long halberd, the laughing Death Jester will
+integral part of her, as crucial as the blood in her veins and the electricity in her join every struggle to just enjoy its dynamics and affect its outcome.
+implants. As a compound of all three, she never stops looking around the battlefield.
+Special mechanic: Fate cards
+There might be someone better-equipped around her or someone may have
+developed or integrated better technology, and for the Technomancer it is a fury- Contrary to how the Fate deck works for the Hunter version, the Pretender
+inducing insult. Death Jester gathers all her revealed Fate cards in a sequence. The sequence
+is unlimited. Attack cards or Dice Effects may check if the sequence contains
+Special mechanic: Technology dice
+a specific rank. In such cases, resolve an additional effect, and at the end
+Some of the Pretender Technomancer’s effects will use to be upgraded and of Griefbound Step IV put the cards used in the rank back into the Fate deck and
+randomized. Most notably, the Attack cards may be Enhanced by placing on reshuffle it.
+them. If there is a on an Attack card, it resolves all additional effects marked The only card that has an effect instantly after being revealed is The Hanged
+with the Enhanced keyword, additionally rolls 1 alongside during attacks Man. In such a case, follow the instruction on the Pretender Stat card.
+and resolves Dice Effects marked with / / icons.
+Keywords
+Enhance – place on Attack cards, one marker per card starting from the This
+Turn slot. When a card with resolves an Attack, roll along with any to
+see what additional effects occur. Each Attack card may have only 1 .
+Pretender Mannequin
+“The souls of the Mannequin used to hope for liberation from their grotesque body,
+but as their campaign wore on, they finally understood that only together they
+represent an invincible being. Lament filled them with amazing power and washed
+away their individual longing. Now, they are truly one. The Mannequin has become
+an awe-inspiring army in one person whose actions are perfectly synchronized.”
+Special mechanic: Personality tokens
+and Strings
+The Pretender Mannequin during the game will collect Active Personalities on
+their Stat card. Specific Personalities may boost Attack cards for the Griefbound
+- sometimes by having a specific Personality active or by simply having a number
+of Personalities active.
+During the Hunt, Hunters may obtain String cards. They may use them as normal,
+but the Pretender Mannequin is considered an Enemy for the purpose of all
+those effects.
+Keywords
+Activate random Personality - take a random Personality token and place it on
+the Griefbound Stat card. From now on, it is considered Active.
+32
+
+--- Page 33 ---
+Glossary
+Action......................................11, 12 Item ...............................................26
+Activation Kill .................................................13
+• Elite ......................................16 Lament ...............6, 14, 15, 17, 19, 21
+• Griefbound ..........................17 Level token ................8, 9, 16, 18, 19
+• Minion .................................15 LoS (Line of Sight) .........................23
+Armor ...........................................26 Map ...............................................23
+Assist .............................................12 Mode
+Attack ............................................14 • Easy ......................................30
+• Card ...............................17, 19 • Hard .....................................30
+• Final ...............................19, 20 Move/Movement...........................12
+• Track ....................................19 Obstacle .........................................23
+Cleanse ..........................................12 Opportunity ..................................19
+Critical Injury ...............................25 Pass ................................................11
+Corruption ....................................21 Range ............................................23
+Defense .........................................13 Refresh
+Deputy ...........................................30 • Action ............................11, 12
+Dice • Phase ....................................22
+• Hunter .................................11 Restore ....................................11, 12
+• Enemy ..................................14 Run ................................................12
+Discard Scenario ................................3, 6, 25
+Secret.............................................25
+• Die .......................................11
+Slot
+• Attack card ....................17, 19
+• Dice ......................................11
+Enemy
+• Universal Marker ................12
+• Griefbound ..........................18
+• Defense ..........................13, 18
+• Elite ......................................16
+• Tactic ...................................13
+• Minion .................................15
+Space .............................................23
+• Phase ....................................14
+Spawn
+• Pretender .............................31
+• Elite ......................................16
+Environment .............................7, 24
+• Minion .................................15
+Event .........................................8, 14
+Evolution .................................21, 26 Special (Griefbound) ...............18, 20
+Final Act ........................................20 Sprint ............................................12
+Final Perdition ..............................21 Stage (Griefbound) ........................20
+Focused..........................................17 Status.............................................22
+Health Tactic .......................................12, 13
+Time track .....................................20
+• Elite ......................................16
+Treasure ....................................6, 23
+• Griefbound ..........................19
+Turn ..............................................11
+• Hunter .....................10, 25, 26
+Weapon .........................................26
+Hunger ....................................21, 22
+Hunter
+• Board .............................10, 26
+• Corrupted ......................21, 26
+• Phase ....................................11
+• Tile .................................10, 26
+33
+
+--- Page 34 ---
+Epilogue
+Do not read this part, unless Scenario 5 of each Griefbound on the Hunt Sheet is
+marked as won.
+yeht ecno dna ,rediw sybbA eht edam ylno dnuobfeirG hcae fo htaed eht ,yldaS
+.ylrettib ti terger dnA
+.ereht morf revir a ekil dewofl hcihw tnemaL fo ecruos eht dna dnuorg eht fo
+.ti tuoba nrael noos dluow ytinamuh taht tbuod on saw erehT
+ecafrus eht ni tfir tnaig a saw tI .ti tuoba seirots llet ot ytinas hguone devreserp
+?dlrow tahW rewef neve dna enog reve dah wef erehw ssybA eht dellac ecalp a saw erehT
+.dlrow rehtona .etisoppo eht etiuq yllautca saw tI .ecalp
+ot etag a nepo ot eugirtni na tub gnihton saw ti teY ?yeht dluow ,tolp a ylno retteb ro reerf a dlrow eht ekam ton did seramthgin eht lla gniyals esuaceB
+saw dnuobfeirG eht tsniaga raw eht taht detcepsus evah dluow ydobon ,niagA
+.revo ton saw taerht latrom eht taht wonk
+.erew yeht suoirotciv roF yeht did elttiL .ssensuoituac rieht tsol elpoep ,yoj dna epoh htiw knurD .erew
+.srotciv fo ytingid eht htiw tnemaL fo dlrow eht yeht elbarenluv erom eht ,meht sserper ot deirt yeht erom eht tub ,tsap eht fo
+otni deklaw yehT .regnil ron yrruh ton did yehT .ssybA eht otni dednecsed yeht srorroh hserf-llits eht tegrof ot gniyrt rof meht emalb ot riafnu eb dluow tI
+,ecnelis ylhtaed ni ,rehtegot dna don a htiw eno hcae deteerg der ni namow ehT .ti ot gnilc ot detnaw yeht ,ytilamron derised
+.ydob daed rehtona tey fo gel eht no desolc dnah thgir sih -gnol rof epoh saw ereht ecnO .srorret eht lla derongi yltnetsisni dna ylsuoires ti
+dna ,kcab sih no gab dehctap eht fo tuo gnittuj sbmil namuh erew erehT .emit ekat ot tnaw ton did ,revewoh ,elpoeP .esroh gnipollag ,suomrone na fo sevooh
+eht lla spil dekcarc sih depacse elggig a dna ,ssendam dekcehcnu tub gnihton eht yb tih erew ti fi sa yllacimhtyhr delbmert dnuorg eht nehw thgin a saw
+dewohs seye yssalg dna ecaf delknirw siH .nosrep hcir a ot gnoleb ot desu erehT .sgnul rieht fo pot eht ta gnimaercs pu ekow elpoep eht lla nehw yad a
+taht sebor derettat ni nam detaicame ,dehcnuh a saw raeppa ot eno driht ehT saw erehT .peelsa llaf dluoc ydobon tey ,yad eritne eht rof sdnal eht dehtaws
+ssenkrad dna ,emac reven nus eht nehw nwad a saw erehT .sgninraw erew erehT
+.deppets ehs erehwyreve derehtiw ssarg dna ,erab erew teef ytrid reH
+.ssalgruoh gib yldrusba na dleh sdnah lateleks reh dna ,yresim gnidne-reven tub ?laeh reven dluow dnuobfeirG
+gnihtyna sserpxe ot elbanu saw ,dooh eht ni neddih ,ecaf reH .mir eht ta lios tew eht yb delpmart dna tnemaL eht yb detullop ecno dlrow a taht wonk yeht t’ndiD
+htiw deraems ,sserd etihw sseltops a ni namow a saw emoc ot eno dnoces ehT .sloof evian tahW
+.esoppo dluow .gnimoc yllanfi erew semit doog taht
+ohw lla rof tnemhsinup dna niap desimorp ecaf sih no ecamirg ehT .doolb eveileb ot nageb yllaer elpoep emos dna ssecorp gnilaeh eht deretne dlrow ehT
+deird htiw dekac ecam a dehsidnarb dna daeherof derracs sih no nori fo
+.erutuf rieht fo
+nworc edurc a erow eH .koot eh pets yreve htiw ylretsinis deknalc taht romra
+gnikniht detrats yeht neve ,yllautneve tub ,snopaew rieht htiw trap ot tnatculer
+etalp yvaeh ni roirraw deredluohs-daorb ,ythgim a saw evirra ot eno tsrfi ehT
+erew sroirraW .sdlefielttab deidoolb eht revo ecnelis yldaed eht decalper
+.evirra ot snoinapmoc reh rof detiaw ehS sdrib fo gniprihc eht dna ,thgin eht ni demaercs shtiarw on ,sdoow eht ni
+.tnemaL gnitarbiv fo edam edalb sti ,lahtel delwoh sevlowerew oN .dehsinav elpoep neewteb stciflnoc dna erar emaceb
+dna gnol ,drows reh no denael ehS .dniw eht htiw gniwofl sserd der-doolb reh sretsnom ,modgnik nekorb ,gnireffus-gnol eht fo srenroc tsekrad eht ot detaerter
+,ecnelis ni ssybA eht fo egde eht ta detiaw daeh degadnab eht htiw namow ehT tnemaL fo swollib ehT .segnahc gniciton nageb yletaidemmi elpoep hguohtla
+gnicnad on dna ,cisum on ,gnihgual on saw ereht ,ni dekaos swen eht sA
+.srewsna eht wonk ot demees ohw nosrep eno ylno saw erehT
+.rorret tuohtiw dlrow eht enigami neve
+?yhw dnA ?ereht tpek saw ohW .noegnud ro nosirp fo tros emos
+dluoc weF .elpoep rieht htiw swen eht erahs ot sdlefielttab tsal eht morf denruter
+sedih ssybA eht fo mottob eht taht yroeht a saw ereht tub llet dluoc ydoboN
+ohw sretnuH eerf-tnemaL ,derettalps-doolb fo sdrow eht deveileb weF .saw yoj
+?erehw gnidaeL eurt tahw rebmemer ot gnol oot rof rorret ni devil dah dlrow ehT .detarbelec
+.egassap a emoceb ot hguone ediw saw pag eht ,daed lla erew ydobon ,nials yllanfi saw dnuobfeirG eht fo tsal eht ecno taht yas yehT
+34
+
+--- Page 35 ---
+Hunt Book
+RANDOM LAMENT RIFT RANDOM ELITE CONVERGENCE
+Carriage
+RANDOM LANDMARK VAMPIRE DEVOURER
+Boss - Chimera
+PORTAL ALCHEMIST CHIMERA
+Convergence Tornado Standee
+TORNADO BELLFROG GRAVEYARD DRAGON
+Pile of Skulls
+PILE OF SKULLS LAMENT WRAITH UNDEAD GENERAL
+Elite - Werewolf
+Boss - Striga
+TREASURE WEREWOLF STRIGA
+YSUB YSUB
+BUSY TOKEN RANDOM MINION SWARM MISTRESS
+BUSY BUSY
+RANDOM TORTURE
+CONVICTED TORMENTOR
+DEVICE TILE
+Electric Chair
+GOainn E2n Stteurn:s .
+SWARM SWARM TILE UNDEAD
+RANDOM AREA
+35
+
+--- Page 36 ---
+Keywords Tokens
+Move X – Model is moved by the indicated number of spaces. This might use
+Hunter related:
+as value (for Movement rules see pages 12 and 13).
+Sprint – Resolve the Sprint Action (see Basic Actions page 12).
+2 4
+Gain – Take a chosen/specified die from the common supply, roll it and add – Defense.
+it to your Active pool.
+Spend – Discard a component to resolve the effect. If you do not have a required
+component(s), the effect cannot be resolved.
+Deal – To a Hunter: Lower the dial by a given number. To an Enemy: – Tactic.
+place a number of tokens on its card or kill a Minion.
+Refresh Action – Discard all dice from the slots of this Action.
+Statuses and Hunger:
+Restore discarded – Reroll a die from the Discarded pool and put it into the
+Active pool.
+On a kill – An effect triggers when an Enemy is dealt enough , and – Burn.
+a component is removed. This might specify a Minion, Elite or Griefbound
+card kill.
+Remove – Place a component back in the box; it will not be used again during
+this Scenario.
+– Stun.
+Lament Rift – Space on the Map with a Lament Rift token.
+Pass – The Hunter will not be able to take any more Turns this round. Usually
+when no more Actions can be made by the Hunter (see Hunter Turns page 11).
+Teleport – Place the Teleporting Model in the designated space. Measuring – Curse.
+Range for this effect ignores Obstacles. This counts as Moving into the space.
+Teleporting to a fully occupied space pushes one other Model to an adjacent
+space (see Model limit on page 23).
+Spawn – Place additional Model(s) on the Map (See Minions on page 15. See Elite
+– Hunger.
+Enemies on page 16).
+Icons
+Map collectibles:
+– resolve this On Enter effect, when a Model ends its Movement on this space.
+– Hunters’ Movement value.
+– This space cannot be entered by any Model. – Treasure.
+– LoS cannot be drawn through this space (see Fog on page 23).
+– Lament (see page 21).
+– Range. The numbers show the minimum and maximum Range of an
+effect (see page 23).
+– Lament.
+– Wound.
+– Number of players. In effects, read as a number (see page 11).
+– Evolution trigger on the Corruption track (see page 21). Other:
+– Health.
+– Universal Marker.
+– Quest.
+Dice
+, , , , , .
+Symbols on Enemy die
+, , . – First Player.
+Symbols on Hunter dice
+, , , .
+Defense tokens
+, .
+36
+

@@ -1,0 +1,17 @@
+{
+  "skill_name": "boardgame-rules",
+  "description": "Game-agnostic evals that test skill behavior regardless of which game is being asked about.",
+  "evals": [
+    {
+      "id": 5,
+      "prompt": "Can you tell me about the rules for this game?",
+      "expected_output": "Should ask the user which game they mean, since no game name was provided.",
+      "files": [],
+      "assertions": [
+        "Asks the user to specify which board game they are asking about",
+        "Does NOT attempt to search files without knowing the game",
+        "Response is a clarifying question, not a rules answer"
+      ]
+    }
+  ]
+}

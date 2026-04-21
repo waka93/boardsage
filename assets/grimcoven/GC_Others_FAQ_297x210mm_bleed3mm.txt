@@ -1,0 +1,131 @@
+--- Page 1 ---
+OFFICIAL GAME FAQ V1.2 (January 2026)
+GENERAL QUESTIONS Q: Does “on enter” happen on teleport effects? What about the
+forced movement?
+Damage dealt vs Hunger
+A: Yes, both those effects trigger “on enter”.
+Q: Most Corruption cards instruct to deal damage and dis-
+Q: If I’m already on aspace/terrain with an “on enter” effect,
+card Hunger tokens for each damage dealt. If this damage
+does it trigger on any of my Actions (similar to picking up
+was blocked with the Defense token, do Istill discard Hunger?
+Treasure and Lament)?
+A: No. The damage blocked by the Defense tokens does not
+A: No.
+count as dealt. This applies to other effects such as one of
+the Actions of Duality’s Assault Armor. Also, if you have for Q: Can “on enter” trigger on itself? E.g. when the River terrain
+example 6 Hunger and you have dealt only 3 due to the fact card moves me by 1 space down the river, does another “on
+that the attacked Hunter had only 3 Health left, you discard enter” effect happen immediately?
+only 3 Hunger. This is because you have dealt only 3 damage A: No.
+and not 6. Q: I’m on a Tormentor’s Torture Device tile. I’m forced to
+Move 1 towards the closest Torture device. Ido not move be-
+Multiple Stun/Curse tokens on asingle Action
+cause I’m already on a Torture Device. Do I resolve the “on
+Q: Can Iplace multiple Status tokens on asingle Action?
+enter” effect?
+A: No.
+A: No.
+Space fully occupied by the Griefbound/Environment
+Refreshing the Assist Action
+Q: There can be asituation in which all 4 model slots on aspace
+Q: What happens if IRefresh the die placed in the Assist slot?
+are occupied by the Griefbound and Environment models
+Do Itake the Assist marker back from the Player?
+(e.g. Convergence’s Tornadoes). Can aHunter enter such aspace?
+A: No. The Assist marker remains in that Player’s possession
+A: No. This space cannot be entered by any model (even an-
+until the Refresh phase. Until then, the Assist marker mimics
+other Environment). Teleport effects to such a space cannot
+the die placed in your Action slot. In this case, it has nothing
+be performed. Models can still move through such space, but
+to copy, so the Assist marker is treated as a “faceless” and
+cannot end their movement there.
+“colorless” die.
+“Move X” versus “Move up to X”
+Refreshing the Action with itself
+Q: Is there adifference between “Move X” and “Move up to X”?
+Q: Can an Action Refresh itself? E.g. Hunger Overflow has an
+A: For Hunter’s effects – no. A Hunter may always perform
+effect “Refresh 1 Action”. In this case, can the Hunger Overflow
+a shorter movement if they choose to do so. Unless it is
+Refresh itself?
+aforced movement (see below).
+A: No.
+Voluntary vs forced movement
+Target vs Enemy
+Q: How do I differentiate between “voluntary” and “forced”
+Q: Some card effects allow the player to include addition-
+movement?
+al “targets”. What is the difference between an Enemy and
+A: When aHunter performs amovement as their own Action
+a“target”?
+or an effect coming from a “friendly” source (other Hunter,
+A: Target is abroader classification. The game contains enti-
+Companion, etc.) it is called avoluntary movement, and it can
+ties that are not Enemies, but still can be damaged – e.g. Un-
+be shorter than the effect suggests (e.g., instead of Move 3,
+dead General’s Banners or Ironclad Safe on one of the Secret
+Hunter Moves 1).
+cards. While not being Enemies, those Actions can include
+When aHunter is moved by an outside “hostile” effect like an
+them as “additional targets”.
+Enemy, Environment, or Hunger, it is considered a “forced”
+movement. It must be resolved to the fullest extent possible. On kill effects and Opportunity cards, order of resolution
+Q: If I kill a Griefbound’s Attack card, what happens first –
+Enemy movement
+the Opportunity or “On akill” effect from my Evolution card?
+Q: If an Enemy has to “Move 3” and it is 2 spaces away from
+A: Players may decide the order of resolution.
+me, does the Enemy resolve a full movement of 3 and moves
+past me? Tokens on acard that is being discarded
+A: No. The Enemies usually want to get as close to a Hunter Q: I’m instructed to discard acard/return acard to the deck,
+as they can so if they have to Move 3 and the closest Hunter is and there are tokens/dice on this card. What happens to those
+2 spaces away, the Enemy will only Move 2, disregarding the tokens/dice?
+last point of movement. Some effects may change this rule. A: They are also discarded. The tokens return to the common
+pool (or their owner if this token was Hunter specific), and
+On enter effect
+dice are placed in the discarded pool of their owner.
+Q: Does the “on enter” effect happen if I cross a space with
+such an effect, or only if Iend my movement there?
+A: The effect happens only if amodel ENDS its movement on
+aspace with “on enter” effect.
+
+--- Page 2 ---
+COREBOX HUNTERS/GRIEFBOUND EXPANSIONS HUNTERS/GRIEFBOUND
+QUESTIONS QUESTIONS
+Death Jester multiple Gambles Clockwork Giant status tokens
+Q: How to resolve acard that allows me to “Gamble any num- Q: There are Stun tokens/ Curse tokens/ dice on aGear card,
+ber of times”? How does it interact with passive effects “on and Ihave to change Gear. What happens to the tokens?
+aSuccessful Gamble”? A: The tokens/dice are discarded.
+A: After placing dice on the Action but before resolving it,
+you may Gamble any number of times. You may decide to stop
+Gambling after each one. On afailed Gamble, all successes are
+lost, the Action has no effect, and you cannot Gamble further.
+You still resolve any “on afailed Gamble” effects.
+After each successful Gamble, you may decide to stop, resolve
+the Gamble effect (usually, repeating an Action X times), and
+cash out all “on asuccessful Gamble” effects (each such effect is
+resolved X times, where X is the number of successful Gambles).
+Death Jester Corrupted form “flip the Fate deck”
+Q: After the Fate deck is flipped face up, can Ilook through it
+or is only the top card visible?
+A: Only the top card is visible.
+Mannequin String cards
+Q: When Iflip an Arm card to the String side after the Bloodless
+Husk effect, is this String given to the chosen Hunter or do
+Ikeep it?
+A: The Mannequin player keeps the card in String form.
+Q: If I lose/flip an Arm card due to an effect, how can I re-
+gain/flip it back?
+A: By any effect that allows for it. Regaining Arms is very rare
+– in some form, it is done after reaching a Corrupted Form
+(Corruption 15). Flipping the String cards back can be done by
+asingle card in the Evolution deck.
+Technomancer attachment power-ups
+Q: Since the “All Weapon/Armor attachment power-ups are
+now active” Action on Technomancer’s Weapon/Armor card
+is considered a Weapon/Armor, does it automatically trigger
+all attachment bonuses of its kind?
+A: No. It allows those bonuses to be activated later by other
+Weapon/Armor Actions.
+

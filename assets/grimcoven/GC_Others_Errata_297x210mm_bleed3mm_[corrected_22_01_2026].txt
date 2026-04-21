@@ -1,0 +1,117 @@
+--- Page 1 ---
+ERRATA V1.2 (January 2026)
+COREBOX ERRATA Undead General Banner cards
+Q: The Huntbook (rules section) and the Undead General stat
+Devourer Opportunity cards
+cards contradict on when Ishould resolve the Banner effects.
+Q: There is no instruction to “Refill the Attack track” on cards
+Which is correct?
+“Break” and “Exchange”. Should Irefill it or not?
+A: The Stat cards are correct. The effects should be resolved at
+A: Yes, you should always refill the Attack track after resolv-
+the beginning of step V.
+ing the Opportunity effect, unless the effect states otherwise.
+This will mostly happen on results. Tutorial booklet
+Q: On page 2, the visualisation of setting up the Lament Rifts
+Swarm Mistress Stage cards
+does not match the instructions farther in the booklet. Where
+Q: The “Toxic Venom” Curse thresholds overlap. How should
+should the Lament Rifts be placed?
+Iresolve this effect?
+A: Lament Rift 4 should be in the bottom left corner of the Map
+A: The thresholds are misprinted. They should be divided as
+(next to the Portal) and Lament Rift 2 should be to the right of
+follows: 1 Curse, 2-3 Curses, 4 Curses and 5+ Curses.
+Lament Rift 4. See image provided.
+On Enter effects
+Q: The Rulebook and Tutorial booklet seem to contradict on when
+to resolve the /“On Enter” effects. When should Iapply them?
+A: The Rulebook is correct. They are applied when a model
+ENDS their movement on aspace.
+Universal Markers on cards – Hunting Owl and Restore 4 2
+the Relic
+Q: In the Refresh step, all Universal markers from cards should
+be removed. Some cards have an instruction not to discard the
+markers from them in the Refresh step, but not all. Most nota-
+ble examples are the Hunting Owl Companion card or Restore
+tthhee rreelliicc SSeeccrreett ccaarrdd,, wwhhiicchh rreennddeerr tthheemm uusseelleessss.. SShhoouulldd tthhoossee Tutorial booklet
+cards have “do not discard from this card” instruction?
+Q: On page 14, I’m instructed to place an Attack card in the
+A: Yes. “Next turn slot” on top of the Opportunity card, but the Op-
+Rulebook – Component list for the main box portunity card is in the “This Turn slot”. How do Iproceed?
+Q: I have 30 additional cards (Deputy Evolution) in the box A: It’s an error on our part. This part should simply read to
+put this card in the “Next Turn slot” without mentioning the
+that are not included on the component list. Is that an error?
+Opportunity card – as it is not there.
+A: Yes, it’s a printing error. The missing 30 Deputy cards
+should be in the box – they are used in Solo mode. They should Tutorial booklet
+have been included in the “Other Cards” section, changing the
+Q: On page 9, there is a Minion model missing on Lament Rift
+number from 30 to 60.
+3. Is this an error?
+Rulebook – Component list for the main box A: It’s an error. There should be a Minion model on Lament
+Rift 3.
+Q: I’m missing 1 Hunter Evolution card according to the com-
+ponent list. Is that an error? Blood Sucker Elite card
+A: Yes, the Rulebook has the wrong number printed. There Q: The Activation on the Blood Sucker Elite says to “resolve all”
+should be 166 Hunter Evolution cards total. If you have 166 of
+instead of the normal “resolve first applicable” like on the other
+those cards then everything is fine.
+Elite cards. What is the correct version?
+Rulebook – Component list for the main box A: It should be “resolve first applicable” like on the other Elite
+cards.
+Q: I have 54 Secret cards in the box, and the component list
+says there should be 56. Is that an error? Graveyard Dragon Huntbook Scenario 3
+A: Yes, it’s a printing error. There should be 54 Secret cards Q: The Environment setup instructs me to place 3 Landmark
+in the box.
+models in marked spaces, but there are no markings on the
+Keeper Pretender rules visualisation. Where should those models be placed?
+Q: The Rulebook and the Stat card of the Pretender Keeper A: This instruction should instead say: “place the Models on
+the Map in the spaces with Treasure tokens.”
+seem to contradict one another on when to resolve the Craving
+effect? Which is correct? Graveyard Dragon Huntbook Scenario 5
+A: The Stat card is correct. The Craving should be resolved Q: This scenario instructs me to use asize 3 Cemetery tile 3-5A,
+after resolving the Attack card not before.
+but it is already in use. What tile should be used here?
+A: 5-3A
+
+--- Page 2 ---
+Convergence Huntbook Scenario 3 EXPANSIONS ERRATA
+Q: This scenario instructs me to use a size 3 Forest tile 5-3B,
+Forgotten Entities Event cards
+but 5-3B is aSwamp tile. What tile should be used here?
+Q: The “Self-interested Generosity” card instructs me to give
+A: 5-2B
+any number of Lament. Can it be 0?
+Convergence Huntbook Scenario 4&5 A: No. It should be aminimum of 1.
+Q: The text of the setup instructs me to spawn the Elite Enemy
+Hunters Expansion component list
+on a Lament Rift, but the picture suggests otherwise. Should
+Q: The component list states that I should have 92 standard
+I place the Elite Enemy model as instructed or as shown?
+cards and 2 Custom cards. This doesn’t seem right. What is the
+A: Place the Enemy model as instructed. The text is correct –
+correct number of cards in this box?
+the picture should not have contained the Elite Enemy model
+A: There should be 4 custom cards (2 Deputy cards and 2 Pre-
+placement position.
+tender Stat cards) as well as 110 standard cards (20 Griefbound
+Tormentor Huntbook Scenario 4 Attack, 2 Final Attack, 2 Opportunity, 8 Stage, 10 Deputy Evo-
+Q: One of the Lament rifts in the setup is placed on a Deep lution, 56 Hunter Evolution, and 12 Hunter Items)
+Water space. Is that correct?
+Personal Stories
+A: No. It is an error. The Lament Rift should be placed one
+Q: When proceeding quests for some Hunters, Iunlock cards,
+space to the right (on a Cemetery space).
+but the names are different. What are the correct names for
+each Hunter?
+A: The Twins should unlock the Dripping Fang instead of
+Dripping Dagger. The Mannequin should unlock the Cannon
+Arm/Shield instead of Cannon Arm/Protect.
+Chimera Attack cards
+Q: The Attack card “Then, the eagle tears…” instructs me to
+“teleport the closest Hunter”, but does not specify to where.
+How do Iresolve this card?
+A: The word “to” is missing in the effect. The effect should say
+“teleport to the closest Hunter”.
+
