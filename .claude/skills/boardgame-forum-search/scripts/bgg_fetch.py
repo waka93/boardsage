@@ -75,6 +75,26 @@ def get_thread_meta(thread_id):
     url = f"https://api.geekdo.com/api/threads/{thread_id}"
     return get(url)
 
+def get_forum_threads(forum_id, pages=2):
+    threads = []
+    for page in range(1, pages + 1):
+        url = f"https://api.geekdo.com/api/threads?forumid={forum_id}&page={page}&count=50"
+        try:
+            data = get(url)
+            batch = data.get("threads", [])
+            if not batch:
+                break
+            for t in batch:
+                threads.append({
+                    "thread_id": t.get("id"),
+                    "subject": t.get("subject", ""),
+                    "numposts": t.get("numposts", 0),
+                })
+        except Exception:
+            break
+    return threads
+
+
 def get_thread_posts(thread_id):
     posts = []
     page = 1
