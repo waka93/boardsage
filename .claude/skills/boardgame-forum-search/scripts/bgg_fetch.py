@@ -32,27 +32,21 @@ def get(url):
         return json.loads(resp.read().decode())
 
 def lookup_game(name):
-    # Use BGG search via geekitems (requires knowing ID) — fall back to search page
-    # Try common approach: search BGG via their autocomplete API
-    encoded = urllib.parse.quote(name)
-    url = f"https://api.geekdo.com/api/geekitems?objecttype=boardgame&q={encoded}&nosession=1"
+    # BGG's search APIs require auth; use DuckDuckGo HTML to find the BGG game page URL,
+    # which embeds the BGG ID: boardgamegeek.com/boardgame/{id}/slug
+    encoded = urllib.parse.quote(f"{name} site:boardgamegeek.com/boardgame")
+    url = f"https://html.duckduckgo.com/html/?q={encoded}"
     try:
-        data = get(url)
-        if data and isinstance(data, dict):
-            items = data.get("items", [])
-            if items:
-                item = items[0]
-                return {"bgg_id": item.get("objectid"), "name": item.get("name")}
-    except Exception:
-        pass
-
-    # Fallback: use the search XML API via different endpoint
-    url = f"https://api.geekdo.com/api/search?objecttype=boardgame&q={encoded}"
-    try:
-        data = get(url)
-        items = data.get("items", []) if isinstance(data, dict) else []
-        if items:
-            return {"bgg_id": items[0].get("objectid"), "name": items[0].get("name")}
+        import re as _re
+        req = urllib.request.Request(url, headers={
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36",
+            "Accept": "text/html",
+        })
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            html = resp.read().decode(errors="replace")
+        ids = _re.findall(r"boardgamegeek\.com/boardgame/(\d+)", html)
+        if ids:
+            return {"bgg_id": int(ids[0]), "name": name}
     except Exception:
         pass
 
@@ -74,6 +68,15 @@ def get_forums(bgg_id):
 def get_thread_meta(thread_id):
     url = f"https://api.geekdo.com/api/threads/{thread_id}"
     return get(url)
+
+def get_game_files(bgg_id):
+    url = f"https://api.geekdo.com/api/files?objectid={bgg_id}&objecttype=thing&nosession=1"
+    try:
+        data = get(url)
+        return data.get("files", [])
+    except Exception:
+        return []
+
 
 def get_forum_threads(forum_id, pages=2):
     threads = []

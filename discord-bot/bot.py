@@ -1,6 +1,7 @@
 import os
 import re
 import sys
+import urllib.parse
 import discord
 import anthropic
 from collections import defaultdict
@@ -28,9 +29,10 @@ SYSTEM_PROMPT = """You are a board game rules expert assistant in a Discord serv
 
 When users ask about board game rules:
 1. Always search the official rulebook first using search_rulebook.
-2. If the rulebook search returns no useful results, fall back to search_bgg_forums to find community discussions on BoardGameGeek.
-3. Cite your source (file + page for rulebook, thread title + URL for BGG).
-4. If both sources come up empty, say so honestly.
+2. If search_rulebook returns "No rulebook data found" (game not in knowledge base), call add_game to automatically download and set it up, then call search_rulebook again.
+3. If search_rulebook returns "No matches" (game exists but nothing found), fall back to search_bgg_forums.
+4. Cite your source (file + page for rulebook, thread title + URL for BGG).
+5. If all sources come up empty, say so honestly.
 
 Never guess at rules. Always note when an answer comes from community discussion rather than official documents."""
 
@@ -48,6 +50,21 @@ TOOLS = [
                 "query": {"type": "string", "description": "Keyword or phrase to search for (case-insensitive)."},
             },
             "required": ["game", "query"],
+        },
+    },
+    {
+        "name": "add_game",
+        "description": (
+            "Download and set up a new board game's rulebook from BoardGameGeek. "
+            "Call this when search_rulebook returns 'No rulebook data found' for a game. "
+            "Creates the folder structure, downloads PDFs, and extracts text automatically."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "game": {"type": "string", "description": "Board game name to add (e.g. 'Wingspan')."},
+            },
+            "required": ["game"],
         },
     },
     {
@@ -175,6 +192,118 @@ def _search_cached_threads(cache_dir: str, keywords: re.Pattern) -> str:
     return "\n\n====\n\n".join(results[:3])
 
 
+def extract_pdf_text(pdf_path: Path) -> str:
+    import pypdf
+    reader = pypdf.PdfReader(str(pdf_path))
+    parts = []
+    for i, page in enumerate(reader.pages, 1):
+        text = page.extract_text() or ""
+        if text.strip():
+            parts.append(f"--- Page {i} ---\n{text}")
+    return "\n\n".join(parts)
+
+
+def find_rulebook_pdf_urls(game: str) -> list[str]:
+    """Search DuckDuckGo for direct PDF download URLs of the game's official rulebook."""
+    import urllib.request as _req
+    query = urllib.parse.quote(f"{game} rulebook PDF")
+    url = f"https://html.duckduckgo.com/html/?q={query}"
+    req = _req.Request(url, headers={
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36",
+        "Accept": "text/html",
+    })
+    try:
+        with _req.urlopen(req, timeout=15) as resp:
+            html = resp.read().decode(errors="replace")
+        # DDG wraps result URLs in uddg= query params
+        uddg = re.findall(r"uddg=(https?[^&\"<>\s]+)", html)
+        decoded = [urllib.parse.unquote(u) for u in uddg]
+        # Keep only direct PDF links, deduplicated
+        seen = set()
+        direct = []
+        for u in decoded:
+            if u.lower().endswith(".pdf") and u not in seen:
+                seen.add(u)
+                direct.append(u)
+        return direct[:5]
+    except Exception as e:
+        print(f"  [add_game] DDG PDF search failed: {e}")
+        return []
+
+
+def add_game(game: str, status) -> str:
+    import urllib.request as _req
+    game_slug = normalize(game)
+    assets_dir = KNOWLEDGE_BASE / game_slug
+    knowledge_dir = BGG_CACHE_BASE / game_slug / "bgg"
+    assets_dir.mkdir(parents=True, exist_ok=True)
+    knowledge_dir.mkdir(parents=True, exist_ok=True)
+
+    # 1. Look up BGG ID (needed for forum search later)
+    status(f"Looking up **{game}** on BoardGameGeek...")
+    game_info = bgg_fetch.lookup_game(game)
+    bgg_id = game_info.get("bgg_id")
+    if bgg_id:
+        print(f"  [add_game] BGG ID: {bgg_id}")
+    else:
+        print(f"  [add_game] BGG ID not found, continuing with PDF search")
+
+    # 2. Find direct PDF URLs via DDG
+    status(f"Searching for **{game}** rulebook PDFs...")
+    pdf_urls = find_rulebook_pdf_urls(game)
+    print(f"  [add_game] found {len(pdf_urls)} PDF URLs: {pdf_urls}")
+
+    if not pdf_urls:
+        msg = f"Could not find downloadable rulebook PDFs for **{game}**."
+        if not bgg_id:
+            msg += f" Also couldn't find it on BGG. Please add PDFs manually to `assets/{game_slug}/`."
+        else:
+            msg += f" BGG ID is {bgg_id} — you can browse https://boardgamegeek.com/boardgame/{bgg_id} to download the rulebook manually into `assets/{game_slug}/`."
+        return msg
+
+    # 3. Download and extract each PDF
+    downloaded = []
+    for i, pdf_url in enumerate(pdf_urls[:2], 1):
+        filename = re.sub(r"[^\w\-.]", "_", pdf_url.split("/")[-1].split("?")[0]) or f"rulebook_{i}"
+        if not filename.endswith(".pdf"):
+            filename += ".pdf"
+        pdf_path = assets_dir / filename
+        txt_path = assets_dir / filename.replace(".pdf", ".txt")
+
+        status(f"Downloading rulebook {i}/{min(2, len(pdf_urls))}...")
+        try:
+            req = _req.Request(pdf_url, headers={"User-Agent": "Mozilla/5.0"})
+            with _req.urlopen(req, timeout=30) as resp:
+                content = resp.read()
+            pdf_path.write_bytes(content)
+            print(f"  [add_game] downloaded {pdf_path} ({len(content)} bytes)")
+        except Exception as e:
+            print(f"  [add_game] download failed {pdf_url}: {e}")
+            continue
+
+        status(f"Extracting text from rulebook {i}...")
+        try:
+            text = extract_pdf_text(pdf_path)
+            txt_path.write_text(text, encoding="utf-8")
+            downloaded.append(filename)
+            print(f"  [add_game] extracted {txt_path} ({len(text)} chars)")
+        except Exception as e:
+            print(f"  [add_game] extraction failed {pdf_path}: {e}")
+            pdf_path.unlink(missing_ok=True)
+            continue
+
+    if not downloaded:
+        return (
+            f"Found PDF URLs for **{game}** but all downloads failed. "
+            f"Please add the rulebook PDF manually to `assets/{game_slug}/`."
+        )
+
+    return (
+        f"**{game}** is ready! Extracted {len(downloaded)} rulebook file(s): {', '.join(downloaded)}. "
+        f"Searching now..."
+    )
+
+
 def run_with_tools(messages: list, update_status=None) -> str:
     def status(text: str):
         print(f"  [status] {text}")
@@ -197,13 +326,20 @@ def run_with_tools(messages: list, update_status=None) -> str:
             for block in response.content:
                 if block.type != "tool_use":
                     continue
-                game = block.input["game"]
-                query = block.input["query"]
                 if block.name == "search_rulebook":
+                    game = block.input["game"]
+                    query = block.input["query"]
                     print(f"  [tool] search_rulebook(game={game!r}, query={query!r})")
                     status(f"Searching **{game}** rulebook for *{query}*...")
                     result = search_rulebook(game, query)
+                elif block.name == "add_game":
+                    game = block.input["game"]
+                    print(f"  [tool] add_game(game={game!r})")
+                    status(f"Setting up **{game}** for the first time...")
+                    result = add_game(game, status)
                 elif block.name == "search_bgg_forums":
+                    game = block.input["game"]
+                    query = block.input["query"]
                     print(f"  [tool] search_bgg_forums(game={game!r}, query={query!r})")
                     status(f"Searching BGG forums for **{game}** — *{query}*...")
                     result = search_bgg_forums(game, query)
