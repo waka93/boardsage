@@ -283,26 +283,32 @@ class TestAC6_ChunkedReplies(unittest.TestCase):
         asyncio.run(run())
         return mock_msg, status_msg
 
-    def test_tc15_reply_exactly_2000_chars_no_split(self):
-        """TC-14 | AC-6: reply of exactly 2000 chars → single edit, no channel.send."""
+    def test_tc15_reply_exactly_2000_chars_no_embed(self):
+        """TC-14 | AC-6: reply of exactly 2000 chars → single edit as content."""
         reply = "x" * 2000
         mock_msg, status_msg = self._run_handle_message(reply)
         status_msg.edit.assert_called_once_with(content=reply)
         mock_msg.channel.send.assert_not_called()
 
-    def test_tc16_reply_2001_chars_splits_into_two(self):
-        """TC-15 | AC-6: reply of 2001 chars → status edit of first 2000 + one channel.send."""
+    def test_tc16_reply_2001_chars_uses_embed(self):
+        """TC-15 | AC-6: reply of 2001 chars → single edit using embed, no extra messages."""
         reply = "x" * 2001
         mock_msg, status_msg = self._run_handle_message(reply)
-        status_msg.edit.assert_called_once_with(content="x" * 2000)
-        mock_msg.channel.send.assert_called_once_with("x")
+        status_msg.edit.assert_called_once()
+        kwargs = status_msg.edit.call_args.kwargs
+        self.assertEqual(kwargs["content"], "")
+        self.assertEqual(kwargs["embed"].description, reply)
+        mock_msg.channel.send.assert_not_called()
 
-    def test_tc17_reply_4001_chars_splits_into_three(self):
-        """TC-16 | AC-6 (edge): reply of 4001 chars → edit + two channel.send calls."""
+    def test_tc17_reply_4001_chars_uses_embed(self):
+        """TC-16 | AC-6: reply of 4001 chars → single edit using embed, no extra messages."""
         reply = "x" * 4001
         mock_msg, status_msg = self._run_handle_message(reply)
-        status_msg.edit.assert_called_once_with(content="x" * 2000)
-        self.assertEqual(mock_msg.channel.send.call_count, 2)
+        status_msg.edit.assert_called_once()
+        kwargs = status_msg.edit.call_args.kwargs
+        self.assertEqual(kwargs["content"], "")
+        self.assertEqual(kwargs["embed"].description, reply)
+        mock_msg.channel.send.assert_not_called()
 
 
 # ---------------------------------------------------------------------------

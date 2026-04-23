@@ -8,7 +8,8 @@ import discord
 from core.engine import RulesEngine
 
 MAX_HISTORY = 20
-DISCORD_CHUNK = 2000
+DISCORD_MSG_LIMIT = 2000
+_EMBED_DESC_LIMIT = 4096
 _DEDUP_CACHE_SIZE = 1000
 _STATUS_EDIT_INTERVAL = 2.0
 _MAX_VISIBLE_STEPS = 15
@@ -96,12 +97,11 @@ class DiscordAdapter:
         if len(self._history[channel_id]) > MAX_HISTORY * 2:
             self._history[channel_id] = self._history[channel_id][-MAX_HISTORY * 2:]
 
-        if len(reply) <= DISCORD_CHUNK:
+        if len(reply) <= DISCORD_MSG_LIMIT:
             await status_msg.edit(content=reply)
         else:
-            await status_msg.edit(content=reply[:DISCORD_CHUNK])
-            for i in range(DISCORD_CHUNK, len(reply), DISCORD_CHUNK):
-                await message.channel.send(reply[i:i + DISCORD_CHUNK])
+            desc = reply if len(reply) <= _EMBED_DESC_LIMIT else reply[:_EMBED_DESC_LIMIT - 20] + "\n\n_(truncated)_"
+            await status_msg.edit(content="", embed=discord.Embed(description=desc))
 
     def run(self) -> None:
         self._client.run(self._token)
