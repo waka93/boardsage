@@ -1,6 +1,7 @@
 import asyncio
 import os
-from collections import defaultdict
+import time
+from collections import defaultdict, deque
 
 import discord
 
@@ -8,6 +9,11 @@ from core.engine import RulesEngine
 
 MAX_HISTORY = 20
 DISCORD_CHUNK = 2000
+_DEDUP_CACHE_SIZE = 1000
+_STATUS_EDIT_INTERVAL = 2.0
+_MAX_VISIBLE_STEPS = 15
+
+_TRANSIENT_STATUSES = frozenset({"Thinking...", "Generating answer..."})
 
 
 class DiscordAdapter:
@@ -15,6 +21,7 @@ class DiscordAdapter:
         self._engine = engine
         self._token = discord_token
         self._history: dict[int, list] = defaultdict(list)
+        self._processed: deque = deque(maxlen=_DEDUP_CACHE_SIZE)
 
         intents = discord.Intents.default()
         intents.message_content = True
@@ -33,6 +40,9 @@ class DiscordAdapter:
             return
         if self._client.user not in message.mentions:
             return
+        if message.id in self._processed:
+            return
+        self._processed.append(message.id)
 
         text = message.content.replace(f"<@{self._client.user.id}>", "").strip()
         if not text:
@@ -46,10 +56,31 @@ class DiscordAdapter:
         loop = asyncio.get_running_loop()
         status_msg = await message.reply("_Thinking..._")
 
+        steps: list[str] = []
+        last_edit = [0.0]
+
         def update_status(status_text: str) -> None:
-            asyncio.run_coroutine_threadsafe(
-                status_msg.edit(content=f"_{status_text}_"), loop
-            ).result()
+            if status_text not in _TRANSIENT_STATUSES:
+                steps.append(status_text)
+
+            visible = steps[-_MAX_VISIBLE_STEPS:]
+            lines = [f"> {s}" for s in visible]
+            if len(steps) > _MAX_VISIBLE_STEPS:
+                lines.insert(0, f"_...and {len(steps) - _MAX_VISIBLE_STEPS} earlier steps_")
+            if status_text in _TRANSIENT_STATUSES:
+                lines.append(f"\n_{status_text}_")
+            content = "\n".join(lines) or f"_{status_text}_"
+
+            now = time.monotonic()
+            if now - last_edit[0] < _STATUS_EDIT_INTERVAL:
+                return
+            last_edit[0] = now
+            try:
+                asyncio.run_coroutine_threadsafe(
+                    status_msg.edit(content=content), loop
+                ).result(timeout=5)
+            except Exception:
+                pass
 
         try:
             reply = await loop.run_in_executor(

@@ -375,5 +375,68 @@ class TestAC8_NoEngineLicInAdapter(unittest.TestCase):
         )
 
 
+# ---------------------------------------------------------------------------
+# Dedup — duplicate messages after RESUME are ignored
+# ---------------------------------------------------------------------------
+
+class TestDuplicateMessageHandling(unittest.TestCase):
+
+    def _make_adapter(self, reply_text="answer"):
+        from core.engine import RulesEngine
+        from platforms.discord.adapter import DiscordAdapter
+
+        mock_engine = MagicMock(spec=RulesEngine)
+        mock_engine.ask.return_value = reply_text
+        adapter = DiscordAdapter(mock_engine, "fake-token")
+        return adapter, mock_engine
+
+    def _make_message(self, mock_user, msg_id=99999):
+        mock_msg = MagicMock()
+        mock_msg.author.bot = False
+        mock_msg.mentions = [mock_user]
+        mock_msg.content = f"<@{mock_user.id}> question"
+        mock_msg.channel.id = 1
+        mock_msg.id = msg_id
+        status_msg = AsyncMock()
+        mock_msg.reply = AsyncMock(return_value=status_msg)
+        mock_msg.channel.send = AsyncMock()
+        return mock_msg
+
+    def test_duplicate_message_ignored(self):
+        """Same message ID processed only once (RESUME replay protection)."""
+        from unittest.mock import PropertyMock
+        adapter, mock_engine = self._make_adapter()
+        mock_user = MagicMock()
+        mock_user.id = 12345
+        mock_msg = self._make_message(mock_user, msg_id=77777)
+
+        async def run():
+            with patch.object(type(adapter._client), "user", new_callable=PropertyMock) as p:
+                p.return_value = mock_user
+                await adapter._handle_message(mock_msg)
+                await adapter._handle_message(mock_msg)
+
+        asyncio.run(run())
+        mock_engine.ask.assert_called_once()
+
+    def test_different_messages_both_processed(self):
+        """Different message IDs are processed independently."""
+        from unittest.mock import PropertyMock
+        adapter, mock_engine = self._make_adapter()
+        mock_user = MagicMock()
+        mock_user.id = 12345
+        msg1 = self._make_message(mock_user, msg_id=11111)
+        msg2 = self._make_message(mock_user, msg_id=22222)
+
+        async def run():
+            with patch.object(type(adapter._client), "user", new_callable=PropertyMock) as p:
+                p.return_value = mock_user
+                await adapter._handle_message(msg1)
+                await adapter._handle_message(msg2)
+
+        asyncio.run(run())
+        self.assertEqual(mock_engine.ask.call_count, 2)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
