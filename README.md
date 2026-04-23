@@ -1,42 +1,57 @@
 # BoardSage
 
-A board game encyclopedia that lets you query rulebooks in plain English, powered by Claude AI.
+A board game rules assistant that lets you query rulebooks in plain English, powered by Claude AI.
 
 ## Features
 
 - Ask rules questions in natural language — no need to skim through pages of rulebooks
 - Searches official rulebooks, FAQs, and errata, and cites the exact source
-- Discord bot interface for easy access during game sessions
+- Automatically downloads and indexes new games on demand
 - BGG community forum search as fallback for edge cases not covered by official documents
+- Platform-agnostic engine — currently serves Discord, extensible to other chat platforms
 
 ## Project Structure
 
 ```
 boardsage/
-├── assets/                  # Rulebook data, one folder per game
-│   └── grimcoven/           # PDFs + pre-extracted .txt files
-├── discord-bot/             # Discord bot that answers rules questions
-│   ├── bot.py
+├── core/
+│   └── engine.py               # RulesEngine — platform-agnostic AI loop and tools
+├── platforms/
+│   └── discord/
+│       └── adapter.py          # Discord adapter (DiscordAdapter class + main())
+├── discord-bot/
+│   ├── bot.py                  # Entry-point shim (adds repo root to sys.path, calls main())
 │   └── requirements.txt
-├── knowledge/               # BGG forum cache, one folder per game slug
-│   └── {game}/bgg/
-│       ├── index.json
-│       └── threads/
-└── .claude/skills/          # Claude Code skills
-    ├── boardgame-rules/     # Searches local rulebook files
-    └── boardgame-forum-search/  # Searches BGG community threads
+├── assets/{game_slug}/         # Rulebook PDFs + pre-extracted .txt files
+├── knowledge/{game_slug}/bgg/  # BGG forum cache (index.json + threads/*.json)
+├── tests/                      # Unit and integration tests
+└── docs/workflow/              # PRDs, RFCs, ADRs, QE reports, sign-offs
 ```
 
+## How It Works
+
+1. User message arrives via a chat platform (Discord)
+2. `RulesEngine` runs a tool-use loop with Claude:
+   - `search_rulebook` — keyword search over `assets/{game}/` text files
+   - `add_game` — auto-download PDF rulebooks and extract text (if game is unknown)
+   - `search_bgg_forums` — fetch and cache BGG threads as fallback
+3. Claude generates a cited plain-English answer
+4. The platform adapter posts the response back
+
 ## Adding a New Game
+
+Games are added **automatically** — just ask the bot about a game it doesn't know yet. It will search for the rulebook PDF online, download it, extract the text, and index it.
+
+To add a game manually:
 
 1. Create a folder under `assets/{game-name}/`
 2. Drop in the PDF rulebook, FAQ, and errata files
 3. Extract text: for each PDF, run `pdftotext yourfile.pdf yourfile.txt` (or use the `pdf` skill in Claude Code)
-4. The Discord bot and Claude Code skills will pick it up automatically
+4. The bot will pick it up automatically on the next query
 
 ## Discord Bot
 
-The bot responds when @mentioned in any channel it has access to. It uses Claude's tool use to search rulebook files before answering.
+The bot responds when @mentioned in any channel it has access to. It uses Claude's tool-use loop to search rulebook files before answering.
 
 ### Setup
 
@@ -58,6 +73,12 @@ Or store keys in `.secret/discord_token` and `.secret/claude`:
 DISCORD_TOKEN=$(cat ../.secret/discord_token) ANTHROPIC_API_KEY=$(cat ../.secret/claude) .venv/bin/python bot.py
 ```
 
+You can also run the adapter directly from the repo root:
+
+```bash
+DISCORD_TOKEN=your_token ANTHROPIC_API_KEY=your_key python -m platforms.discord.adapter
+```
+
 ### Usage
 
 Mention the bot with a rules question:
@@ -66,12 +87,15 @@ Mention the bot with a rules question:
 
 The bot shows live status updates as it searches and generates the answer.
 
-## Claude Code Skills
+## Adding a New Chat Platform
 
-Two skills are available within Claude Code for interactive rules lookups:
+Create an adapter under `platforms/{platform}/adapter.py`:
 
-- **`boardgame-rules`** — searches local rulebook `.txt` files, cites page numbers
-- **`boardgame-forum-search`** — searches BGG community threads when official docs are silent
+1. Import `RulesEngine` from `core.engine`
+2. Map platform events to `engine.ask(messages, status_callback)`
+3. Post the returned answer back to the platform
+
+See `platforms/discord/adapter.py` as a reference (~80 lines).
 
 ## Requirements
 
