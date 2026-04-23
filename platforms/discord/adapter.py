@@ -1,5 +1,8 @@
 import asyncio
+import fcntl
+import hashlib
 import os
+import sys
 import time
 from collections import defaultdict, deque
 
@@ -108,8 +111,19 @@ class DiscordAdapter:
 
 
 def main() -> None:
+    token = os.environ["DISCORD_TOKEN"]
+
+    lock_id = hashlib.md5(token.encode()).hexdigest()[:8]
+    lock_file = open(f"/tmp/boardsage-{lock_id}.lock", "w")
+    try:
+        fcntl.flock(lock_file, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError:
+        sys.exit("ERROR: Another BoardSage instance is already running.")
+    lock_file.write(str(os.getpid()))
+    lock_file.flush()
+
     engine = RulesEngine()
-    adapter = DiscordAdapter(engine, os.environ["DISCORD_TOKEN"])
+    adapter = DiscordAdapter(engine, token)
     adapter.run()
 
 
