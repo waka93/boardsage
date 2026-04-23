@@ -65,11 +65,9 @@ This project uses a 7-step pipeline for features:
 2. `/architect {slug}` — write RFC, save to `docs/workflow/rfcs/{slug}.md`
 3. `/developer {slug}` — implement from RFC
 4. `/technical-doc-writer` — audit and update all docs to match the new code
-5. `/review` — code review against PRD, RFC, and ADRs
+5. `/multi-review {slug}` — 3 independent reviewers (operational, security, structural) with consolidated verdict
 6. `/quality-engineer {slug}` — run tests (including E2E hard gate), file bugs to `docs/workflow/bugs/{slug}.md`
 7. `/product {slug}` — final sign-off, save to `docs/workflow/signoffs/{slug}.md`
-
-**Code review:** use `/multi-review` (not `/review`). Multi-review spawns N independent reviewers, resolves disagreements via deliberation, and outputs a single consolidated verdict.
 
 ## Claude API Usage
 
