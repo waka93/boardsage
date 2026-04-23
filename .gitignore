@@ -11,3 +11,6 @@ discord-bot/.venv/
 
 # BGG cache (fetched at runtime)
 knowledge/
+
+# Internal docs
+docs/.workflow/
