@@ -4,25 +4,66 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-BoardSage is a board game encyclopedia that lets users query rulebooks in plain English, powered by Claude AI. It is currently a greenfield project — no stack, build system, or source files exist yet beyond this file and the README.
+BoardSage is a board game rules assistant that lets users query rulebooks in plain English, powered by Claude AI. Users interact via chat platforms (currently Discord). The bot searches official rulebooks first, falls back to BoardGameGeek forums, and automatically adds new games on demand.
 
-## Architecture (to be decided)
+## Current Architecture
 
-When implementing, the core data flow will be:
-1. **Ingest** — parse and chunk PDF/text rulebooks
-2. **Embed** — generate vector embeddings for semantic search
-3. **Retrieve** — find relevant rulebook passages for a user query
-4. **Generate** — pass retrieved context to Claude to produce a plain-English answer
+```
+boardsage/
+├── core/
+│   └── engine.py           # RulesEngine — platform-agnostic AI loop, all tools
+├── platforms/
+│   └── discord/
+│       └── adapter.py      # Discord adapter (DiscordAdapter class + main())
+├── discord-bot/
+│   └── bot.py              # Entry-point shim: adds repo root to sys.path then calls main()
+├── assets/{game_slug}/     # Extracted rulebook text files (.txt) and PDFs
+├── knowledge/{game_slug}/  # BGG forum cache (index.json + threads/*.json)
+├── tests/                  # Unit/integration tests (unittest)
+└── docs/workflow/          # PRDs, RFCs, QE reports, sign-offs
+```
 
-Key architectural choices to make before writing code:
-- Frontend framework (if any)
-- Backend language and web framework
-- Vector store (e.g., pgvector, Chroma, Pinecone)
-- Claude model and whether to use prompt caching for large rulebook contexts
+**Stack:** Python, discord.py, Anthropic SDK (`claude-sonnet-4-6`), pypdf  
+**Rulebook search:** keyword grep over pre-extracted `.txt` files  
+**Forum fallback:** BGG JSON API, cached locally under `knowledge/`  
+**Context:** per-channel conversation history, capped at `MAX_HISTORY=20` turns
+
+**Entry points:**
+- `python discord-bot/bot.py` — starts the Discord bot (backwards-compat shim)
+- `python -m platforms.discord.adapter` — direct module entry point (from repo root)
+
+## Core Data Flow
+
+1. User message arrives via chat platform
+2. `RulesEngine` runs a tool-use loop with Claude:
+   - `search_rulebook` → keyword search over `assets/{game}/` text files
+   - `add_game` → auto-download PDF from DDG + extract text (if game unknown)
+   - `search_bgg_forums` → fetch and cache BGG threads as fallback
+3. Claude generates a cited plain-English answer
+4. Adapter posts the response back to the platform
+
+## Adding a New Chat Platform
+
+The platform-decoupling refactor (approved 2026-04-22) is complete. To add a new chat platform (e.g. Slack):
+1. Create `platforms/slack/adapter.py` — import `RulesEngine` from `core.engine`, instantiate it, map platform events to `engine.ask()`.
+2. No changes to `core/engine.py` required.
+3. Reference `platforms/discord/adapter.py` as the pattern (~80 lines for the adapter class + entry point).
+
+## Development Workflow
+
+This project uses a 5-skill pipeline for features:
+
+1. `/product {slug}` — write PRD, save to `docs/workflow/prds/{slug}.md`
+2. `/architect {slug}` — write RFC, save to `docs/workflow/rfcs/{slug}.md`
+3. `/developer {slug}` — implement from RFC
+4. `/quality-engineer {slug}` — run tests, file bugs to `docs/workflow/bugs/{slug}.md`
+5. `/product {slug}` — final sign-off, save to `docs/workflow/signoffs/{slug}.md`
+
+**Code review:** use `/multi-review` (not `/review`). Multi-review spawns N independent reviewers, resolves disagreements via deliberation, and outputs a single consolidated verdict.
 
 ## Claude API Usage
 
-This project uses the Anthropic SDK. When integrating Claude:
-- Use prompt caching for rulebook context passed in system or user turns — rulebooks can be large and repeated across queries
-- Default to `claude-sonnet-4-6` unless reasoning depth warrants `claude-opus-4-7`
-- Stream responses for the query interface to reduce perceived latency
+- Use `claude-sonnet-4-6` as default; escalate to `claude-opus-4-7` only for complex reasoning
+- Enable prompt caching for rulebook context — rulebooks are large and reused across queries
+- Stream responses where latency is user-facing
+- Tool-use loop is the core interaction pattern; keep tools narrow and composable
