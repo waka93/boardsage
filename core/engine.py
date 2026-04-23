@@ -8,7 +8,7 @@ from pathlib import Path
 
 import anthropic
 
-REPO_ROOT = Path(__file__).parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent
 
 _BGG_SCRIPTS = REPO_ROOT / ".claude" / "skills" / "boardgame-forum-search" / "scripts"
 if str(_BGG_SCRIPTS) not in sys.path:
