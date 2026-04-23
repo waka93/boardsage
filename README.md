@@ -25,7 +25,7 @@ boardsage/
 ├── assets/{game_slug}/         # Rulebook PDFs + pre-extracted .txt files
 ├── knowledge/{game_slug}/bgg/  # BGG forum cache (index.json + threads/*.json)
 ├── tests/                      # Unit and integration tests
-└── docs/workflow/              # PRDs, RFCs, ADRs, QE reports, sign-offs
+└── docs/.workflow/              # PRDs, RFCs, ADRs, QE reports, sign-offs
 ```
 
 ## How It Works

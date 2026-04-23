@@ -20,7 +20,7 @@ boardsage/
 ├── assets/{game_slug}/     # Extracted rulebook text files (.txt) and PDFs
 ├── knowledge/{game_slug}/  # BGG forum cache (index.json + threads/*.json)
 ├── tests/                  # Unit/integration tests (unittest)
-└── docs/workflow/          # PRDs, RFCs, ADRs, QE reports, sign-offs
+└── docs/.workflow/          # PRDs, RFCs, ADRs, QE reports, sign-offs
 ```
 
 **Stack:** Python, discord.py, Anthropic SDK (`claude-sonnet-4-6`), pypdf  
@@ -61,13 +61,13 @@ New adapters **must** implement these operational safeguards (see the Discord ad
 
 This project uses a 7-step pipeline for features:
 
-1. `/product {slug}` — write PRD, save to `docs/workflow/prds/{slug}.md`
-2. `/architect {slug}` — write RFC, save to `docs/workflow/rfcs/{slug}.md`
+1. `/product {slug}` — write PRD, save to `docs/.workflow/prds/{slug}.md`
+2. `/architect {slug}` — write RFC, save to `docs/.workflow/rfcs/{slug}.md`
 3. `/developer {slug}` — implement from RFC
 4. `/technical-doc-writer` — audit and update all docs to match the new code
 5. `/multi-review {slug}` — 3 independent reviewers (operational, security, structural) with consolidated verdict
-6. `/quality-engineer {slug}` — run tests (including E2E hard gate), file bugs to `docs/workflow/bugs/{slug}.md`
-7. `/product {slug}` — final sign-off, save to `docs/workflow/signoffs/{slug}.md`
+6. `/quality-engineer {slug}` — run tests (including E2E hard gate), file bugs to `docs/.workflow/bugs/{slug}.md`
+7. `/product {slug}` — final sign-off, save to `docs/.workflow/signoffs/{slug}.md`
 
 ## Claude API Usage
 
