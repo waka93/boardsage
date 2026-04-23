@@ -4,6 +4,7 @@ Maps each test to an acceptance criterion (AC-N) from the PRD.
 """
 import ast
 import asyncio
+import os
 import re
 import sys
 import tempfile
@@ -310,6 +311,19 @@ class TestAC6_ChunkedReplies(unittest.TestCase):
         self.assertEqual(kwargs["embed"].description, reply)
         mock_msg.channel.send.assert_not_called()
 
+    def test_tc25_reply_exceeding_embed_limit_truncated(self):
+        """TC-24 | AC-6: reply >4096 chars → embed description truncated with _(truncated)_ indicator."""
+        from platforms.discord.adapter import _EMBED_DESC_LIMIT
+        reply = "x" * (_EMBED_DESC_LIMIT + 500)
+        mock_msg, status_msg = self._run_handle_message(reply)
+        status_msg.edit.assert_called_once()
+        kwargs = status_msg.edit.call_args.kwargs
+        self.assertEqual(kwargs["content"], "")
+        embed_desc = kwargs["embed"].description
+        self.assertTrue(embed_desc.endswith("_(truncated)_"))
+        self.assertLessEqual(len(embed_desc), _EMBED_DESC_LIMIT)
+        mock_msg.channel.send.assert_not_called()
+
 
 # ---------------------------------------------------------------------------
 # AC-7  discord-bot/bot.py import chain works without errors
@@ -379,6 +393,47 @@ class TestAC8_NoEngineLicInAdapter(unittest.TestCase):
             self._adapter_src(),
             "SYSTEM_PROMPT must live in core/engine.py, not in adapter",
         )
+
+
+# ---------------------------------------------------------------------------
+# AC-9  Only one bot instance can run per Discord token (process lock)
+# ---------------------------------------------------------------------------
+
+class TestAC9_SingletonInstance(unittest.TestCase):
+
+    @patch("platforms.discord.adapter.RulesEngine")
+    @patch("platforms.discord.adapter.DiscordAdapter")
+    @patch("platforms.discord.adapter.fcntl")
+    @patch.dict(os.environ, {"DISCORD_TOKEN": "fake-token-for-testing"})
+    def test_tc26_main_calls_flock_with_lock_ex_nb(self, mock_fcntl, mock_adapter_cls, mock_engine_cls):
+        """TC-25 | AC-9: main() acquires LOCK_EX | LOCK_NB via fcntl.flock."""
+        import fcntl as real_fcntl
+        mock_fcntl.LOCK_EX = real_fcntl.LOCK_EX
+        mock_fcntl.LOCK_NB = real_fcntl.LOCK_NB
+
+        from platforms.discord.adapter import main
+        main()
+
+        mock_fcntl.flock.assert_called_once()
+        call_args = mock_fcntl.flock.call_args
+        flags = call_args[0][1]
+        self.assertEqual(flags, real_fcntl.LOCK_EX | real_fcntl.LOCK_NB)
+
+    @patch("platforms.discord.adapter.RulesEngine")
+    @patch("platforms.discord.adapter.DiscordAdapter")
+    @patch("platforms.discord.adapter.fcntl")
+    @patch.dict(os.environ, {"DISCORD_TOKEN": "fake-token-for-testing"})
+    def test_tc27_main_exits_when_lock_fails(self, mock_fcntl, mock_adapter_cls, mock_engine_cls):
+        """TC-26 | AC-9: main() calls sys.exit with error message when lock is held."""
+        import fcntl as real_fcntl
+        mock_fcntl.LOCK_EX = real_fcntl.LOCK_EX
+        mock_fcntl.LOCK_NB = real_fcntl.LOCK_NB
+        mock_fcntl.flock.side_effect = OSError("Resource temporarily unavailable")
+
+        from platforms.discord.adapter import main
+        with self.assertRaises(SystemExit) as ctx:
+            main()
+        self.assertIn("Another BoardSage instance is already running", str(ctx.exception))
 
 
 # ---------------------------------------------------------------------------

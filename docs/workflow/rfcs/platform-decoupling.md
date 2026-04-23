@@ -26,7 +26,7 @@ Extract the `RulesEngine` (tool-use loop, rulebook search, BGG fallback, convers
 │  │  - discord.Client, intents               │   │
 │  │  - on_message event handler              │   │
 │  │  - per-channel history (dict[int, list]) │   │
-│  │  - chunked reply sending (2000-char cap) │   │
+│  │  - embed for long replies (>2000 chars)   │   │
 │  │  - status message editing                │   │
 │  └───────────────┬──────────────────────────┘   │
 │                  │ engine.ask(messages, cb)       │
@@ -121,7 +121,7 @@ class DiscordAdapter:
     def __init__(self, engine: RulesEngine, discord_token: str) -> None: ...
     def run(self) -> None: ...             # blocks; calls client.run(token)
 
-# Module-level entry point:
+# Module-level entry point (process lock omitted — see Operational Considerations):
 def main() -> None:
     engine = RulesEngine()
     adapter = DiscordAdapter(engine, os.environ["DISCORD_TOKEN"])
@@ -187,6 +187,32 @@ reply = await loop.run_in_executor(
 
 This is identical to the current pattern — no change in concurrency model.
 
+## Operational Considerations
+
+> **Note:** This section was added post-implementation (2026-04-23) after a production incident. The original RFC omitted operational concerns, covering only Security and Performance. See ADR-001 and ADR-002 for full context.
+
+### Singleton Enforcement
+
+**Problem:** If two processes run with the same `DISCORD_TOKEN`, both connect to the Discord gateway and both receive every message. Each independently calls the LLM and posts a response, producing duplicate (and differing) answers.
+
+**Solution:** `main()` in `platforms/discord/adapter.py` acquires an exclusive `fcntl.flock` on `/tmp/boardsage-{hash(token)}.lock` before starting the adapter. A second process attempting the same lock exits immediately with a clear error. The lock auto-releases on process exit, including crashes. See ADR-001 for the full decision record.
+
+### Message Deduplication
+
+**Problem:** Discord's gateway sends RESUME replays after reconnects, re-dispatching previously-seen MESSAGE_CREATE events. Without dedup, the bot would answer the same question twice.
+
+**Solution:** `DiscordAdapter` maintains a bounded `collections.deque(maxlen=1000)` of processed message IDs. Any message whose ID is already in the deque is silently skipped. This is checked before any processing (before history append, before LLM call).
+
+### Rate Limit Mitigation
+
+**Problem:** During a tool-use loop with many tool calls, each status update triggers a Discord message edit. Rapid edits hit Discord's rate limit (5 edits per 5 seconds per message).
+
+**Solution:** Status edits are debounced to a minimum interval of 2 seconds (`_STATUS_EDIT_INTERVAL`). Updates arriving within the interval are dropped. The final answer replaces the status message entirely, so no information is lost.
+
+### What Was Missed and Why
+
+The original RFC focused on the structural concern (separating engine from adapter) and validated correctness through unit tests of the separated components. Operational concerns -- process exclusion, message dedup, rate limiting -- were outside the mental model of "refactoring" because they appeared to be deployment concerns, not code concerns. The incident demonstrated that operational safety is a code responsibility: the adapter must defend itself against its runtime environment.
+
 ## Alternatives Considered
 
 | Option | Pros | Cons | Decision |
@@ -225,11 +251,17 @@ QE should validate the following:
 
 **Unit — `DiscordAdapter`:**
 - `history` is capped at `MAX_HISTORY * 2` entries after exceeding the limit.
-- A reply of exactly 2001 chars is split into two chunks.
-- A reply of exactly 2000 chars is sent as a single edit (no second chunk).
+- A reply of exactly 2000 chars is sent as a single content edit (no embed).
+- A reply of 2001 chars uses a `discord.Embed` in a single message (no `channel.send` overflow).
+- A reply of 4001 chars uses a `discord.Embed` in a single message (no `channel.send` overflow).
 
 **Integration (smoke):**
 - `discord-bot/bot.py` can be imported without raising an exception (validates shim + engine import chain).
+
+**Operational:**
+- Process lock prevents a second instance: spawn `main()` twice with the same token; the second call must raise `SystemExit` with a message containing "already running".
+- Message ID dedup: call `_handle_message` twice with the same `message.id`; verify the engine is invoked exactly once.
+- Status edit debouncing: fire N status callbacks within a 2-second window; verify `status_msg.edit` is called at most once.
 
 **Regression:**
 - All existing `boardgame-rules` evals pass against the refactored engine (evals live in `.claude/skills/boardgame-rules/evals/`).

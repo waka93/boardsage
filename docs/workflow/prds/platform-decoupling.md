@@ -41,9 +41,10 @@
 | AC-3 | `RulesEngine.ask(messages, status_callback)` returns a plain-text string                       | Unit test: call with mock messages and a no-op status callback                |
 | AC-4 | `RulesEngine` accepts an optional `anthropic_client` injection for testability                  | Unit test: pass a mock client; verify it is used                              |
 | AC-5 | Discord adapter preserves `MAX_HISTORY=20` conversation-cap behaviour                          | Unit test or integration test against adapter logic                           |
-| AC-6 | Discord adapter splits replies >2000 chars into multiple messages                              | Unit test: simulate long reply from engine, verify split calls                |
+| AC-6 | Discord adapter handles replies >2000 chars in a single message (embed), not multiple messages  | Unit test: simulate long reply from engine, verify single edit with embed     |
 | AC-7 | Running `python discord-bot/bot.py` (or new entry point) still starts the bot without errors   | Manual smoke test / import-time check                                         |
 | AC-8 | No engine logic remains in the adapter (tool dispatch, Anthropic API calls, search functions)  | Code review / grep: no `anthropic` import in adapter                          |
+| AC-9 | Only one bot instance can run per Discord token; a second instance exits with a clear error     | Unit test: call `main()` twice with the same token; second call raises `SystemExit` |
 
 ## UX / Interaction Design
 

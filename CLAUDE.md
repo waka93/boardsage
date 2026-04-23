@@ -47,7 +47,15 @@ boardsage/
 The platform-decoupling refactor (approved 2026-04-22) is complete. To add a new chat platform (e.g. Slack):
 1. Create `platforms/slack/adapter.py` — import `RulesEngine` from `core.engine`, instantiate it, map platform events to `engine.ask()`.
 2. No changes to `core/engine.py` required.
-3. Reference `platforms/discord/adapter.py` as the pattern (~80 lines for the adapter class + entry point).
+3. Reference `platforms/discord/adapter.py` as the pattern (~130 lines for the adapter class + entry point).
+
+### Adapter safety patterns (required)
+
+New adapters **must** implement these operational safeguards (see the Discord adapter for reference):
+
+- **Process lock:** Use `fcntl.flock` (or platform equivalent) in `main()` to prevent duplicate bot instances with the same credentials. The lock must be held for the process lifetime and released automatically on exit/crash.
+- **Message dedup:** Track recently processed message IDs (e.g. `deque(maxlen=1000)`) and skip duplicates. The check-and-record must be atomic — no `await` between them.
+- **Long response handling:** Platform message limits vary. The Discord adapter uses `discord.Embed` for replies >2000 chars, with truncation at 4096 chars. New adapters should handle their platform's limits similarly (split, embed, or truncate with an indicator).
 
 ## Development Workflow
 

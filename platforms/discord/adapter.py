@@ -110,17 +110,21 @@ class DiscordAdapter:
         self._client.run(self._token)
 
 
+_lock_file = None
+
+
 def main() -> None:
+    global _lock_file
     token = os.environ["DISCORD_TOKEN"]
 
     lock_id = hashlib.md5(token.encode()).hexdigest()[:8]
-    lock_file = open(f"/tmp/boardsage-{lock_id}.lock", "w")
+    _lock_file = open(f"/tmp/boardsage-{lock_id}.lock", "w")
     try:
-        fcntl.flock(lock_file, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        fcntl.flock(_lock_file, fcntl.LOCK_EX | fcntl.LOCK_NB)
     except OSError:
         sys.exit("ERROR: Another BoardSage instance is already running.")
-    lock_file.write(str(os.getpid()))
-    lock_file.flush()
+    _lock_file.write(str(os.getpid()))
+    _lock_file.flush()
 
     engine = RulesEngine()
     adapter = DiscordAdapter(engine, token)
