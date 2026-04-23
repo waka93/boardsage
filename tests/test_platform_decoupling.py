@@ -4,14 +4,13 @@ Maps each test to an acceptance criterion (AC-N) from the PRD.
 """
 import ast
 import asyncio
-import importlib
 import re
 import sys
 import tempfile
 import unittest
 from collections import defaultdict
 from pathlib import Path
-from unittest.mock import AsyncMock, MagicMock, call, patch
+from unittest.mock import AsyncMock, MagicMock, patch
 
 # Anchor repo root so all imports work regardless of working directory
 REPO_ROOT = Path(__file__).parent.parent
