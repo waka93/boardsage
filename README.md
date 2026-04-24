@@ -8,7 +8,7 @@ A board game rules assistant that lets you query rulebooks in plain English, pow
 - Searches official rulebooks, FAQs, and errata, and cites the exact source
 - Automatically downloads and indexes new games on demand
 - BGG and Reddit community forum search as fallback for edge cases not covered by official documents
-- Platform-agnostic engine — currently serves Discord, extensible to other chat platforms
+- Platform-agnostic engine — currently serves Discord and WeChat Mini Program, extensible to other chat platforms
 
 ## Project Structure
 
@@ -17,20 +17,25 @@ boardsage/
 ├── core/
 │   └── engine.py               # RulesEngine — platform-agnostic AI loop and tools
 ├── platforms/
-│   └── discord/
-│       └── adapter.py          # Discord adapter (DiscordAdapter class + main())
+│   ├── discord/
+│   │   └── adapter.py          # Discord adapter (DiscordAdapter class + main())
+│   └── wechat/
+│       └── adapter.py          # WeChat Mini Program adapter (WeChatAdapter class + main())
 ├── discord-bot/
 │   ├── bot.py                  # Entry-point shim (adds repo root to sys.path, calls main())
 │   └── requirements.txt
+├── wechat-backend/
+│   └── backend.py              # Entry-point shim for the WeChat aiohttp HTTP server
 ├── assets/{game_slug}/         # Rulebook PDFs + pre-extracted .txt files
 ├── knowledge/{game_slug}/bgg/  # BGG forum cache (index.json + threads/*.json)
+├── knowledge/{game_slug}/reddit/ # Reddit thread cache (index.json + threads/*.json)
 ├── tests/                      # Unit and integration tests
 └── docs/.workflow/              # PRDs, RFCs, ADRs, QE reports, sign-offs
 ```
 
 ## How It Works
 
-1. User message arrives via a chat platform (Discord)
+1. User message arrives via a chat platform (Discord or WeChat Mini Program)
 2. `RulesEngine` runs a tool-use loop with Claude:
    - `identify_game_from_web` — DDG web search to resolve the game name when absent from query
    - `search_rulebook` — keyword search over `assets/{game}/` text files
