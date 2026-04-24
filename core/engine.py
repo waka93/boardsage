@@ -23,7 +23,14 @@ When users ask about board game rules:
 4. Cite your source (file + page for rulebook, thread title + URL for BGG/Reddit). Always indicate whether an answer comes from an official rulebook, BGG, or Reddit.
 5. If all sources come up empty, say so honestly.
 
-Never guess at rules. Always note when an answer comes from community discussion rather than official documents."""
+Never guess at rules. Always note when an answer comes from community discussion rather than official documents.
+
+When the user's message does not mention a specific board game by name:
+1. Call identify_game_from_web with the key terms from their question.
+2. If the result lists exactly one candidate, proceed using that game — do not ask the user to confirm.
+3. If the result lists multiple candidates, reply asking the user to pick one (show the numbered list).
+4. If the result says no game was identified, ask the user which game they mean.
+5. Once the game is known (from web search or user reply), use it for all subsequent tool calls in this conversation."""
 
 TOOLS = [
     {
@@ -88,7 +95,58 @@ TOOLS = [
             "required": ["game", "query"],
         },
     },
+    {
+        "name": "identify_game_from_web",
+        "description": (
+            "Search the web to identify which board game a user is asking about, "
+            "when no game name is present in their question. "
+            "Pass the key entities or terms from the user's message as the query. "
+            "Returns a ranked list of candidate board games, or a not-found message."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "query": {
+                    "type": "string",
+                    "description": (
+                        "The entity, character, item, or mechanic the user mentioned "
+                        "(e.g. 'Death Jester weapon expansion'). Do not include generic words like 'board game'."
+                    ),
+                },
+            },
+            "required": ["query"],
+        },
+    },
 ]
+
+
+_STRIP_TITLE_SUFFIX = re.compile(
+    r"\s*[-|–]\s*(BoardGameGeek|Board Game Geek|BGG|Wikipedia|Amazon|eBay).*$",
+    re.IGNORECASE,
+)
+_GAME_SIGNAL = re.compile(
+    r"board\s*game|tabletop|miniatures\s*game|card\s*game|dice\s*game|wargame",
+    re.IGNORECASE,
+)
+
+
+def _extract_game_candidates(titles: list[str]) -> list[str]:
+    high: list[str] = []
+    normal: list[str] = []
+    seen: set[str] = set()
+    for title in titles:
+        cleaned = _STRIP_TITLE_SUFFIX.sub("", title).strip()
+        if not cleaned:
+            continue
+        key = cleaned.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        if _GAME_SIGNAL.search(title):
+            high.append(cleaned)
+        else:
+            normal.append(cleaned)
+    return (high + normal)[:4]
 
 
 def normalize(name: str) -> str:
@@ -155,6 +213,11 @@ class RulesEngine:
                         print(f"  [tool] search_reddit(game={game!r}, query={query!r})")
                         status(f"Searching Reddit for **{game}** — *{query}*...")
                         result = self._search_reddit(game, query)
+                    elif block.name == "identify_game_from_web":
+                        query = block.input["query"]
+                        print(f"  [tool] identify_game_from_web(query={query!r})")
+                        status(f"Searching web to identify game for *{query}*...")
+                        result = self._identify_game_from_web(query)
                     else:
                         result = f"Unknown tool: {block.name}"
                     print(f"  [tool] {len(result)} chars returned")
@@ -309,6 +372,30 @@ class RulesEngine:
             parts.append(f"**{data['subject']}** (r/{sub}) ({url})\n\n" + "\n\n---\n\n".join(post_texts))
 
         return "\n\n====\n\n".join(parts) if parts else "No Reddit thread content retrieved."
+
+    def _identify_game_from_web(self, query: str) -> str:
+        search_query = f"{query} board game"
+        url = f"https://html.duckduckgo.com/html/?q={urllib.parse.quote(search_query)}"
+        req = urllib.request.Request(url, headers={
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36",
+            "Accept": "text/html",
+        })
+        try:
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                html = resp.read().decode(errors="replace")
+        except Exception as e:
+            return f"Web search failed: {e}"
+
+        raw_titles = re.findall(
+            r'class="result__title"[^>]*>.*?<a[^>]*>(.*?)</a>', html, re.DOTALL
+        )
+        cleaned = [re.sub(r"<[^>]+>", "", t).strip() for t in raw_titles]
+        candidates = _extract_game_candidates(cleaned)
+
+        if not candidates:
+            return "No board game identified from web search."
+        lines = "\n".join(f"{i + 1}. {g}" for i, g in enumerate(candidates))
+        return f"Candidate board games:\n{lines}"
 
     def _search_cached_reddit_threads(self, cache_dir: str, keywords: re.Pattern) -> str:
         threads_dir = Path(cache_dir) / "threads"
