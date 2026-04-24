@@ -8,6 +8,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock, patch
 
+import aiohttp
 from aiohttp.test_utils import AioHTTPTestCase
 
 REPO_ROOT = Path(__file__).parent.parent
@@ -168,6 +169,18 @@ class TestWeChatAdapterHTTP(AioHTTPTestCase):
             self.adapter, "_exchange_code", new=AsyncMock(side_effect=ValueError("invalid code"))
         ):
             resp = await self.client.post("/wechat/session", json={"code": "bad"})
+        self.assertEqual(resp.status, 401)
+        data = await resp.json()
+        self.assertIn("WeChat login failed", data["error"])
+
+    async def test_tc26_network_error_from_exchange_code_returns_401(self):
+        """TC-26 | AC-1: network-level failure in _exchange_code → 401, not 500."""
+        with patch.object(
+            self.adapter,
+            "_exchange_code",
+            new=AsyncMock(side_effect=aiohttp.ClientError("connection refused")),
+        ):
+            resp = await self.client.post("/wechat/session", json={"code": "any"})
         self.assertEqual(resp.status, 401)
         data = await resp.json()
         self.assertIn("WeChat login failed", data["error"])

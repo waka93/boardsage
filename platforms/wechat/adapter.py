@@ -10,8 +10,9 @@ from core.engine import RulesEngine
 
 MAX_HISTORY = 20
 WECHAT_MSG_LIMIT = 2048
-_CHUNK_BODY_SIZE = 2038  # reserves 10 chars for " (NN/NN)" suffix
+_CHUNK_BODY_SIZE = 2038
 _CODE2SESSION_URL = "https://api.weixin.qq.com/sns/jscode2session"
+_CODE2SESSION_TIMEOUT = aiohttp.ClientTimeout(total=10)
 
 
 class WeChatAdapter:
@@ -20,10 +21,10 @@ class WeChatAdapter:
         self._app_id = app_id
         self._app_secret = app_secret
         self._sessions: dict[str, str] = {}
-        self._history: dict[str, list] = defaultdict(list)
+        self._history: dict[str, list[dict]] = defaultdict(list)
         self._user_locks: dict[str, asyncio.Lock] = {}
 
-        self.app = web.Application()
+        self.app = web.Application(client_max_size=64 * 1024)
         self.app.router.add_post("/wechat/session", self._handle_session)
         self.app.router.add_post("/wechat/chat", self._handle_chat)
 
@@ -34,11 +35,18 @@ class WeChatAdapter:
             "js_code": code,
             "grant_type": "authorization_code",
         }
-        async with aiohttp.ClientSession() as session:
-            async with session.get(_CODE2SESSION_URL, params=params) as resp:
-                data = await resp.json(content_type=None)
-        if data.get("errcode") and data["errcode"] != 0:
-            raise ValueError(data.get("errmsg", "unknown WeChat error"))
+        try:
+            async with aiohttp.ClientSession(timeout=_CODE2SESSION_TIMEOUT) as session:
+                async with session.get(_CODE2SESSION_URL, params=params) as resp:
+                    data = await resp.json(content_type=None)
+        except Exception:
+            raise ValueError("WeChat API unreachable")
+        try:
+            errcode = int(data.get("errcode", 0))
+        except (TypeError, ValueError):
+            errcode = 0
+        if errcode != 0:
+            raise ValueError("WeChat authentication failed")
         openid = data.get("openid")
         if not openid:
             raise ValueError("no openid in WeChat response")
@@ -51,12 +59,12 @@ class WeChatAdapter:
             return web.json_response({"error": "invalid JSON body"}, status=400)
 
         code = body.get("code")
-        if not code:
+        if not isinstance(code, str) or not code:
             return web.json_response({"error": "missing 'code'"}, status=400)
 
         try:
             openid = await self._exchange_code(code)
-        except ValueError as e:
+        except Exception as e:
             return web.json_response({"error": f"WeChat login failed: {e}"}, status=401)
 
         token = secrets.token_urlsafe(32)
@@ -78,11 +86,10 @@ class WeChatAdapter:
             return web.json_response({"error": "invalid JSON body"}, status=400)
 
         question = body.get("question")
-        if not question:
+        if not isinstance(question, str) or not question.strip():
             return web.json_response({"error": "missing 'question'"}, status=400)
 
-        if openid not in self._user_locks:
-            self._user_locks[openid] = asyncio.Lock()
+        self._user_locks.setdefault(openid, asyncio.Lock())
 
         async with self._user_locks[openid]:
             self._history[openid].append({"role": "user", "content": question})
@@ -92,7 +99,8 @@ class WeChatAdapter:
                 reply = await loop.run_in_executor(None, lambda: self._engine.ask(snapshot))
             except Exception as e:
                 self._history[openid].pop()
-                return web.json_response({"error": f"Engine error: {e}"}, status=500)
+                print(f"[wechat] engine error: {e}")
+                return web.json_response({"error": "internal error"}, status=500)
             self._history[openid].append({"role": "assistant", "content": reply})
             if len(self._history[openid]) > MAX_HISTORY * 2:
                 self._history[openid] = self._history[openid][-MAX_HISTORY * 2:]
@@ -111,7 +119,10 @@ class WeChatAdapter:
 def main() -> None:
     app_id = os.environ["WECHAT_APP_ID"]
     app_secret = os.environ["WECHAT_APP_SECRET"]
-    port = int(os.environ.get("WECHAT_PORT", "8080"))
+    try:
+        port = int(os.environ.get("WECHAT_PORT", "8080"))
+    except ValueError:
+        raise SystemExit("WECHAT_PORT must be an integer")
 
     engine = RulesEngine()
     adapter = WeChatAdapter(engine, app_id, app_secret)
