@@ -1,6 +1,5 @@
 import json
 import re
-import sys
 import urllib.parse
 import urllib.request
 from collections.abc import Callable
@@ -8,17 +7,12 @@ from pathlib import Path
 
 import anthropic
 
-from core import reddit_fetch
+from core import bgg_fetch, reddit_fetch
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
-_BGG_SCRIPTS = REPO_ROOT / ".claude" / "skills" / "boardgame-forum-search" / "scripts"
-if str(_BGG_SCRIPTS) not in sys.path:
-    sys.path.insert(0, str(_BGG_SCRIPTS))
-import bgg_fetch
-
 KNOWLEDGE_BASE = REPO_ROOT / "assets"
-BGG_CACHE_BASE = REPO_ROOT / "knowledge"
+CACHE_BASE = REPO_ROOT / "knowledge"
 
 SYSTEM_PROMPT = """You are a board game rules expert assistant in a Discord server.
 
@@ -106,11 +100,11 @@ class RulesEngine:
         self,
         anthropic_client=None,
         knowledge_base: Path | None = None,
-        bgg_cache_base: Path | None = None,
+        cache_base: Path | None = None,
     ) -> None:
         self._client = anthropic_client or anthropic.Anthropic()
         self._knowledge_base = knowledge_base or KNOWLEDGE_BASE
-        self._bgg_cache_base = bgg_cache_base or BGG_CACHE_BASE
+        self._cache_base = cache_base or CACHE_BASE
 
     def ask(
         self,
@@ -209,7 +203,7 @@ class RulesEngine:
 
     def _search_bgg_forums(self, game: str, query: str) -> str:
         game_slug = normalize(game)
-        cache_dir = str(self._bgg_cache_base / game_slug / "bgg")
+        cache_dir = str(self._cache_base / game_slug / "bgg")
 
         keywords = re.compile("|".join(re.escape(w) for w in query.lower().split()), re.IGNORECASE)
         cached_results = self._search_cached_threads(cache_dir, keywords)
@@ -274,7 +268,7 @@ class RulesEngine:
 
     def _search_reddit(self, game: str, query: str) -> str:
         game_slug = normalize(game)
-        cache_dir = str(self._bgg_cache_base / game_slug / "reddit")
+        cache_dir = str(self._cache_base / game_slug / "reddit")
 
         keywords = re.compile("|".join(re.escape(w) for w in query.lower().split()), re.IGNORECASE)
         cached_results = self._search_cached_reddit_threads(cache_dir, keywords)
@@ -372,7 +366,7 @@ class RulesEngine:
     def _add_game(self, game: str, status: Callable) -> str:
         game_slug = normalize(game)
         assets_dir = self._knowledge_base / game_slug
-        knowledge_dir = self._bgg_cache_base / game_slug / "bgg"
+        knowledge_dir = self._cache_base / game_slug / "bgg"
         assets_dir.mkdir(parents=True, exist_ok=True)
         knowledge_dir.mkdir(parents=True, exist_ok=True)
 

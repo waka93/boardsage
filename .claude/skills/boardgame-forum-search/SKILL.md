@@ -30,12 +30,12 @@ BGG thread content is cached locally at:
     {thread_id}.json   — full cached thread: {subject, numposts, posts: [{postdate, body}]}
 ```
 
-The fetch script lives at:
+The fetch module lives at:
 ```
-{skill_dir}/scripts/bgg_fetch.py
+{repo}/core/bgg_fetch.py
 ```
 
-Run it via: `python3 {skill_dir}/scripts/bgg_fetch.py <command> [args]`
+Run it via: `python3 -c "from core import bgg_fetch; ..."` or import it directly from Python code.
 
 ### Game slug normalization
 Lowercase, remove spaces and punctuation: "GrimCoven" → "grimcoven", "Grim Coven" → "grimcoven"
@@ -56,7 +56,7 @@ grep -ril "{keyword1}\|{keyword2}" {repo}/knowledge/{game_slug}/bgg/threads/
 
 For any matching thread files, read them with:
 ```bash
-python3 {skill_dir}/scripts/bgg_fetch.py read-thread {thread_id} {repo}/knowledge/{game_slug}/bgg
+python3 -m core.bgg_fetch read-thread {thread_id} {repo}/knowledge/{game_slug}/bgg
 ```
 
 **If the cached content answers the question** → skip to Step 4. No network calls needed.
@@ -82,27 +82,27 @@ For each thread ID:
 
 **a) Check if cached and fresh:**
 ```bash
-python3 {skill_dir}/scripts/bgg_fetch.py check-stale {thread_id} {repo}/knowledge/{game_slug}/bgg
+python3 -m core.bgg_fetch check-stale {thread_id} {repo}/knowledge/{game_slug}/bgg
 ```
 Returns `{"stale": false}` → use cached content, skip fetching.
 Returns `{"stale": true}` → must fetch.
 
 **b) Fetch if stale or not cached:**
 ```bash
-python3 {skill_dir}/scripts/bgg_fetch.py fetch-thread {thread_id} {repo}/knowledge/{game_slug}/bgg
+python3 -m core.bgg_fetch fetch-thread {thread_id} {repo}/knowledge/{game_slug}/bgg
 ```
 This downloads all posts and saves to the cache automatically.
 
 **c) Update the index:**
 ```bash
-python3 {skill_dir}/scripts/bgg_fetch.py update-index \
+python3 -m core.bgg_fetch update-index \
   {repo}/knowledge/{game_slug}/bgg {thread_id} "{subject}" {numposts}
 ```
 
 ## Step 4 — Read cached thread content
 
 ```bash
-python3 {skill_dir}/scripts/bgg_fetch.py read-thread {thread_id} {repo}/knowledge/{game_slug}/bgg
+python3 -m core.bgg_fetch read-thread {thread_id} {repo}/knowledge/{game_slug}/bgg
 ```
 
 This returns the full thread JSON. The `posts` array has:
@@ -132,7 +132,6 @@ If after reading all fetched threads you still can't answer the question, say so
 ## Paths reference
 
 When running commands, substitute these concrete values:
-- `{skill_dir}` = `/home/geniuswrt/repo/boardsage/.claude/skills/boardgame-forum-search`
 - `{repo}` = `/home/geniuswrt/repo/boardsage`
 - `{game_slug}` = normalized game name (lowercase, no spaces/punctuation)
 

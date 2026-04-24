@@ -8,10 +8,13 @@ from datetime import datetime, timezone
 
 UA = "BoardSage/1.0 (board game rules assistant)"
 
+_SUBREDDIT_RE = re.compile(r"^[a-zA-Z0-9_]+$")
+_THREAD_ID_RE = re.compile(r"^[a-zA-Z0-9]+$")
+
 _last_request_time = 0.0
 
 
-def _get(url):
+def _get(url: str) -> dict:
     global _last_request_time
     elapsed = time.monotonic() - _last_request_time
     if elapsed < 2.0:
@@ -22,7 +25,20 @@ def _get(url):
         return json.loads(resp.read().decode())
 
 
-def search_subreddit(subreddit, query, limit=5):
+def _validate_subreddit(subreddit: str) -> str:
+    if not _SUBREDDIT_RE.match(subreddit):
+        raise ValueError(f"Invalid subreddit name: {subreddit!r}")
+    return subreddit
+
+
+def _validate_thread_id(thread_id: str) -> str:
+    if not _THREAD_ID_RE.match(thread_id):
+        raise ValueError(f"Invalid thread ID: {thread_id!r}")
+    return thread_id
+
+
+def search_subreddit(subreddit: str, query: str, limit: int = 5) -> list[dict]:
+    _validate_subreddit(subreddit)
     encoded_query = urllib.parse.quote(query)
     url = (
         f"https://www.reddit.com/r/{subreddit}/search.json"
@@ -30,14 +46,15 @@ def search_subreddit(subreddit, query, limit=5):
     )
     try:
         data = _get(url)
-    except Exception:
+    except Exception as e:
+        print(f"  [reddit] search r/{subreddit} failed: {e}")
         return []
 
     results = []
     for post in data.get("data", {}).get("children", []):
         d = post.get("data", {})
         thread_id = d.get("id", "")
-        if not thread_id:
+        if not thread_id or not _THREAD_ID_RE.match(thread_id):
             continue
         results.append({
             "thread_id": thread_id,
@@ -49,14 +66,17 @@ def search_subreddit(subreddit, query, limit=5):
     return results
 
 
-def fetch_thread(thread_id, subreddit, cache_dir):
+def fetch_thread(thread_id: str, subreddit: str, cache_dir: str) -> dict:
+    _validate_thread_id(thread_id)
+    _validate_subreddit(subreddit)
     os.makedirs(f"{cache_dir}/threads", exist_ok=True)
     cache_file = f"{cache_dir}/threads/{thread_id}.json"
 
     url = f"https://www.reddit.com/r/{subreddit}/comments/{thread_id}.json"
     try:
         data = _get(url)
-    except Exception:
+    except Exception as e:
+        print(f"  [reddit] fetch thread {thread_id} failed: {e}")
         return {"fetched": False, "thread_id": thread_id, "reason": "fetch_failed"}
 
     if not isinstance(data, list) or len(data) < 2:
@@ -114,15 +134,21 @@ def fetch_thread(thread_id, subreddit, cache_dir):
     }
 
 
-def read_cached_thread(thread_id, cache_dir):
+def read_cached_thread(thread_id: str, cache_dir: str) -> dict | None:
+    _validate_thread_id(thread_id)
     cache_file = f"{cache_dir}/threads/{thread_id}.json"
     if not os.path.exists(cache_file):
         return None
-    with open(cache_file) as f:
-        return json.load(f)
+    try:
+        with open(cache_file) as f:
+            return json.load(f)
+    except (json.JSONDecodeError, ValueError):
+        return None
 
 
-def update_index(cache_dir, thread_id, subject, subreddit, num_comments):
+def update_index(cache_dir: str, thread_id: str, subject: str, subreddit: str, num_comments: int) -> dict:
+    _validate_thread_id(thread_id)
+    _validate_subreddit(subreddit)
     os.makedirs(cache_dir, exist_ok=True)
     index_file = f"{cache_dir}/index.json"
     index = {}
@@ -142,12 +168,16 @@ def update_index(cache_dir, thread_id, subject, subreddit, num_comments):
     return {"updated": True, "index_size": len(index)}
 
 
-def check_stale(thread_id, cache_dir):
+def check_stale(thread_id: str, cache_dir: str) -> dict:
+    _validate_thread_id(thread_id)
     cache_file = f"{cache_dir}/threads/{thread_id}.json"
     if not os.path.exists(cache_file):
         return {"stale": True, "reason": "not_cached"}
-    with open(cache_file) as f:
-        cached = json.load(f)
+    try:
+        with open(cache_file) as f:
+            cached = json.load(f)
+    except (json.JSONDecodeError, ValueError):
+        return {"stale": True, "reason": "corrupt_cache"}
     return {
         "stale": False,
         "cached_num_comments": cached.get("num_comments", 0),
