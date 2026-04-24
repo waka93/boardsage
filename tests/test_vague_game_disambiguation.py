@@ -199,15 +199,11 @@ class TestAC5_SessionPersistence(unittest.TestCase):
             ]
             reply2 = engine.ask(list(messages))
 
-        # identify_game_from_web should NOT be called if Claude uses conversation history
-        # (Claude may or may not call it — this test verifies the history is passed correctly
-        # so Claude has the context to avoid re-disambiguation)
-        self.assertIn("messages", str(client.messages.create.call_args))
+        mock_search.assert_not_called()
+
         call_kwargs = client.messages.create.call_args[1]
         history = call_kwargs.get("messages", [])
-        # The history passed must include the prior assistant reply containing "Warhammer"
-        history_text = str(history)
-        self.assertIn("Warhammer", history_text)
+        self.assertIn("Warhammer", str(history))
 
 
 # ---------------------------------------------------------------------------
@@ -246,6 +242,49 @@ class TestExtractGameCandidates(unittest.TestCase):
         from core.engine import _extract_game_candidates
         result = _extract_game_candidates(["Pandemic - Wikipedia"])
         self.assertEqual(result[0], "Pandemic")
+
+
+# ---------------------------------------------------------------------------
+# _identify_game_from_web robustness tests
+# ---------------------------------------------------------------------------
+
+class TestIdentifyGameFromWebRobustness(unittest.TestCase):
+
+    def test_malformed_ddg_response_returns_not_found(self):
+        """Empty/malformed DDG HTML gracefully returns no-candidate message."""
+        import unittest.mock as um
+        engine, _ = _make_engine()
+
+        mock_resp = MagicMock()
+        mock_resp.__enter__ = MagicMock(return_value=mock_resp)
+        mock_resp.__exit__ = MagicMock(return_value=False)
+        mock_resp.read.return_value = b"<html><body>no results here</body></html>"
+
+        with patch("urllib.request.urlopen", return_value=mock_resp):
+            result = engine._identify_game_from_web("Death Jester weapon")
+
+        self.assertEqual(result, "No board game identified from web search.")
+
+    def test_network_error_returns_generic_message(self):
+        """Network failure returns generic message without exception details."""
+        import urllib.error
+        engine, _ = _make_engine()
+
+        with patch("urllib.request.urlopen", side_effect=urllib.error.URLError("connection refused")):
+            result = engine._identify_game_from_web("Death Jester weapon")
+
+        self.assertEqual(result, "Web search unavailable.")
+        self.assertNotIn("connection refused", result)
+
+    def test_special_characters_in_query_do_not_crash(self):
+        """Query with special characters is URL-encoded and handled without error."""
+        import urllib.error
+        engine, _ = _make_engine()
+
+        with patch("urllib.request.urlopen", side_effect=urllib.error.URLError("timeout")):
+            result = engine._identify_game_from_web("game'; DROP TABLE-- <script>")
+
+        self.assertEqual(result, "Web search unavailable.")
 
 
 if __name__ == "__main__":

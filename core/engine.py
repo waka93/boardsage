@@ -142,7 +142,7 @@ def _extract_game_candidates(titles: list[str]) -> list[str]:
         if key in seen:
             continue
         seen.add(key)
-        if _GAME_SIGNAL.search(title):
+        if _GAME_SIGNAL.search(cleaned):
             high.append(cleaned)
         else:
             normal.append(cleaned)
@@ -383,8 +383,8 @@ class RulesEngine:
         try:
             with urllib.request.urlopen(req, timeout=10) as resp:
                 html = resp.read().decode(errors="replace")
-        except Exception as e:
-            return f"Web search failed: {e}"
+        except Exception:
+            return "Web search unavailable."
 
         raw_titles = re.findall(
             r'class="result__title"[^>]*>.*?<a[^>]*>(.*?)</a>', html, re.DOTALL
