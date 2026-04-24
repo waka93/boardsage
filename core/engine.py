@@ -8,6 +8,7 @@ from pathlib import Path
 import anthropic
 
 from core import bgg_fetch, reddit_fetch
+from core.utils import normalize
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
@@ -147,10 +148,6 @@ def _extract_game_candidates(titles: list[str]) -> list[str]:
         else:
             normal.append(cleaned)
     return (high + normal)[:4]
-
-
-def normalize(name: str) -> str:
-    return re.sub(r"[\s\W_]+", "", name).lower()
 
 
 class RulesEngine:
