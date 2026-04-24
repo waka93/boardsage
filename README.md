@@ -7,7 +7,7 @@ A board game rules assistant that lets you query rulebooks in plain English, pow
 - Ask rules questions in natural language — no need to skim through pages of rulebooks
 - Searches official rulebooks, FAQs, and errata, and cites the exact source
 - Automatically downloads and indexes new games on demand
-- BGG community forum search as fallback for edge cases not covered by official documents
+- BGG and Reddit community forum search as fallback for edge cases not covered by official documents
 - Platform-agnostic engine — currently serves Discord, extensible to other chat platforms
 
 ## Project Structure
@@ -32,9 +32,11 @@ boardsage/
 
 1. User message arrives via a chat platform (Discord)
 2. `RulesEngine` runs a tool-use loop with Claude:
+   - `identify_game_from_web` — DDG web search to resolve the game name when absent from query
    - `search_rulebook` — keyword search over `assets/{game}/` text files
    - `add_game` — auto-download PDF rulebooks and extract text (if game is unknown)
    - `search_bgg_forums` — fetch and cache BGG threads as fallback
+   - `search_reddit` — fetch and cache Reddit threads as additional fallback
 3. Claude generates a cited plain-English answer
 4. The platform adapter posts the response back
 
@@ -95,7 +97,7 @@ Create an adapter under `platforms/{platform}/adapter.py`:
 2. Map platform events to `engine.ask(messages, status_callback)`
 3. Post the returned answer back to the platform
 
-See `platforms/discord/adapter.py` as a reference (~80 lines).
+See `platforms/discord/adapter.py` as a reference (~135 lines).
 
 ## Requirements
 

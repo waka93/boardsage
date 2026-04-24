@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-BoardSage is a board game rules assistant that lets users query rulebooks in plain English, powered by Claude AI. Users interact via chat platforms (currently Discord). The bot searches official rulebooks first, falls back to BoardGameGeek forums, and automatically adds new games on demand.
+BoardSage is a board game rules assistant that lets users query rulebooks in plain English, powered by Claude AI. Users interact via chat platforms (currently Discord). The bot searches official rulebooks first, falls back to BoardGameGeek and Reddit forums, and automatically adds new games on demand.
 
 ## Current Architecture
 
@@ -18,14 +18,15 @@ boardsage/
 ├── discord-bot/
 │   └── bot.py              # Entry-point shim: adds repo root to sys.path then calls main()
 ├── assets/{game_slug}/     # Extracted rulebook text files (.txt) and PDFs
-├── knowledge/{game_slug}/  # BGG forum cache (index.json + threads/*.json)
+├── knowledge/{game_slug}/bgg/     # BGG forum cache (index.json + threads/*.json)
+├── knowledge/{game_slug}/reddit/  # Reddit thread cache (index.json + threads/*.json)
 ├── tests/                  # Unit/integration tests (unittest)
 └── docs/.workflow/          # PRDs, RFCs, ADRs, QE reports, sign-offs
 ```
 
 **Stack:** Python, discord.py, Anthropic SDK (`claude-sonnet-4-6`), pypdf  
 **Rulebook search:** keyword grep over pre-extracted `.txt` files  
-**Forum fallback:** BGG JSON API, cached locally under `knowledge/`  
+**Forum fallback:** BGG and Reddit APIs, cached locally under `knowledge/`  
 **Context:** per-channel conversation history, capped at `MAX_HISTORY=20` turns
 
 **Entry points:**
@@ -36,9 +37,11 @@ boardsage/
 
 1. User message arrives via chat platform
 2. `RulesEngine` runs a tool-use loop with Claude:
+   - `identify_game_from_web` → DDG web search to resolve the game name when absent from query
    - `search_rulebook` → keyword search over `assets/{game}/` text files
    - `add_game` → auto-download PDF from DDG + extract text (if game unknown)
    - `search_bgg_forums` → fetch and cache BGG threads as fallback
+   - `search_reddit` → fetch and cache Reddit threads as additional fallback
 3. Claude generates a cited plain-English answer
 4. Adapter posts the response back to the platform
 
