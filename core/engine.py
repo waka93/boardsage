@@ -8,6 +8,8 @@ from pathlib import Path
 
 import anthropic
 
+from core import reddit_fetch
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
 _BGG_SCRIPTS = REPO_ROOT / ".claude" / "skills" / "boardgame-forum-search" / "scripts"
@@ -23,8 +25,8 @@ SYSTEM_PROMPT = """You are a board game rules expert assistant in a Discord serv
 When users ask about board game rules:
 1. Always search the official rulebook first using search_rulebook.
 2. If search_rulebook returns "No rulebook data found" (game not in knowledge base), call add_game to automatically download and set it up, then call search_rulebook again.
-3. If search_rulebook returns "No matches" (game exists but nothing found), fall back to search_bgg_forums.
-4. Cite your source (file + page for rulebook, thread title + URL for BGG).
+3. If search_rulebook returns "No matches" (game exists but nothing found), fall back to BOTH search_bgg_forums AND search_reddit as parallel community sources.
+4. Cite your source (file + page for rulebook, thread title + URL for BGG/Reddit). Always indicate whether an answer comes from an official rulebook, BGG, or Reddit.
 5. If all sources come up empty, say so honestly.
 
 Never guess at rules. Always note when an answer comes from community discussion rather than official documents."""
@@ -66,6 +68,22 @@ TOOLS = [
             "Search BoardGameGeek community forum threads for a board game. "
             "Use this as a fallback when search_rulebook finds no relevant results. "
             "Fetches and caches BGG threads locally."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "game": {"type": "string", "description": "Board game name (e.g. 'Grimcoven')."},
+                "query": {"type": "string", "description": "Keywords to search for in thread titles and posts."},
+            },
+            "required": ["game", "query"],
+        },
+    },
+    {
+        "name": "search_reddit",
+        "description": (
+            "Search Reddit board game communities for rules discussions. "
+            "Searches both game-specific subreddits and r/boardgames. "
+            "Use this alongside search_bgg_forums as a fallback when search_rulebook finds no relevant results."
         ),
         "input_schema": {
             "type": "object",
@@ -137,6 +155,12 @@ class RulesEngine:
                         print(f"  [tool] search_bgg_forums(game={game!r}, query={query!r})")
                         status(f"Searching BGG forums for **{game}** — *{query}*...")
                         result = self._search_bgg_forums(game, query)
+                    elif block.name == "search_reddit":
+                        game = block.input["game"]
+                        query = block.input["query"]
+                        print(f"  [tool] search_reddit(game={game!r}, query={query!r})")
+                        status(f"Searching Reddit for **{game}** — *{query}*...")
+                        result = self._search_reddit(game, query)
                     else:
                         result = f"Unknown tool: {block.name}"
                     print(f"  [tool] {len(result)} chars returned")
@@ -245,6 +269,68 @@ class RulesEngine:
                 url = f"https://boardgamegeek.com/thread/{data['thread_id']}"
                 results.append(
                     f"**{data['subject']}** ({url})\n\n" + "\n\n---\n\n".join(matching_posts[:3])
+                )
+        return "\n\n====\n\n".join(results[:3])
+
+    def _search_reddit(self, game: str, query: str) -> str:
+        game_slug = normalize(game)
+        cache_dir = str(self._bgg_cache_base / game_slug / "reddit")
+
+        keywords = re.compile("|".join(re.escape(w) for w in query.lower().split()), re.IGNORECASE)
+        cached_results = self._search_cached_reddit_threads(cache_dir, keywords)
+        if cached_results:
+            return cached_results
+
+        all_threads = []
+        seen_ids = set()
+
+        game_sub = re.sub(r"[\s\W_]+", "", game)
+        for subreddit, search_query in [("boardgames", f"{game} {query}"), (game_sub, query)]:
+            results = reddit_fetch.search_subreddit(subreddit, search_query)
+            for t in results:
+                if t["thread_id"] not in seen_ids:
+                    seen_ids.add(t["thread_id"])
+                    all_threads.append(t)
+
+        relevant = [t for t in all_threads if keywords.search(t["subject"])][:3]
+        if not relevant:
+            relevant = all_threads[:3]
+
+        if not relevant:
+            return "No relevant Reddit threads found."
+
+        parts = []
+        for t in relevant:
+            tid = t["thread_id"]
+            sub = t["subreddit"]
+            reddit_fetch.fetch_thread(tid, sub, cache_dir)
+            reddit_fetch.update_index(cache_dir, tid, t["subject"], sub, t["num_comments"])
+
+            data = reddit_fetch.read_cached_thread(tid, cache_dir)
+            if not data:
+                continue
+
+            url = data.get("url", f"https://www.reddit.com/r/{sub}/comments/{tid}/")
+            post_texts = [p["body"] for p in data.get("posts", [])[:5]]
+            parts.append(f"**{data['subject']}** (r/{sub}) ({url})\n\n" + "\n\n---\n\n".join(post_texts))
+
+        return "\n\n====\n\n".join(parts) if parts else "No Reddit thread content retrieved."
+
+    def _search_cached_reddit_threads(self, cache_dir: str, keywords: re.Pattern) -> str:
+        threads_dir = Path(cache_dir) / "threads"
+        if not threads_dir.exists():
+            return ""
+        results = []
+        for f in threads_dir.glob("*.json"):
+            data = json.loads(f.read_text())
+            matching_posts = [
+                p["body"] for p in data.get("posts", []) if keywords.search(p.get("body", ""))
+            ]
+            if matching_posts:
+                sub = data.get("subreddit", "boardgames")
+                url = data.get("url", f"https://www.reddit.com/r/{sub}/comments/{data['thread_id']}/")
+                results.append(
+                    f"**{data['subject']}** (r/{sub}) ({url})\n\n" + "\n\n---\n\n".join(matching_posts[:3])
                 )
         return "\n\n====\n\n".join(results[:3])
 
