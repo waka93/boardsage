@@ -1,3 +1,4 @@
+import difflib
 import json
 import re
 import shutil
@@ -82,9 +83,17 @@ class KnowledgeManager:
 
     def _resolve_slug(self, name: str) -> str | None:
         norm = normalize(name)
-        for slug in self._all_slugs():
+        all_slugs = self._all_slugs()
+
+        for slug in all_slugs:
             if normalize(slug) == norm or norm in normalize(slug):
                 return slug
+
+        slug_norms = {normalize(slug): slug for slug in all_slugs}
+        matches = difflib.get_close_matches(norm, slug_norms.keys(), n=1, cutoff=0.6)
+        if matches:
+            return slug_norms[matches[0]]
+
         return None
 
     def list_games(self) -> list[GameInfo]:

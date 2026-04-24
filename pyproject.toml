@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "boardsage"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=0.96.0",
+    "aiohttp>=3.13.0",
+    "discord.py>=2.4.0",
+    "pypdf>=4.0.0",
+]
+
+[project.scripts]
+boardsage = "management.cli.adapter:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["core*", "management*", "platforms*"]
