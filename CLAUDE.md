@@ -11,12 +11,19 @@ BoardSage is a board game rules assistant that lets users query rulebooks in pla
 ```
 boardsage/
 ├── core/
-│   └── engine.py           # RulesEngine — platform-agnostic AI loop, all tools
+│   ├── engine.py           # RulesEngine — platform-agnostic AI loop, all tools
+│   ├── manager.py          # KnowledgeManager — list/remove/refresh game knowledge
+│   ├── utils.py            # Shared utilities (e.g. normalize())
+│   ├── bgg_fetch.py        # BGG forum fetch helpers
+│   └── reddit_fetch.py     # Reddit thread fetch helpers
 ├── platforms/
 │   ├── discord/
 │   │   └── adapter.py      # Discord adapter (DiscordAdapter class + main())
 │   └── wechat/
 │       └── adapter.py      # WeChat Mini Program adapter (WeChatAdapter class + main())
+├── management/
+│   └── cli/
+│       └── adapter.py      # Terminal management CLI (boardsage list/info/remove/refresh)
 ├── discord-bot/
 │   └── bot.py              # Entry-point shim: adds repo root to sys.path then calls main()
 ├── wechat-backend/
@@ -38,6 +45,7 @@ boardsage/
 - `python -m platforms.discord.adapter` — direct module entry point (from repo root)
 - `python wechat-backend/backend.py` — starts the WeChat Mini Program HTTP server
 - `python -m platforms.wechat.adapter` — direct module entry point (from repo root)
+- `boardsage <command>` — management CLI (installable via `pip install -e .` from repo root)
 
 ## Core Data Flow
 

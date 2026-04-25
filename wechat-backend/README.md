@@ -13,11 +13,12 @@ HTTP backend for the BoardSage WeChat Mini Program. Authenticates users via WeCh
 
 Set three environment variables before starting the server:
 
-| Variable         | Required | Default | Description                              |
-|------------------|----------|---------|------------------------------------------|
-| `WECHAT_APP_ID`  | Yes      | —       | Your Mini Program App ID                 |
-| `WECHAT_APP_SECRET` | Yes   | —       | Your Mini Program App Secret             |
-| `WECHAT_PORT`    | No       | `8080`  | TCP port the server listens on           |
+| Variable              | Required | Default | Description                              |
+|-----------------------|----------|---------|------------------------------------------|
+| `WECHAT_APP_ID`       | Yes      | —       | Your Mini Program App ID                 |
+| `WECHAT_APP_SECRET`   | Yes      | —       | Your Mini Program App Secret             |
+| `WECHAT_PORT`         | No       | `8080`  | TCP port the server listens on           |
+| `WECHAT_SESSION_TTL`  | No       | `86400` | Session TTL in seconds (default: 24 h)   |
 
 Also set `ANTHROPIC_API_KEY` (read by `RulesEngine`):
 
@@ -177,7 +178,9 @@ If `/wechat/chat` returns 401, the session has expired (server restarted). Re-ru
 - Sessions are stored **in memory only**. A server restart invalidates all tokens —
   clients will receive 401 and must re-authenticate.
 - Conversation history (up to 20 turns per user) is also in-memory and lost on restart.
-- There is no explicit logout endpoint. Tokens remain valid until the server restarts.
+- There is no explicit logout endpoint. Tokens expire automatically after `WECHAT_SESSION_TTL`
+  seconds (default: 86400 = 24 hours). Expired tokens are swept hourly by a background task;
+  requests with an expired token receive 401 within at most 1 hour of expiry.
 
 ## Concurrency
 
