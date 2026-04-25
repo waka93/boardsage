@@ -38,7 +38,7 @@ class WeChatAdapter:
         self._app_secret = app_secret
         self._session_ttl = session_ttl
         self._sessions: dict[str, _SessionEntry] = {}
-        self._history: dict[str, list[dict]] = defaultdict(list)
+        self._history: defaultdict[str, list[dict]] = defaultdict(list)
         self._user_locks: dict[str, asyncio.Lock] = {}
         self._cleanup_task: asyncio.Task | None = None
 
@@ -56,13 +56,16 @@ class WeChatAdapter:
             self._cleanup_task.cancel()
             try:
                 await self._cleanup_task
-            except asyncio.CancelledError:
+            except (asyncio.CancelledError, Exception):
                 pass
 
     async def _cleanup_loop(self) -> None:
         while True:
             await asyncio.sleep(_CLEANUP_INTERVAL_SECONDS)
-            self._evict_expired()
+            try:
+                self._evict_expired()
+            except Exception as e:
+                print(f"[wechat] cleanup error type={type(e).__name__} detail={str(e)!r}")
 
     def _evict_expired(self) -> None:
         now = time.monotonic()
@@ -144,6 +147,8 @@ class WeChatAdapter:
         question = body.get("question")
         if not isinstance(question, str) or not question.strip():
             return web.json_response({"error": "missing 'question'"}, status=400)
+        if len(question) > 4096:
+            return web.json_response({"error": "question too long"}, status=400)
 
         async with self._get_user_lock(openid):
             self._history[openid].append({"role": "user", "content": question})
@@ -154,7 +159,7 @@ class WeChatAdapter:
             except Exception as e:
                 self._history[openid].pop()
                 openid_tag = hashlib.sha256(openid.encode()).hexdigest()[:8]
-                print(f"[wechat] engine error openid={openid_tag} type={type(e).__name__} detail={e}")
+                print(f"[wechat] engine error openid={openid_tag} type={type(e).__name__} detail={str(e)!r}")
                 return web.json_response({"error": "internal error"}, status=500)
             self._history[openid].append({"role": "assistant", "content": reply})
             if len(self._history[openid]) > MAX_HISTORY * 2:

@@ -126,16 +126,22 @@ class TestAC3_LockThreadSafety(unittest.TestCase):
         lock2 = adapter._get_user_lock("user_y")
         self.assertIs(lock1, lock2)
 
-    def test_tc10_no_user_locks_write_in_executor_lambda(self):
-        """AC-3: AST check — _user_locks is not referenced inside run_in_executor lambda."""
+    def test_tc10_no_user_locks_in_executor_lambda(self):
+        """AC-3: AST walk — _user_locks not referenced inside run_in_executor lambda."""
         src = (REPO_ROOT / "platforms" / "wechat" / "adapter.py").read_text()
-        # The lambda passed to run_in_executor should only reference self._engine and snapshot
-        # A naive but effective check: the lambda body should not contain '_user_locks'
-        # We look for the run_in_executor call and inspect the surrounding lambda source
-        self.assertNotIn(
-            "_user_locks",
-            src[src.find("run_in_executor"):src.find("run_in_executor") + 200],
-        )
+        tree = ast.parse(src)
+        for node in ast.walk(tree):
+            if not (isinstance(node, ast.Call) and
+                    isinstance(node.func, ast.Attribute) and
+                    node.func.attr == "run_in_executor"):
+                continue
+            for arg in node.args:
+                if isinstance(arg, ast.Lambda):
+                    for child in ast.walk(arg):
+                        if isinstance(child, ast.Attribute) and child.attr == "_user_locks":
+                            self.fail("_user_locks referenced inside run_in_executor lambda")
+                    return
+        self.fail("run_in_executor call not found in adapter.py")
 
 
 # ---------------------------------------------------------------------------
@@ -237,9 +243,9 @@ class TestAC5_ErrorLogging(unittest.TestCase):
         self.assertIn("type=RuntimeError", log)
 
     def test_tc19_log_contains_exception_detail(self):
-        """AC-5: error log contains the exception message."""
+        """AC-5: error log contains the repr-escaped exception message."""
         log = self._run_chat_with_engine_error()
-        self.assertIn("detail=test error message", log)
+        self.assertIn("detail='test error message'", log)
 
 
 if __name__ == "__main__":
